@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B55C41591B0F668B0035C9EA /* RuleDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55C41581B0F668B0035C9EA /* RuleDetailController.swift */; };
+		B55C415B1B10BE490035C9EA /* SwiftExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55C415A1B10BE490035C9EA /* SwiftExtensions.swift */; };
 		B5D1356C1B0B731A00ADC9E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1356B1B0B731A00ADC9E5 /* AppDelegate.swift */; };
 		B5D1356E1B0B731A00ADC9E5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1356D1B0B731A00ADC9E5 /* ViewController.swift */; };
 		B5D135711B0B731A00ADC9E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5D1356F1B0B731A00ADC9E5 /* Main.storyboard */; };
 		B5D135731B0B731A00ADC9E5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5D135721B0B731A00ADC9E5 /* Images.xcassets */; };
 		B5D135761B0B731A00ADC9E5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D135741B0B731A00ADC9E5 /* LaunchScreen.xib */; };
 		B5D135821B0B731A00ADC9E5 /* TempTellerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D135811B0B731A00ADC9E5 /* TempTellerTests.swift */; };
+		B5D1358C1B0B9F6B00ADC9E5 /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1358B1B0B9F6B00ADC9E5 /* Rule.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B55C41581B0F668B0035C9EA /* RuleDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleDetailController.swift; sourceTree = "<group>"; };
+		B55C415A1B10BE490035C9EA /* SwiftExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtensions.swift; sourceTree = "<group>"; };
 		B5D135661B0B731A00ADC9E5 /* TempTeller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TempTeller.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5D1356A1B0B731A00ADC9E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5D1356B1B0B731A00ADC9E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +41,7 @@
 		B5D1357B1B0B731A00ADC9E5 /* TempTellerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TempTellerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5D135801B0B731A00ADC9E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5D135811B0B731A00ADC9E5 /* TempTellerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempTellerTests.swift; sourceTree = "<group>"; };
+		B5D1358B1B0B9F6B00ADC9E5 /* Rule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +89,9 @@
 				B5D135721B0B731A00ADC9E5 /* Images.xcassets */,
 				B5D135741B0B731A00ADC9E5 /* LaunchScreen.xib */,
 				B5D135691B0B731A00ADC9E5 /* Supporting Files */,
+				B5D1358B1B0B9F6B00ADC9E5 /* Rule.swift */,
+				B55C41581B0F668B0035C9EA /* RuleDetailController.swift */,
+				B55C415A1B10BE490035C9EA /* SwiftExtensions.swift */,
 			);
 			path = TempTeller;
 			sourceTree = "<group>";
@@ -212,6 +221,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B55C41591B0F668B0035C9EA /* RuleDetailController.swift in Sources */,
+				B55C415B1B10BE490035C9EA /* SwiftExtensions.swift in Sources */,
+				B5D1358C1B0B9F6B00ADC9E5 /* Rule.swift in Sources */,
 				B5D1356E1B0B731A00ADC9E5 /* ViewController.swift in Sources */,
 				B5D1356C1B0B731A00ADC9E5 /* AppDelegate.swift in Sources */,
 			);
@@ -409,6 +421,7 @@
 				B5D135871B0B731A00ADC9E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B5D135881B0B731A00ADC9E5 /* Build configuration list for PBXNativeTarget "TempTellerTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +430,7 @@
 				B5D1358A1B0B731A00ADC9E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
