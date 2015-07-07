@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "TempTeller.RuleDetailController.opButtonPushed (TempTeller.RuleDetailController)(ObjectiveC.UIButton) -&gt; ():RuleDetailController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "l.rawValue">
+            </PersistentString>
+            <PersistentString
+               value = "opButton.titleLabel?.text">
+            </PersistentString>
+            <PersistentString
+               value = "CompOp(rawValue:opButton.titleLabel!.text!)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "TempTeller.RuleDetailController.addSubRule (TempTeller.RuleDetailController)() -&gt; ():RuleDetailController.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

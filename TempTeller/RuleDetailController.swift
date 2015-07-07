@@ -9,115 +9,255 @@
 import Foundation
 import UIKit
 
-class RuleDetailController : UIViewController, UITextFieldDelegate {
-    @IBOutlet var message : UITextField!
-    @IBOutlet var minTemp : UITextField!
-    @IBOutlet var maxTemp : UITextField!
-    @IBOutlet var minHumidity : UITextField!
-    @IBOutlet var maxHumidity : UITextField!
-    @IBOutlet var minTime : UITextField!
-    @IBOutlet var maxTime : UITextField!
-    @IBOutlet var zipCode : UITextField!
-    @IBOutlet var location : UILabel!
+class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
+    @IBOutlet var tableView : UITableView!
     var nav : UINavigationController!
-    var rule : Rule!
-    var resolvedLocation : Location!
+    var rule : Rule! {
+        didSet {
+            editRule = rule.copy() as? Rule
+        }
+    }
+    var editRule : Rule!
+    var actionSheet : UIActionSheet?
+    let weatherService = WeatherService()
+    var picker : UIPickerView!
+    var activeTextField : UITextField?
+    var pickerToolbar : UIToolbar!
+    let ruleTypes : [String] = ["Time", "Location", "Temperature", "Humidity", "Condition", "Forecast Condition", "Forecast Temperature"].sorted(<)
     
     override func viewDidLoad() {
-        minTemp.delegate = self
-        maxTemp.delegate = self
-        minHumidity.delegate = self
-        maxHumidity.delegate = self
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        resolvedLocation = rule.location
-        message.text = rule.message
-        minTemp.text = rule.tempRange.min.format()
-        maxTemp.text = rule.tempRange.max.format()
-        minHumidity.text = rule.humidityRange.min.format()
-        maxHumidity.text = rule.humidityRange.max.format()
-        minTime.text = String(rule.timeRange.startIndex)
-        maxTime.text = String(rule.timeRange.endIndex)
-        if let loc = rule.location {
-            zipCode.text = loc.zip
-        }
-    }
-    
-    @IBAction func save() {
-        rule.message = message.text
-        rule.tempRange.min = minTemp.text.toDouble()
-        rule.tempRange.max = maxTemp.text.toDouble()
-        rule.humidityRange.min = minHumidity.text.toDouble()
-        rule.humidityRange.max = maxHumidity.text.toDouble()
-        rule.timeRange.startIndex = minTime.text.toInt()!
-        rule.timeRange.endIndex = maxTime.text.toInt()!
-
-        rule.location = resolvedLocation
+        tableView.editing = true
+        // create a UIPicker view as a custom keyboard view
+        picker = UIPickerView()
+        picker.sizeToFit()
+        picker.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        picker.delegate = self
+        picker.dataSource = self
+        picker.showsSelectionIndicator = true
         
+        // add a done button
+        pickerToolbar = UIToolbar()
+        pickerToolbar.barStyle = UIBarStyle.Black
+        pickerToolbar.translucent = true
+        pickerToolbar.tintColor = nil
+        pickerToolbar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: "dismissPicker")
+        pickerToolbar.setItems([doneButton], animated: false)
+    }
+
+    @IBAction func save() {
+        if let ruleToSave = editRule {
+            rule.subrules = ruleToSave.subrules
+        }
         nav.popViewControllerAnimated(true)
     }
-
-    func textFieldDidEndEditing(textField: UITextField) {
-        var minTxt : UITextField!
-        var maxTxt : UITextField!
-        var min : Double?
-        var max : Double?
-        var minDefault : String!
-        var maxDefault : String!
+    
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        // prevent the message and location and the "Add Rule" table cells from being deleted.
+        if indexPath.item < 2 || indexPath.item == count(editRule.subrules) {
+            return UITableViewCellEditingStyle.None
+        }
+        return UITableViewCellEditingStyle.Delete
+    }
+    
+    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        var movingRule = editRule.subrules[sourceIndexPath.item]
+        editRule.subrules.removeAtIndex(sourceIndexPath.item)
+        editRule.subrules.insert(movingRule, atIndex: destinationIndexPath.item)
+        tableView.reloadData()
+    }
+    
+    func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
+        if proposedDestinationIndexPath.item < 2 {
+            return NSIndexPath(forItem: 2, inSection: 0)
+        }
+        return proposedDestinationIndexPath
+    }
+    
+    func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
+    }
+    
+    func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if indexPath.item < 2 || indexPath.item == count(editRule.subrules) {
+            return false
+        }
+        return true
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        if (textField === minHumidity || textField === maxHumidity) {
-            minTxt = minHumidity
-            maxTxt = maxHumidity
-            minDefault = "0"
-            maxDefault = "0"
-        } else if (textField === minTemp || textField === maxTemp) {
-            minTxt = minTemp
-            maxTxt = maxTemp
-            minDefault = "70"
-            maxDefault = "70"
-        } else if (textField === minTime || textField === maxTime) {
-            minTxt == minTime
-            maxTxt == maxTime
-            minDefault = ""
-            maxDefault = ""
-        } else {
-            // do nothing, we don't recognize these text fields
-            return
+        if indexPath.item < count(editRule.subrules) {
+            if editRule.subrules[indexPath.item] is ConditionSubRule {
+                return 106
+            }
         }
+            
+        return 64
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            tableView.beginUpdates()
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            editRule.subrules.removeAtIndex(indexPath.item)
+            tableView.endUpdates()
+        }
+    }
 
-        min = (minTxt.text as NSString).doubleValue
-        max = (maxTxt.text as NSString).doubleValue
-
-        if min == nil {
-            min = max
-        }
-        
-        if max == nil {
-            min = max
-        }
-        
-        if min > max {
-            var temp = max
-            max = min
-            min = temp
-        }
-
-        if min == nil {
-            minTxt.text = minDefault
-        } else {
-            minTxt.text = min!.format()
-        }
-        
-        if max == nil {
-            maxTxt.text = maxDefault
-        } else {
-            maxTxt.text = max!.format()
+    
+    @IBAction func addSubRule(sender : UIButton) {
+        let textfield = sender.superview!.viewWithTag(100) as! UITextField
+        textfield.inputView = picker
+        textfield.inputAccessoryView = pickerToolbar
+        textfield.becomeFirstResponder()
+        activeTextField = textfield
+    }
+    
+    func dismissPicker() {
+        if let textfield = activeTextField {
+            textfield.resignFirstResponder()
+            textfield.hidden = true
         }
     }
     
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+        return ruleTypes[row]
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return count(editRule.subrules) + 1
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if indexPath.item >= count(editRule.subrules) {
+            return tableView.dequeueReusableCellWithIdentifier("AddSubRule", forIndexPath: indexPath) as! UITableViewCell
+        } else {
+            let subRule = editRule.subrules[indexPath.item]
+            let className = subRule.classForCoder.description()
+            let cellType = className.substringFromIndex(find(className,".")!.successor())
+            let cell = tableView.dequeueReusableCellWithIdentifier(cellType, forIndexPath: indexPath) as! UITableViewCell
+            if let cell2 = cell as? SubRuleDisplaying {
+                cell2.displayRule(subRule)
+            }
+            return cell
+        }
+    }
+    
+    func lookupLocation(sender : UIButton, weatherLookup : ((loc : Location?, errMsg: String?) -> ()) -> ()) {
+        let spinner = sender.superview?.viewWithTag(1) as! UIActivityIndicatorView
+        let gpsButton = sender.superview?.viewWithTag(2) as! UIButton
+        let zipButton = sender.superview?.viewWithTag(3) as! UIButton
+        let searchBox = sender.superview?.viewWithTag(4) as! UITextField
+        let cell = sender.superview?.superview! as! UITableViewCell
+        let indexPath = tableView.indexPathForCell(cell)
+        
+        spinner.startAnimating()
+        gpsButton.enabled = false
+        zipButton.enabled = false
+        weatherLookup() { (loc, errMsg) -> () in
+            dispatch_async(dispatch_get_main_queue()) {
+                if let location = loc {
+                    (self.editRule.subrules[indexPath!.item] as! LocationSubRule).location = location
+                    searchBox.text = location.name
+                }
+                
+                gpsButton.enabled = true
+                zipButton.enabled = true
+                spinner.stopAnimating()
+                
+                if let error = errMsg {
+                    let av = UIAlertView(title: "Unable to lookup location", message: error, delegate: nil, cancelButtonTitle: nil, otherButtonTitles: "Dismiss")
+                    av.show()
+                }
+            }
+        }
+    }
+    
+    @IBAction func lookupGPS(sender : UIButton) {
+        lookupLocation(sender, weatherLookup: weatherService.getLocationWithGPS)
+    }
+    
+    @IBAction func lookupZip(sender : UIButton) {
+        let searchBox = sender.superview?.viewWithTag(4) as! UITextField
+        func weatherLookup(callback: (loc : Location?, errMsg: String?) -> ()) -> () {
+            weatherService.getLocation(searchBox.text, completionHandler: callback)
+        }
+        lookupLocation(sender, weatherLookup: weatherLookup)
+    }
+    
+    @IBAction func flipTempUnitsButton(sender : UIButton) {
+        if let label = sender.titleLabel {
+            switch label.text! {
+                case "˚F":
+                    label.text = "˚C"
+                case "˚C":
+                    label.text = "˚F"
+            default:
+                label.text = "˚F"
+            }
+        }
+    }
+
+    @IBAction func tempUnitButtonPushed(unitButton: UIButton) {
+        if unitButton.titleLabel?.text == "F" {
+            unitButton.titleLabel?.text = "C"
+        } else {
+            unitButton.titleLabel?.text = "F"
+        }
+    }
+    
+    @IBAction func opButtonPushed(opButton: UIButton) {
+        var l = CompOp.EQ
+        switch CompOp(rawValue:opButton.titleLabel!.text!)! {
+        case .LT: l = .LTE
+        case .LTE: l = .GT
+        case .GT: l = .GTE
+        case .GTE: l = .EQ
+        case .EQ: l = .LT
+        default: l = .EQ
+        }
+        
+        opButton.setTitle(l.rawValue, forState: UIControlState.Normal)
+    }
+    
+    @IBAction func flipSpeedUnitsButton(sender : UIButton) {
+        if let label = sender.titleLabel {
+            switch label.text! {
+            case "mph":
+                label.text = "kph"
+            case "kph":
+                label.text = "mph"
+            default:
+                label.text = "mph"
+            }
+        }
+    }
+    
+    @IBAction func flipBoolButton(sender : UIButton) {
+        if let label = sender.titleLabel {
+            if label.text == "is" {
+                label.text = "is not"
+            } else {
+                label.text = "is"
+            }
+        }
+    }
+
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         let newVal = (textField.text as NSString).stringByReplacingCharactersInRange(range, withString: string)
         return newVal.match("^-?\\d*\\.?\\d*$")
     }
+    
+    // returns the number of 'columns' to display.
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    // returns the # of rows in each component..
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return count(ruleTypes)
+    }
+
 }

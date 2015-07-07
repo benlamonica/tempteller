@@ -74,39 +74,3 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
     
 }
 
-class RuleCell : UITableViewCell {
-    var rule : Rule {
-        didSet {
-            isEnabled.setOn(rule.isEnabled, animated: false)
-            message.text = rule.message
-            let tempUnit = rule.isFarenheit ? "˚F" : "˚C"
-            time.text = rule.timeRange.isEmpty ? "Time: \(rule.timeRange.startIndex)" : "Time: \(rule.timeRange.startIndex) - \(rule.timeRange.endIndex)"
-
-            if rule.humidityRange.min.distanceTo(rule.humidityRange.max) < 0.001 {
-                humidity.text = "Humidity: \(rule.humidityRange.min.format()) %"
-            } else {
-                humidity.text = "Humidity: \(rule.humidityRange.min.format()) - \(rule.humidityRange.max.format()) %"
-            }
-
-            if rule.tempRange.min.distanceTo(rule.tempRange.max) < 0.001 {
-                temp.text = "Temp: \(rule.tempRange.min.format()) \(tempUnit)"
-            } else {
-                temp.text = "Temp: \(rule.tempRange.min.format()) - \(rule.tempRange.max.format()) \(tempUnit)"
-            }
-        }
-    }
-    @IBOutlet var isEnabled : UISwitch!
-    @IBOutlet var message : UILabel!
-    @IBOutlet var temp : UILabel!
-    @IBOutlet var humidity : UILabel!
-    @IBOutlet var time : UILabel!
-
-    @IBAction func update() {
-        rule.isEnabled = isEnabled.on
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        rule = Rule()
-        super.init(coder: aDecoder)
-    }
-}
