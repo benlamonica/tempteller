@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<rss version="2.0" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">
+	<channel>
+
+		<title>Yahoo! Weather - Sunnyvale, CA</title>
+		<link>http://us.rd.yahoo.com/dailynews/rss/weather/Sunnyvale__CA/*http://weather.yahoo.com/forecast/USCA1116_f.html</link>
+		<description>Yahoo! Weather for Sunnyvale, CA</description>
+		<language>en-us</language>
+		<lastBuildDate>Mon, 07 Jul 2014 10:56 am PDT</lastBuildDate>
+		<ttl>60</ttl>
+		<yweather:location city="Sunnyvale" region="CA"
+			country="United States" />
+		<yweather:units temperature="F" distance="mi" pressure="in"
+			speed="mph" />
+		<yweather:wind chill="69" direction="20" speed="6" />
+		<yweather:atmosphere humidity="68" visibility="10"
+			pressure="29.92" rising="0" />
+		<yweather:astronomy sunrise="5:53 am" sunset="8:29 pm" />
+		<image>
+			<title>Yahoo! Weather</title>
+			<width>142</width>
+			<height>18</height>
+			<link>http://weather.yahoo.com</link>
+			<url>http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif</url>
+		</image>
+		<item>
+			<title>Conditions for Sunnyvale, CA at 10:56 am PDT</title>
+			<geo:lat>37.37</geo:lat>
+			<geo:long>-122.04</geo:long>
+			<link>http://us.rd.yahoo.com/dailynews/rss/weather/Sunnyvale__CA/*http://weather.yahoo.com/forecast/USCA1116_f.html</link>
+			<pubDate>Mon, 07 Jul 2014 10:56 am PDT</pubDate>
+			<yweather:condition text="Fair" code="34" temp="69"
+				date="Mon, 07 Jul 2014 10:56 am PDT" />
+			<description><![CDATA[
+<img src="http://l.yimg.com/a/i/us/we/52/34.gif"/><br />
+<b>Current Conditions:</b><br />
+Fair, 69 F<BR />
+<BR /><b>Forecast:</b><BR />
+Mon - Mostly Sunny. High: 82 Low: 59<br />
+Tue - Sunny. High: 80 Low: 59<br />
+Wed - Sunny. High: 77 Low: 57<br />
+Thu - Mostly Sunny. High: 75 Low: 57<br />
+Fri - Mostly Sunny. High: 75 Low: 56<br />
+<br />
+<a href="http://us.rd.yahoo.com/dailynews/rss/weather/Sunnyvale__CA/*http://weather.yahoo.com/forecast/USCA1116_f.html">Full Forecast at Yahoo! Weather</a><BR/><BR/>
+(provided by <a href="http://www.weather.com" >The Weather Channel</a>)<br/>
+]]></description>
+			<yweather:forecast day="Mon" date="7 Jul 2014" low="59"
+				high="82" text="Mostly Sunny" code="34" />
+			<yweather:forecast day="Tue" date="8 Jul 2014" low="59"
+				high="80" text="Sunny" code="32" />
+			<yweather:forecast day="Wed" date="9 Jul 2014" low="57"
+				high="77" text="Sunny" code="32" />
+			<yweather:forecast day="Thu" date="10 Jul 2014"
+				low="57" high="75" text="Mostly Sunny" code="34" />
+			<yweather:forecast day="Fri" date="11 Jul 2014"
+				low="56" high="75" text="Mostly Sunny" code="34" />
+			<guid isPermaLink="false">USCA1116_2014_07_11_7_00_PDT</guid>
+		</item>
+	</channel>
+</rss>
