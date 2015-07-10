@@ -16,7 +16,7 @@ public class HsqldbSubDAO implements SubDAO {
 	public HsqldbSubDAO(String filename) {
 		pool = new JDBCPool();
 		pool.setUrl("jdbc:hslqdb:file:"+ filename);
-		new SingleConnectionDataSource(url, suppressClose)
+		//new SingleConnectionDataSource(url, suppressClose);
 	}
 	
 	public SubRequest get(String devId) {
