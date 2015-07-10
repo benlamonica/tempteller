@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.hsqldb.jdbc.JDBCPool;
-import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 
 import us.pojo.weathernotifier.model.SubRequest;
 import us.pojo.weathernotifier.model.WeatherData;

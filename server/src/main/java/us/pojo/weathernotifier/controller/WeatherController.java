@@ -1,4 +1,4 @@
-package us.pojo.weathernotifier;
+package us.pojo.weathernotifier.controller;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,7 @@ import us.pojo.weathernotifier.service.weather.WeatherService;
 
 @Controller
 @RequestMapping("/weather-notifier")
-public class WeatherNotifier {
+public class WeatherController {
 
 	@Autowired
 	private WeatherService weather;
@@ -43,14 +43,14 @@ public class WeatherNotifier {
 	@Autowired
 	private PushService pushService;
 	
-	private static final Logger log = LoggerFactory.getLogger(WeatherNotifier.class);
+	private static final Logger log = LoggerFactory.getLogger(WeatherController.class);
 	
 	public void setWeatherDAO(WeatherService weather) {
 		this.weather = weather;
 	}
 	
-	public WeatherNotifier() {
-		LoggerFactory.getLogger(WeatherNotifier.class).info("WeatherNotifier instantiated!");
+	public WeatherController() {
+		LoggerFactory.getLogger(WeatherController.class).info("WeatherNotifier instantiated!");
 	}
 
 	@RequestMapping("/WOEID/{query}")
