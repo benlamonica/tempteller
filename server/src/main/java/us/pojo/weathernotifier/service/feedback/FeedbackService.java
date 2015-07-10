@@ -1,4 +1,4 @@
-package us.pojo.weathernotifier.service;
+package us.pojo.weathernotifier.service.feedback;
 
 import java.util.List;
 

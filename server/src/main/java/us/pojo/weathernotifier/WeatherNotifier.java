@@ -16,9 +16,9 @@ import us.pojo.weathernotifier.model.Status;
 import us.pojo.weathernotifier.model.SubRequest;
 import us.pojo.weathernotifier.model.WOEID;
 import us.pojo.weathernotifier.model.WeatherData;
-import us.pojo.weathernotifier.service.PushService;
 import us.pojo.weathernotifier.service.SubManager;
-import us.pojo.weathernotifier.service.WeatherService;
+import us.pojo.weathernotifier.service.push.PushService;
+import us.pojo.weathernotifier.service.weather.WeatherService;
 
 /**
  * device -> search for WOEID (my server) -> yahoo WOEID lookup -> result to my server -> device

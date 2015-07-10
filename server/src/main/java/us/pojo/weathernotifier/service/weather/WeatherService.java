@@ -1,4 +1,4 @@
-package us.pojo.weathernotifier.service;
+package us.pojo.weathernotifier.service.weather;
 
 import us.pojo.weathernotifier.model.WOEID;
 import us.pojo.weathernotifier.model.WeatherData;

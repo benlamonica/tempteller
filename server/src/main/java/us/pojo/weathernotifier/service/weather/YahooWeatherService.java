@@ -1,4 +1,4 @@
-package us.pojo.weathernotifier.service;
+package us.pojo.weathernotifier.service.weather;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
