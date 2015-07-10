@@ -45,7 +45,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         pickerToolbar.setItems([doneButton], animated: false)
     }
 
-    @IBAction func save() {
+    @IBAction func save(sender: AnyObject?) {
         if let ruleToSave = editRule {
             rule.subrules = ruleToSave.subrules
         }

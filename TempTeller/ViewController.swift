@@ -79,12 +79,19 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let segueId = segue.identifier {
-            if segueId == "ShowDetail" && sender != nil {
-                if let cell = sender as? RuleCell {
-                    let controller = (segue.destinationViewController as! RuleDetailController)
-                    controller.rule = cell.rule
+            switch segueId {
+                case "ShowDetail":
+                    if let cell = sender as? RuleCell {
+                        let controller = (segue.destinationViewController as! RuleDetailController)
+                        controller.rule = cell.rule
+                        controller.nav = navigationController
+                    }
+                case "ShowConfig":
+                    let controller = segue.destinationViewController as! SettingsViewController
                     controller.nav = navigationController
-                }
+                default:
+                    NSLog("Unknown Segue")
+                
             }
         }
     }
