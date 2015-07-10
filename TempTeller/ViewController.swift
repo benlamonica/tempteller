@@ -26,8 +26,25 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         text.addAttribute(NSForegroundColorAttributeName, value: UIColor(red: 0x9F/255.0, green: 0xD9/255.0, blue: 0xE7/255.0, alpha: 1.0), range: NSRange(location: 4,length: 6))
         label.attributedText = text
         navigationItem.titleView = label
+        
+        registerForNotications()
     }
 
+    func registerForNotications() {
+        // only register if we have rules, otherwise, register after the first rule is created
+        if count(data) > 0 {
+            // see https://thatthinginswift.com/remote-notifications/
+            let app = UIApplication.sharedApplication()
+            let settings = app.currentUserNotificationSettings()
+            let alertsEnabled = (settings.types & UIUserNotificationType.Alert) != nil
+            
+            if (!alertsEnabled) {
+                let settings = UIUserNotificationSettings(forTypes: .Alert, categories: nil)
+                UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+            }
+        }
+    }
+    
     override func viewWillAppear(animated: Bool) {
         tableView.reloadData()
     }

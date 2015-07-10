@@ -26,7 +26,6 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     let ruleTypes : [String] = ["Time", "Location", "Temperature", "Humidity", "Condition", "Forecast Condition", "Forecast Temperature"].sorted(<)
     
     override func viewDidLoad() {
-        tableView.editing = true
         // create a UIPicker view as a custom keyboard view
         picker = UIPickerView()
         picker.sizeToFit()

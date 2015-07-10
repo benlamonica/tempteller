@@ -12,6 +12,7 @@
 		B538D9C91B1369F600D0A883 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B538D9C81B1369F600D0A883 /* CoreLocation.framework */; };
 		B55C41591B0F668B0035C9EA /* RuleDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55C41581B0F668B0035C9EA /* RuleDetailController.swift */; };
 		B55C415B1B10BE490035C9EA /* SwiftExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55C415A1B10BE490035C9EA /* SwiftExtensions.swift */; };
+		B5889B351B4F758300539E97 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5889B341B4F758300539E97 /* StoreKit.framework */; };
 		B5B337F11B1F416C0094B789 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B337F01B1F416C0094B789 /* MessageCell.swift */; };
 		B5B337F31B1F41B80094B789 /* SubRuleDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B337F21B1F41B80094B789 /* SubRuleDisplaying.swift */; };
 		B5B337F51B1F43FC0094B789 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B337F41B1F43FC0094B789 /* LocationCell.swift */; };
@@ -44,6 +45,7 @@
 		B538D9CA1B137FEA00D0A883 /* TempTeller.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TempTeller.entitlements; sourceTree = "<group>"; };
 		B55C41581B0F668B0035C9EA /* RuleDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleDetailController.swift; sourceTree = "<group>"; };
 		B55C415A1B10BE490035C9EA /* SwiftExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtensions.swift; sourceTree = "<group>"; };
+		B5889B341B4F758300539E97 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B5B337EE1B1E6DB20094B789 /* TempTeller.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TempTeller.playground; sourceTree = "<group>"; };
 		B5B337F01B1F416C0094B789 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		B5B337F21B1F41B80094B789 /* SubRuleDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubRuleDisplaying.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B538D9C91B1369F600D0A883 /* CoreLocation.framework in Frameworks */,
+				B5889B351B4F758300539E97 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +102,7 @@
 		B5D1355D1B0B731A00ADC9E5 = {
 			isa = PBXGroup;
 			children = (
+				B5889B341B4F758300539E97 /* StoreKit.framework */,
 				B538D9C81B1369F600D0A883 /* CoreLocation.framework */,
 				B5D135681B0B731A00ADC9E5 /* TempTeller */,
 				B5D1357E1B0B731A00ADC9E5 /* TempTellerTests */,
@@ -213,6 +217,9 @@
 						DevelopmentTeam = 9VR9ER8N6N;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
 							com.apple.iCloud = {

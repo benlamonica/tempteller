@@ -8,6 +8,8 @@
 
 import UIKit
 
+let DEVICE_TOKEN_KEY = "deviceToken"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -15,32 +17,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // register the device to make sure it connects to the APN..The user will not be prompted for permission at this time. Request actual remote notification types after the user creates the first rule. see https://thatthinginswift.com/remote-notifications/
+        application.registerForRemoteNotifications()
+        
         return true
     }
 
-    func applicationWillResignActive(application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        let token = deviceToken.base64EncodedStringWithOptions(nil)
+        NSLog("registered for remote notifications: \(token)")
+        
+        let settings = NSUserDefaults.standardUserDefaults()
+        if let existingDeviceToken = settings.valueForKey(DEVICE_TOKEN_KEY) as? String {
+            if token != existingDeviceToken {
+                NSLog("device token differs from what we've registered in the past, notify server")
+                register(token, replaces: existingDeviceToken)
+            }
+        } else {
+            NSLog("first time this device has been registered")
+            register(token)
+        }
     }
-
-    func applicationDidEnterBackground(application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    func register(deviceToken: String, replaces: String? = nil) {
+        // TODO - notify the server
+        // then run the below commands in a callback after successfully notifying the server
+        // POST https://host/register-device?token=ABCD&replaces=EFGHI
+        func callback() {
+            let settings = NSUserDefaults.standardUserDefaults()
+            settings.setValue(deviceToken, forKey:DEVICE_TOKEN_KEY)
+            settings.synchronize()
+        }
+        callback()
     }
-
-    func applicationWillEnterForeground(application: UIApplication) {
-        // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        NSLog("failed to register for notifications \(error)")
+        // TODO? when will this happen? When network is down? When push notifications have been denied? Find out if we need to notify the user that the app is basically useless without push notifications
     }
-
-    func applicationDidBecomeActive(application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
-
-    func applicationWillTerminate(application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-
-
 }
 
