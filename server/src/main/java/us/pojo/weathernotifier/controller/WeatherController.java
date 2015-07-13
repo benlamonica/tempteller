@@ -45,10 +45,6 @@ public class WeatherController {
 	
 	private static final Logger log = LoggerFactory.getLogger(WeatherController.class);
 	
-	public void setWeatherDAO(WeatherService weather) {
-		this.weather = weather;
-	}
-	
 	public WeatherController() {
 		LoggerFactory.getLogger(WeatherController.class).info("WeatherNotifier instantiated!");
 	}

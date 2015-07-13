@@ -6,7 +6,12 @@
     </encoder>
   </appender>
 
-  <root level="debug">
+  <root level="WARN">
     <appender-ref ref="STDOUT" />
   </root>
+  
+  <logger name="us.pojo" level="DEBUG">
+    <appender-ref ref="STDOUT" />
+  </logger>
+  
 </configuration>
