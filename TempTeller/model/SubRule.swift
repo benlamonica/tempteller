@@ -21,24 +21,13 @@ enum BoolOp : String {
     case NOT_IN = "not in"
 }
 
-func createModel(obj: AnyObject, inout model: Dictionary<String,AnyObject>) {
-    var mirror = reflect(obj)
+
+func createModelFrom(mirror: MirrorType, #superclassName: String, inout #model: Dictionary<String,AnyObject>) {
     
     for var i = 0; i < mirror.count; i++ {
         let mirrorSuperClass = mirror[i].1.summary
-        let objSuperClass = obj.classForCoder.description()
-        if mirror[i].0 == "super" && mirrorSuperClass != objSuperClass {
-            for var j = 0; j < mirror[i].1.count; j++ {
-                if mirror[i].1[j].1.value as? AnyObject === obj {
-                    continue
-                }
-                if let convertable = mirror[i].1[j].1.value as? ConvertableToDictionary {
-                    model[mirror[i].1[j].0] = convertable.toDict()
-                } else {
-                    model[mirror[i].1[j].0] = mirror[i].1[j].1.value as? AnyObject
-                }
-                
-            }
+        if mirror[i].0 == "super" && mirrorSuperClass != superclassName {
+            createModelFrom(mirror[i].1, superclassName: superclassName, model: &model)
             continue
         }
         
@@ -61,7 +50,7 @@ class SubRule : NSObject, NSCopying, ConvertableToDictionary {
         let className = self.classForCoder.description()
         let cellType = className.substringFromIndex(find(className,".")!.successor())
         var model : [String:AnyObject] = ["type":cellType]
-        createModel(self, &model);
+        createModelFrom(reflect(self), superclassName: cellType, model: &model)
         return model
     }
 }

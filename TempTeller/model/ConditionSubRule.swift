@@ -8,11 +8,16 @@
 
 import Foundation
 
-enum Condition : Int {
-    case Sunny = 1, Cloudy, Rainy, Lightning, Snow, Wind
+enum Condition : String {
+    case Sunny = "sunny"
+    case Cloudy = "cloudy"
+    case Rainy = "rainy"
+    case Lightning = "lightning"
+    case Snow = "snow"
+    case Wind = "wind"
 }
 
-class ConditionSubRule : SubRule {
+class ConditionSubRule : SubRule, ConvertableToDictionary {
     var conditions : [Condition:Bool];
     
     override convenience init() {
@@ -30,5 +35,13 @@ class ConditionSubRule : SubRule {
     
     override func copyWithZone(zone: NSZone) -> AnyObject {
         return ConditionSubRule(copy: self)
+    }
+    
+    override func toDict() -> Dictionary<String, AnyObject> {
+        var model = super.toDict()
+        let filtered = conditions.keys.filter {self.conditions[$0] != nil && self.conditions[$0]!}
+        let filteredConditions = filtered.map {$0.rawValue}
+        model["conditions"] = filteredConditions.array
+        return model
     }
 }
