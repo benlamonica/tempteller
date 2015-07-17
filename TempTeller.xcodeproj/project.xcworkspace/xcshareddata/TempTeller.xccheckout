@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>F5EC6CC9-72DC-44DE-93A3-1152E1E9A51D</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>TempTeller</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>8E923BF422DF0420BB962B5EC5037F17C58CC149</key>
 		<string>https://bitbucket.org/ben_la_monica/tempteller.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>TempTeller.xcodeproj/project.xcworkspace</string>
+	<string>TempTeller.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>8E923BF422DF0420BB962B5EC5037F17C58CC149</key>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
+class RuleController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
 
     var data : [Rule] = [Rule(), Rule(), Rule(), Rule(), Rule(), Rule(), Rule(), Rule(), Rule(), Rule(), Rule()]
 

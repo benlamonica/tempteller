@@ -7,26 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B538D9C51B12C20F00D0A883 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B538D9C41B12C20F00D0A883 /* WeatherService.swift */; };
-		B538D9C71B12CA5D00D0A883 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B538D9C61B12CA5D00D0A883 /* SwiftyJSON.swift */; };
 		B538D9C91B1369F600D0A883 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B538D9C81B1369F600D0A883 /* CoreLocation.framework */; };
-		B55C41591B0F668B0035C9EA /* RuleDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55C41581B0F668B0035C9EA /* RuleDetailController.swift */; };
-		B55C415B1B10BE490035C9EA /* SwiftExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55C415A1B10BE490035C9EA /* SwiftExtensions.swift */; };
 		B5889B351B4F758300539E97 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5889B341B4F758300539E97 /* StoreKit.framework */; };
-		B5889B371B507D1C00539E97 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5889B361B507D1C00539E97 /* SettingsViewController.swift */; };
-		B5B337F11B1F416C0094B789 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B337F01B1F416C0094B789 /* MessageCell.swift */; };
-		B5B337F31B1F41B80094B789 /* SubRuleDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B337F21B1F41B80094B789 /* SubRuleDisplaying.swift */; };
-		B5B337F51B1F43FC0094B789 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B337F41B1F43FC0094B789 /* LocationCell.swift */; };
-		B5B337F91B1FB4870094B789 /* TemperatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B337F81B1FB4870094B789 /* TemperatureCell.swift */; };
-		B5B337FB1B271BF10094B789 /* RuleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B337FA1B271BF10094B789 /* RuleCell.swift */; };
-		B5B337FF1B2B58590094B789 /* ConditionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B337FE1B2B58590094B789 /* ConditionCell.swift */; };
 		B5D1356C1B0B731A00ADC9E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1356B1B0B731A00ADC9E5 /* AppDelegate.swift */; };
-		B5D1356E1B0B731A00ADC9E5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1356D1B0B731A00ADC9E5 /* ViewController.swift */; };
 		B5D135711B0B731A00ADC9E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5D1356F1B0B731A00ADC9E5 /* Main.storyboard */; };
 		B5D135731B0B731A00ADC9E5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5D135721B0B731A00ADC9E5 /* Images.xcassets */; };
 		B5D135761B0B731A00ADC9E5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D135741B0B731A00ADC9E5 /* LaunchScreen.xib */; };
 		B5D135821B0B731A00ADC9E5 /* TempTellerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D135811B0B731A00ADC9E5 /* TempTellerTests.swift */; };
-		B5D1358C1B0B9F6B00ADC9E5 /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1358B1B0B9F6B00ADC9E5 /* Rule.swift */; };
+		B5F1CEE51B597DBC0047A376 /* SwiftExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEE31B597DBC0047A376 /* SwiftExtensions.swift */; };
+		B5F1CEE61B597DBC0047A376 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEE41B597DBC0047A376 /* SwiftyJSON.swift */; };
+		B5F1CEEE1B597DEB0047A376 /* AddSubRuleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEE81B597DEB0047A376 /* AddSubRuleCell.swift */; };
+		B5F1CEEF1B597DEB0047A376 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEE91B597DEB0047A376 /* LocationCell.swift */; };
+		B5F1CEF01B597DEB0047A376 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEEA1B597DEB0047A376 /* MessageCell.swift */; };
+		B5F1CEF11B597DEB0047A376 /* RuleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEEB1B597DEB0047A376 /* RuleCell.swift */; };
+		B5F1CEF21B597DEB0047A376 /* SubRuleDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEEC1B597DEB0047A376 /* SubRuleDisplaying.swift */; };
+		B5F1CEF31B597DEB0047A376 /* TemperatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEED1B597DEB0047A376 /* TemperatureCell.swift */; };
+		B5F1CEF81B597E350047A376 /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEF71B597E350047A376 /* Rule.swift */; };
+		B5F1CEFA1B597E460047A376 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEF91B597E460047A376 /* Location.swift */; };
+		B5F1CEFC1B5980140047A376 /* SubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEFB1B5980140047A376 /* SubRule.swift */; };
+		B5F1CEFE1B5980310047A376 /* MessageSubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEFD1B5980310047A376 /* MessageSubRule.swift */; };
+		B5F1CF001B5980C40047A376 /* TemperatureSubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEFF1B5980C40047A376 /* TemperatureSubRule.swift */; };
+		B5F1CF021B5980E50047A376 /* HumiditySubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF011B5980E50047A376 /* HumiditySubRule.swift */; };
+		B5F1CF041B5981030047A376 /* WindSpeedSubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF031B5981030047A376 /* WindSpeedSubRule.swift */; };
+		B5F1CF061B59811C0047A376 /* TimeSubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF051B59811C0047A376 /* TimeSubRule.swift */; };
+		B5F1CF081B5981410047A376 /* LocationSubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF071B5981410047A376 /* LocationSubRule.swift */; };
+		B5F1CF0A1B5982490047A376 /* ConditionSubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF091B5982490047A376 /* ConditionSubRule.swift */; };
+		B5F1CF0C1B59829E0047A376 /* ForcastTempSubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF0B1B59829E0047A376 /* ForcastTempSubRule.swift */; };
+		B5F1CF0E1B5982BC0047A376 /* ForcastConditionSubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF0D1B5982BC0047A376 /* ForcastConditionSubRule.swift */; };
+		B5F1CF101B59853B0047A376 /* ConvertableToDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF0F1B59853B0047A376 /* ConvertableToDictionary.swift */; };
+		B5F1CF151B5986050047A376 /* RuleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF121B5986050047A376 /* RuleController.swift */; };
+		B5F1CF161B5986050047A376 /* RuleDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF131B5986050047A376 /* RuleDetailController.swift */; };
+		B5F1CF171B5986050047A376 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF141B5986050047A376 /* SettingsViewController.swift */; };
+		B5F1CF1A1B59860F0047A376 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF191B59860F0047A376 /* WeatherService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,31 +52,43 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B538D9C41B12C20F00D0A883 /* WeatherService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
-		B538D9C61B12CA5D00D0A883 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		B538D9C81B1369F600D0A883 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B538D9CA1B137FEA00D0A883 /* TempTeller.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TempTeller.entitlements; sourceTree = "<group>"; };
-		B55C41581B0F668B0035C9EA /* RuleDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleDetailController.swift; sourceTree = "<group>"; };
-		B55C415A1B10BE490035C9EA /* SwiftExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtensions.swift; sourceTree = "<group>"; };
 		B5889B341B4F758300539E97 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		B5889B361B507D1C00539E97 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		B5B337F01B1F416C0094B789 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
-		B5B337F21B1F41B80094B789 /* SubRuleDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubRuleDisplaying.swift; sourceTree = "<group>"; };
-		B5B337F41B1F43FC0094B789 /* LocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
-		B5B337F81B1FB4870094B789 /* TemperatureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemperatureCell.swift; sourceTree = "<group>"; };
-		B5B337FA1B271BF10094B789 /* RuleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleCell.swift; sourceTree = "<group>"; };
-		B5B337FE1B2B58590094B789 /* ConditionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConditionCell.swift; path = ../ConditionCell.swift; sourceTree = "<group>"; };
 		B5D135661B0B731A00ADC9E5 /* TempTeller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TempTeller.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5D1356A1B0B731A00ADC9E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5D1356B1B0B731A00ADC9E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B5D1356D1B0B731A00ADC9E5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B5D135701B0B731A00ADC9E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B5D135721B0B731A00ADC9E5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B5D135751B0B731A00ADC9E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		B5D1357B1B0B731A00ADC9E5 /* TempTellerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TempTellerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5D135801B0B731A00ADC9E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5D135811B0B731A00ADC9E5 /* TempTellerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempTellerTests.swift; sourceTree = "<group>"; };
-		B5D1358B1B0B9F6B00ADC9E5 /* Rule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
+		B5F1CEE31B597DBC0047A376 /* SwiftExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtensions.swift; sourceTree = "<group>"; };
+		B5F1CEE41B597DBC0047A376 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		B5F1CEE81B597DEB0047A376 /* AddSubRuleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSubRuleCell.swift; sourceTree = "<group>"; };
+		B5F1CEE91B597DEB0047A376 /* LocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
+		B5F1CEEA1B597DEB0047A376 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		B5F1CEEB1B597DEB0047A376 /* RuleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleCell.swift; sourceTree = "<group>"; };
+		B5F1CEEC1B597DEB0047A376 /* SubRuleDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubRuleDisplaying.swift; sourceTree = "<group>"; };
+		B5F1CEED1B597DEB0047A376 /* TemperatureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemperatureCell.swift; sourceTree = "<group>"; };
+		B5F1CEF71B597E350047A376 /* Rule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
+		B5F1CEF91B597E460047A376 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		B5F1CEFB1B5980140047A376 /* SubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubRule.swift; sourceTree = "<group>"; };
+		B5F1CEFD1B5980310047A376 /* MessageSubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageSubRule.swift; sourceTree = "<group>"; };
+		B5F1CEFF1B5980C40047A376 /* TemperatureSubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemperatureSubRule.swift; sourceTree = "<group>"; };
+		B5F1CF011B5980E50047A376 /* HumiditySubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HumiditySubRule.swift; sourceTree = "<group>"; };
+		B5F1CF031B5981030047A376 /* WindSpeedSubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindSpeedSubRule.swift; sourceTree = "<group>"; };
+		B5F1CF051B59811C0047A376 /* TimeSubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSubRule.swift; sourceTree = "<group>"; };
+		B5F1CF071B5981410047A376 /* LocationSubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSubRule.swift; sourceTree = "<group>"; };
+		B5F1CF091B5982490047A376 /* ConditionSubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConditionSubRule.swift; sourceTree = "<group>"; };
+		B5F1CF0B1B59829E0047A376 /* ForcastTempSubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForcastTempSubRule.swift; sourceTree = "<group>"; };
+		B5F1CF0D1B5982BC0047A376 /* ForcastConditionSubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForcastConditionSubRule.swift; sourceTree = "<group>"; };
+		B5F1CF0F1B59853B0047A376 /* ConvertableToDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertableToDictionary.swift; sourceTree = "<group>"; };
+		B5F1CF121B5986050047A376 /* RuleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleController.swift; sourceTree = "<group>"; };
+		B5F1CF131B5986050047A376 /* RuleDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleDetailController.swift; sourceTree = "<group>"; };
+		B5F1CF141B5986050047A376 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		B5F1CF191B59860F0047A376 /* WeatherService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,19 +111,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B5B337EF1B1F41570094B789 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				B5B337FE1B2B58590094B789 /* ConditionCell.swift */,
-				B5B337F41B1F43FC0094B789 /* LocationCell.swift */,
-				B5B337F01B1F416C0094B789 /* MessageCell.swift */,
-				B5B337FA1B271BF10094B789 /* RuleCell.swift */,
-				B5B337F21B1F41B80094B789 /* SubRuleDisplaying.swift */,
-				B5B337F81B1FB4870094B789 /* TemperatureCell.swift */,
-			);
-			name = Cells;
-			sourceTree = "<group>";
-		};
 		B5D1355D1B0B731A00ADC9E5 = {
 			isa = PBXGroup;
 			children = (
@@ -123,20 +134,12 @@
 		B5D135681B0B731A00ADC9E5 /* TempTeller */ = {
 			isa = PBXGroup;
 			children = (
-				B5D1356B1B0B731A00ADC9E5 /* AppDelegate.swift */,
-				B5B337EF1B1F41570094B789 /* Cells */,
-				B5D135721B0B731A00ADC9E5 /* Images.xcassets */,
-				B5D135741B0B731A00ADC9E5 /* LaunchScreen.xib */,
-				B5D1356F1B0B731A00ADC9E5 /* Main.storyboard */,
-				B5D1358B1B0B9F6B00ADC9E5 /* Rule.swift */,
-				B55C41581B0F668B0035C9EA /* RuleDetailController.swift */,
-				B5889B361B507D1C00539E97 /* SettingsViewController.swift */,
+				B5F1CEE71B597DEB0047A376 /* cells */,
+				B5F1CEF61B597E350047A376 /* model */,
 				B5D135691B0B731A00ADC9E5 /* Supporting Files */,
-				B55C415A1B10BE490035C9EA /* SwiftExtensions.swift */,
-				B538D9C61B12CA5D00D0A883 /* SwiftyJSON.swift */,
-				B538D9CA1B137FEA00D0A883 /* TempTeller.entitlements */,
-				B5D1356D1B0B731A00ADC9E5 /* ViewController.swift */,
-				B538D9C41B12C20F00D0A883 /* WeatherService.swift */,
+				B5F1CF111B5986050047A376 /* ui */,
+				B5F1CEE21B597DBC0047A376 /* util */,
+				B5F1CF181B59860F0047A376 /* webservice */,
 			);
 			path = TempTeller;
 			sourceTree = "<group>";
@@ -144,7 +147,11 @@
 		B5D135691B0B731A00ADC9E5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B5D1356B1B0B731A00ADC9E5 /* AppDelegate.swift */,
+				B5D135721B0B731A00ADC9E5 /* Images.xcassets */,
 				B5D1356A1B0B731A00ADC9E5 /* Info.plist */,
+				B5D135741B0B731A00ADC9E5 /* LaunchScreen.xib */,
+				B538D9CA1B137FEA00D0A883 /* TempTeller.entitlements */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -164,6 +171,67 @@
 				B5D135801B0B731A00ADC9E5 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B5F1CEE21B597DBC0047A376 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				B5F1CEE31B597DBC0047A376 /* SwiftExtensions.swift */,
+				B5F1CEE41B597DBC0047A376 /* SwiftyJSON.swift */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
+		B5F1CEE71B597DEB0047A376 /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				B5F1CEE81B597DEB0047A376 /* AddSubRuleCell.swift */,
+				B5F1CEE91B597DEB0047A376 /* LocationCell.swift */,
+				B5F1CEEA1B597DEB0047A376 /* MessageCell.swift */,
+				B5F1CEEB1B597DEB0047A376 /* RuleCell.swift */,
+				B5F1CEEC1B597DEB0047A376 /* SubRuleDisplaying.swift */,
+				B5F1CEED1B597DEB0047A376 /* TemperatureCell.swift */,
+			);
+			path = cells;
+			sourceTree = "<group>";
+		};
+		B5F1CEF61B597E350047A376 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				B5F1CF091B5982490047A376 /* ConditionSubRule.swift */,
+				B5F1CF0F1B59853B0047A376 /* ConvertableToDictionary.swift */,
+				B5F1CF0D1B5982BC0047A376 /* ForcastConditionSubRule.swift */,
+				B5F1CF0B1B59829E0047A376 /* ForcastTempSubRule.swift */,
+				B5F1CF011B5980E50047A376 /* HumiditySubRule.swift */,
+				B5F1CEF91B597E460047A376 /* Location.swift */,
+				B5F1CF071B5981410047A376 /* LocationSubRule.swift */,
+				B5F1CEFD1B5980310047A376 /* MessageSubRule.swift */,
+				B5F1CEF71B597E350047A376 /* Rule.swift */,
+				B5F1CEFB1B5980140047A376 /* SubRule.swift */,
+				B5F1CEFF1B5980C40047A376 /* TemperatureSubRule.swift */,
+				B5F1CF051B59811C0047A376 /* TimeSubRule.swift */,
+				B5F1CF031B5981030047A376 /* WindSpeedSubRule.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		B5F1CF111B5986050047A376 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				B5D1356F1B0B731A00ADC9E5 /* Main.storyboard */,
+				B5F1CF121B5986050047A376 /* RuleController.swift */,
+				B5F1CF131B5986050047A376 /* RuleDetailController.swift */,
+				B5F1CF141B5986050047A376 /* SettingsViewController.swift */,
+			);
+			path = ui;
+			sourceTree = "<group>";
+		};
+		B5F1CF181B59860F0047A376 /* webservice */ = {
+			isa = PBXGroup;
+			children = (
+				B5F1CF191B59860F0047A376 /* WeatherService.swift */,
+			);
+			path = webservice;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,20 +346,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B55C41591B0F668B0035C9EA /* RuleDetailController.swift in Sources */,
-				B5B337FB1B271BF10094B789 /* RuleCell.swift in Sources */,
-				B5B337F11B1F416C0094B789 /* MessageCell.swift in Sources */,
-				B55C415B1B10BE490035C9EA /* SwiftExtensions.swift in Sources */,
-				B5B337FF1B2B58590094B789 /* ConditionCell.swift in Sources */,
-				B5D1358C1B0B9F6B00ADC9E5 /* Rule.swift in Sources */,
-				B5D1356E1B0B731A00ADC9E5 /* ViewController.swift in Sources */,
-				B538D9C51B12C20F00D0A883 /* WeatherService.swift in Sources */,
-				B5B337F51B1F43FC0094B789 /* LocationCell.swift in Sources */,
-				B5889B371B507D1C00539E97 /* SettingsViewController.swift in Sources */,
-				B5B337F91B1FB4870094B789 /* TemperatureCell.swift in Sources */,
-				B538D9C71B12CA5D00D0A883 /* SwiftyJSON.swift in Sources */,
-				B5B337F31B1F41B80094B789 /* SubRuleDisplaying.swift in Sources */,
+				B5F1CF0C1B59829E0047A376 /* ForcastTempSubRule.swift in Sources */,
+				B5F1CEF21B597DEB0047A376 /* SubRuleDisplaying.swift in Sources */,
+				B5F1CEEE1B597DEB0047A376 /* AddSubRuleCell.swift in Sources */,
+				B5F1CEE51B597DBC0047A376 /* SwiftExtensions.swift in Sources */,
+				B5F1CEFA1B597E460047A376 /* Location.swift in Sources */,
+				B5F1CF021B5980E50047A376 /* HumiditySubRule.swift in Sources */,
+				B5F1CEFC1B5980140047A376 /* SubRule.swift in Sources */,
+				B5F1CEF11B597DEB0047A376 /* RuleCell.swift in Sources */,
+				B5F1CEF01B597DEB0047A376 /* MessageCell.swift in Sources */,
+				B5F1CF0A1B5982490047A376 /* ConditionSubRule.swift in Sources */,
+				B5F1CEEF1B597DEB0047A376 /* LocationCell.swift in Sources */,
+				B5F1CF101B59853B0047A376 /* ConvertableToDictionary.swift in Sources */,
+				B5F1CF0E1B5982BC0047A376 /* ForcastConditionSubRule.swift in Sources */,
+				B5F1CF061B59811C0047A376 /* TimeSubRule.swift in Sources */,
+				B5F1CF001B5980C40047A376 /* TemperatureSubRule.swift in Sources */,
+				B5F1CF081B5981410047A376 /* LocationSubRule.swift in Sources */,
+				B5F1CF041B5981030047A376 /* WindSpeedSubRule.swift in Sources */,
+				B5F1CF151B5986050047A376 /* RuleController.swift in Sources */,
+				B5F1CF1A1B59860F0047A376 /* WeatherService.swift in Sources */,
+				B5F1CEE61B597DBC0047A376 /* SwiftyJSON.swift in Sources */,
+				B5F1CEF31B597DEB0047A376 /* TemperatureCell.swift in Sources */,
+				B5F1CF161B5986050047A376 /* RuleDetailController.swift in Sources */,
+				B5F1CEF81B597E350047A376 /* Rule.swift in Sources */,
+				B5F1CEFE1B5980310047A376 /* MessageSubRule.swift in Sources */,
 				B5D1356C1B0B731A00ADC9E5 /* AppDelegate.swift in Sources */,
+				B5F1CF171B5986050047A376 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +400,7 @@
 				B5D135701B0B731A00ADC9E5 /* Base */,
 			);
 			name = Main.storyboard;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		B5D135741B0B731A00ADC9E5 /* LaunchScreen.xib */ = {

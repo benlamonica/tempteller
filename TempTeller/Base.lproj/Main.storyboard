@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fuv-aw-5wh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fuv-aw-5wh">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -22,10 +22,10 @@
             </objects>
             <point key="canvasLocation" x="-511" y="-348"/>
         </scene>
-        <!--View Controller-->
+        <!--Rule Controller-->
         <scene sceneID="ibH-Le-4jS">
             <objects>
-                <tableViewController id="l7g-Vi-UFd" customClass="ViewController" customModule="TempTeller" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="l7g-Vi-UFd" customClass="RuleController" customModule="TempTeller" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" id="dQl-sM-Ciq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -492,7 +492,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" showsReorderControl="YES" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="ConditionSubRule" id="xKu-9N-mIa" customClass="ConditionCell" customModule="TempTeller" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" showsReorderControl="YES" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="ConditionSubRule" id="xKu-9N-mIa">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xKu-9N-mIa" id="KA9-1m-kUi">
@@ -528,9 +528,6 @@
                                                             <integer key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="toggleCondition:" destination="xKu-9N-mIa" eventType="touchUpInside" id="y91-iP-lLc"/>
-                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gsK-F8-VCM">
                                                     <rect key="frame" x="162" y="25" width="35" height="35"/>
@@ -543,9 +540,6 @@
                                                             <integer key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="toggleCondition:" destination="xKu-9N-mIa" eventType="touchUpInside" id="cOt-h0-DZB"/>
-                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z3f-I8-bjd">
                                                     <rect key="frame" x="195" y="25" width="35" height="35"/>
@@ -558,9 +552,6 @@
                                                             <integer key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="toggleCondition:" destination="xKu-9N-mIa" eventType="touchUpInside" id="qsI-1c-m5i"/>
-                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ay-EQ-StC">
                                                     <rect key="frame" x="137" y="23" width="35" height="35"/>
@@ -573,9 +564,6 @@
                                                             <integer key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="toggleCondition:" destination="xKu-9N-mIa" eventType="touchUpInside" id="SQb-UQ-K5Y"/>
-                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aUt-la-82o">
                                                     <rect key="frame" x="231" y="25" width="35" height="35"/>
@@ -588,9 +576,6 @@
                                                             <integer key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="toggleCondition:" destination="xKu-9N-mIa" eventType="touchUpInside" id="APb-mE-zGh"/>
-                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KFw-7y-s17">
                                                     <rect key="frame" x="105" y="23" width="35" height="35"/>
@@ -603,20 +588,9 @@
                                                             <integer key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="toggleCondition:" destination="xKu-9N-mIa" eventType="touchUpInside" id="cuZ-1G-o8A"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="cloudy" destination="KFw-7y-s17" id="Npb-ey-h8P"/>
-                                            <outlet property="lightning" destination="gsK-F8-VCM" id="MoO-nO-09D"/>
-                                            <outlet property="rainy" destination="0Ay-EQ-StC" id="Vpy-gO-5C1"/>
-                                            <outlet property="snow" destination="Z3f-I8-bjd" id="HdX-0z-aDP"/>
-                                            <outlet property="sunny" destination="QY4-2A-9nJ" id="WfY-Kt-MZK"/>
-                                            <outlet property="wind" destination="aUt-la-82o" id="m4W-p5-C2U"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" showsReorderControl="YES" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="ForcastTempSubRule" id="uZe-pW-dFX">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
