@@ -1,4 +1,4 @@
-package us.pojo.weathernotifier;
+package us.pojo.weathernotifier.controller;
 
 import java.util.ArrayList;
 
@@ -16,9 +16,9 @@ import us.pojo.weathernotifier.model.Status;
 import us.pojo.weathernotifier.model.SubRequest;
 import us.pojo.weathernotifier.model.WOEID;
 import us.pojo.weathernotifier.model.WeatherData;
-import us.pojo.weathernotifier.service.PushService;
 import us.pojo.weathernotifier.service.SubManager;
-import us.pojo.weathernotifier.service.WeatherService;
+import us.pojo.weathernotifier.service.push.PushService;
+import us.pojo.weathernotifier.service.weather.WeatherService;
 
 /**
  * device -> search for WOEID (my server) -> yahoo WOEID lookup -> result to my server -> device
@@ -32,7 +32,7 @@ import us.pojo.weathernotifier.service.WeatherService;
 
 @Controller
 @RequestMapping("/weather-notifier")
-public class WeatherNotifier {
+public class WeatherController {
 
 	@Autowired
 	private WeatherService weather;
@@ -43,14 +43,10 @@ public class WeatherNotifier {
 	@Autowired
 	private PushService pushService;
 	
-	private static final Logger log = LoggerFactory.getLogger(WeatherNotifier.class);
+	private static final Logger log = LoggerFactory.getLogger(WeatherController.class);
 	
-	public void setWeatherDAO(WeatherService weather) {
-		this.weather = weather;
-	}
-	
-	public WeatherNotifier() {
-		LoggerFactory.getLogger(WeatherNotifier.class).info("WeatherNotifier instantiated!");
+	public WeatherController() {
+		LoggerFactory.getLogger(WeatherController.class).info("WeatherNotifier instantiated!");
 	}
 
 	@RequestMapping("/WOEID/{query}")

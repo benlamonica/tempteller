@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import us.pojo.weathernotifier.dao.SubDAO;
 import us.pojo.weathernotifier.model.SubRequest;
 import us.pojo.weathernotifier.model.WeatherData;
+import us.pojo.weathernotifier.service.push.PushService;
+import us.pojo.weathernotifier.service.weather.WeatherService;
 
 public class SubManagerImpl implements SubManager {
 

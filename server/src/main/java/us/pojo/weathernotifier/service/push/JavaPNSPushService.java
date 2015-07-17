@@ -1,4 +1,4 @@
-package us.pojo.weathernotifier.service;
+package us.pojo.weathernotifier.service.push;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +10,8 @@ import javapns.notification.transmission.PushQueue;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import us.pojo.weathernotifier.service.feedback.FeedbackService;
 
 public class JavaPNSPushService implements PushService {
 
