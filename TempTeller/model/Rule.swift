@@ -18,17 +18,11 @@ public class Rule : NSObject, NSCopying {
         }
     }
     public override init() {
-        isEnabled = false;
+        isEnabled = true;
         uuid = NSUUID().UUIDString
         subrules = [
             MessageSubRule(),
             LocationSubRule(),
-            TemperatureSubRule(),
-            HumiditySubRule(),
-            ConditionSubRule(),
-            ForcastConditionSubRule(),
-            ForcastTempSubRule(),
-            WindSpeedSubRule()
         ]
         super.init()
     }

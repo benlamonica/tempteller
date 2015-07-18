@@ -24,6 +24,7 @@ class TempTellerTests: XCTestCase {
 
     func testJsonSerialization() {
         let rule : Rule = Rule()
+        // todo, we need to enhance to have all rules
         NSLog(rule.json(prettyPrint:true))
         XCTAssertEqual(rule.json(), jsonResult, "not equal")
     }
