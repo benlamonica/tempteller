@@ -11,6 +11,7 @@ import Foundation
 public class Rule : NSObject, NSCopying {
     var isEnabled : Bool;
     var subrules : [SubRule]
+    var uuid : String
     var message : String {
         get {
             return (self.subrules[0] as! MessageSubRule).message
@@ -18,6 +19,7 @@ public class Rule : NSObject, NSCopying {
     }
     public override init() {
         isEnabled = false;
+        uuid = NSUUID().UUIDString
         subrules = [
             MessageSubRule(),
             LocationSubRule(),
@@ -33,6 +35,7 @@ public class Rule : NSObject, NSCopying {
     
     public init(copy: Rule) {
         self.isEnabled = copy.isEnabled
+        self.uuid = copy.uuid
         self.subrules = copy.subrules.map({$0.copy() as! SubRule})
     }
     
@@ -40,15 +43,16 @@ public class Rule : NSObject, NSCopying {
         return Rule(copy: self)
     }
     
-    public func json() -> String {
+    public func json(prettyPrint:Bool = false) -> String {
         
         let model : [String:AnyObject] = [
             "version":"1.0",
+            "uuid": uuid,
             "isEnabled":isEnabled,
             "subrules":subrules.map({$0.toDict()})
         ]
         
-        if let json = NSJSONSerialization.dataWithJSONObject(model, options: NSJSONWritingOptions.PrettyPrinted, error: nil) {
+        if let json = NSJSONSerialization.dataWithJSONObject(model, options: prettyPrint ? NSJSONWritingOptions.PrettyPrinted : nil, error: nil) {
             if let jsonString =  NSString(data: json, encoding: NSUTF8StringEncoding) as? String {
                 return jsonString
             }

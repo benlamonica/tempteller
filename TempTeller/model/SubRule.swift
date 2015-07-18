@@ -55,7 +55,7 @@ class SubRule : NSObject, NSCopying, ConvertableToDictionary {
     }
 }
 
-class SingleValSubRule : SubRule, NSCopying {
+class SingleValSubRule : SubRule, NSCopying, ConvertableToDictionary {
     var value : Double
     var op : CompOp
     
@@ -68,6 +68,12 @@ class SingleValSubRule : SubRule, NSCopying {
     
     override func copyWithZone(zone: NSZone) -> AnyObject {
         return self.dynamicType.self(value: value, op: op)
+    }
+    
+    override func toDict() -> Dictionary<String, AnyObject> {
+        var model = super.toDict()
+        model["op"] = op.rawValue
+        return model
     }
     
 }
