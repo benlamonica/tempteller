@@ -8,19 +8,19 @@
 
 import Foundation
 
-class LocationSubRule : SubRule, NSCopying {
-    var location : Location
+public class LocationSubRule : SubRule, NSCopying {
+    public var location : Location
     
     override convenience init() {
         self.init(loc: Location(name: ""))
     }
     
-    init(loc: Location) {
+    public init(loc: Location) {
         self.location = loc
         super.init()
     }
     
-    override func copyWithZone(zone: NSZone) -> AnyObject {
+    override public func copyWithZone(zone: NSZone) -> AnyObject {
         return LocationSubRule(loc: Location(copy: location))
     }
     

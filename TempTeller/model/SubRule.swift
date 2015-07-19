@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum CompOp : String {
+public enum CompOp : String {
     case LT = "<"
     case LTE = "<="
     case GT = ">"
@@ -16,7 +16,7 @@ enum CompOp : String {
     case EQ = "="
 }
 
-enum BoolOp : String {
+public enum BoolOp : String {
     case IN = "in"
     case NOT_IN = "not in"
 }
@@ -40,8 +40,8 @@ func createModelFrom(mirror: MirrorType, #superclassName: String, inout #model: 
     
 }
 
-class SubRule : NSObject, NSCopying, ConvertableToDictionary {
-    func copyWithZone(zone: NSZone) -> AnyObject {
+public class SubRule : NSObject, NSCopying, ConvertableToDictionary {
+    public func copyWithZone(zone: NSZone) -> AnyObject {
         NSLog("CRITICAL: Calling copyWithZone from SubRule, this should have been overridden")
         return SubRule() // this should always be overridden, since SubRule is "abstract"
     }
@@ -55,18 +55,18 @@ class SubRule : NSObject, NSCopying, ConvertableToDictionary {
     }
 }
 
-class SingleValSubRule : SubRule, NSCopying, ConvertableToDictionary {
-    var value : Double
-    var op : CompOp
+public class SingleValSubRule : SubRule, NSCopying, ConvertableToDictionary {
+    public var value : Double
+    public var op : CompOp
     
     // in order to implement copyWithZone, this initializer must be "required", and all subclasses must implement
-    required init(value: Double, op: CompOp) {
+    public required init(value: Double, op: CompOp) {
         self.value = value
         self.op = op
         super.init()
     }
     
-    override func copyWithZone(zone: NSZone) -> AnyObject {
+    override public func copyWithZone(zone: NSZone) -> AnyObject {
         return self.dynamicType.self(value: value, op: op)
     }
     

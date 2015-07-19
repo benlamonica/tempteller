@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Condition : String {
+public enum Condition : String {
     case Sunny = "sunny"
     case Cloudy = "cloudy"
     case Rainy = "rainy"
@@ -17,7 +17,7 @@ enum Condition : String {
     case Wind = "wind"
 }
 
-class ConditionSubRule : SubRule, ConvertableToDictionary {
+public class ConditionSubRule : SubRule, ConvertableToDictionary {
     var conditions : [Condition:Bool];
     
     override convenience init() {
@@ -28,12 +28,12 @@ class ConditionSubRule : SubRule, ConvertableToDictionary {
         self.init(conditions: copy.conditions)
     }
     
-    init(conditions: [Condition:Bool]) {
+    public init(conditions: [Condition:Bool]) {
         self.conditions = conditions
         super.init()
     }
     
-    override func copyWithZone(zone: NSZone) -> AnyObject {
+    override public func copyWithZone(zone: NSZone) -> AnyObject {
         return ConditionSubRule(copy: self)
     }
     

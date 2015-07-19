@@ -8,8 +8,8 @@
 
 import Foundation
 
-class HumiditySubRule : SingleValSubRule {
-    required init(value: Double, op: CompOp) {
+public class HumiditySubRule : SingleValSubRule {
+    public required init(value: Double, op: CompOp) {
         super.init(value: value, op: op)
     }
     convenience init() {

@@ -8,11 +8,11 @@
 
 import Foundation
 
-class Location : NSObject, NSCopying, ConvertableToDictionary {
-    var name : String
-    var locId: String
+public class Location : NSObject, NSCopying, ConvertableToDictionary {
+    public var name : String
+    public var locId: String
     
-    init(name : String, locId : String = "") {
+    public init(name : String, locId : String = "") {
         self.name = name
         self.locId = locId
         super.init()
@@ -22,7 +22,7 @@ class Location : NSObject, NSCopying, ConvertableToDictionary {
         self.init(name: copy.name, locId: copy.locId)
     }
     
-    func copyWithZone(zone: NSZone) -> AnyObject {
+    public func copyWithZone(zone: NSZone) -> AnyObject {
         return Location(copy: self)
     }
     

@@ -8,9 +8,9 @@
 
 import Foundation
 
-class MessageSubRule : SubRule, NSCopying {
-    var message : String;
-    init(msg : String) {
+public class MessageSubRule : SubRule, NSCopying {
+    public var message : String;
+    public init(msg : String) {
         message = msg
         super.init()
     }
@@ -19,7 +19,7 @@ class MessageSubRule : SubRule, NSCopying {
         self.init(msg: "")
     }
     
-    override func copyWithZone(zone: NSZone) -> AnyObject {
+    override public func copyWithZone(zone: NSZone) -> AnyObject {
         return MessageSubRule(msg: message)
     }
 }

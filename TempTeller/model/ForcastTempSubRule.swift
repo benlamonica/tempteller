@@ -8,10 +8,10 @@
 
 import Foundation
 
-class ForcastTempSubRule : TemperatureSubRule {
-    var forcastTime : Int
+public class ForcastTempSubRule : TemperatureSubRule {
+    public var forcastTime : Int
     
-    init(value: Double, op: CompOp, forcastTime: Int) {
+    public init(value: Double, op: CompOp, forcastTime: Int) {
         self.forcastTime = forcastTime
         super.init(value: value, op: op);
     }
@@ -20,7 +20,7 @@ class ForcastTempSubRule : TemperatureSubRule {
         self.init(value: 70, op: CompOp.LT, forcastTime: 12)
     }
     
-    convenience required init(value: Double, op: CompOp) {
+    convenience required public init(value: Double, op: CompOp) {
         self.init(value: value, op: op, forcastTime: 12)
     }
     
@@ -28,7 +28,7 @@ class ForcastTempSubRule : TemperatureSubRule {
         self.init(value: copy.value, op: copy.op, forcastTime: copy.forcastTime)
     }
     
-    override func copyWithZone(zone: NSZone) -> AnyObject {
+    override public func copyWithZone(zone: NSZone) -> AnyObject {
         return ForcastTempSubRule(copy: self)
     }
 }

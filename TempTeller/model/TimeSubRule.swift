@@ -8,14 +8,14 @@
 
 import Foundation
 
-enum TimeOp : String {
+public enum TimeOp : String {
     case AT = "at"
     case BETWEEN = "between"
 }
 
-class TimeSubRule : SubRule, NSCopying, ConvertableToDictionary {
-    var timeRange : (min:Int, max:Int)
-    var op : TimeOp
+public class TimeSubRule : SubRule, NSCopying, ConvertableToDictionary {
+    public var timeRange : (min:Int, max:Int)
+    public var op : TimeOp
     override convenience init() {
         self.init(timeRange: (0,0), oper:TimeOp.AT);
     }
@@ -24,18 +24,19 @@ class TimeSubRule : SubRule, NSCopying, ConvertableToDictionary {
         self.init(timeRange: copy.timeRange, oper: copy.op)
     }
     
-    init(timeRange: (min:Int, max:Int), oper: TimeOp) {
+    public init(timeRange: (min:Int, max:Int), oper: TimeOp) {
         self.timeRange = timeRange
         self.op = oper
         super.init()
     }
     
-    override func copyWithZone(zone: NSZone) -> AnyObject {
+    override public func copyWithZone(zone: NSZone) -> AnyObject {
         return TimeSubRule(copy: self)
     }
     
     override func toDict() -> Dictionary<String, AnyObject> {
         var model = super.toDict()
+        model["timeRange"] = ["min":timeRange.min, "max":timeRange.max]
         model["op"] = op.rawValue
         return model
     }

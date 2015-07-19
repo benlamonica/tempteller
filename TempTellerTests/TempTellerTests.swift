@@ -20,13 +20,29 @@ class TempTellerTests: XCTestCase {
         super.tearDown()
     }
     
-    let jsonResult = "{\"isEnabled\":false,\"subrules\":[{\"message\":\"\",\"type\":\"MessageSubRule\"},{\"location\":{\"locId\":\"\",\"name\":\"\"},\"type\":\"LocationSubRule\"},{\"isFarenheit\":true,\"value\":70,\"op\":\"<\",\"type\":\"TemperatureSubRule\"},{\"value\":0,\"op\":\"<=\",\"type\":\"HumiditySubRule\"},{\"conditions\":[\"sunny\"],\"type\":\"ConditionSubRule\"},{\"conditions\":[\"sunny\"],\"forcastTime\":12,\"type\":\"ForcastConditionSubRule\"},{\"isFarenheit\":true,\"value\":70,\"forcastTime\":12,\"op\":\"<\",\"type\":\"ForcastTempSubRule\"},{\"value\":0,\"op\":\"<=\",\"type\":\"WindSpeedSubRule\"}],\"version\":\"1.0\"}"
+    let jsonResult = "{\"uuid\":\"blah\",\"subrules\":[{\"message\":\"This is a message\",\"type\":\"MessageSubRule\"},{\"location\":{\"locId\":\"123456\",\"name\":\"Aurora, IL\"},\"type\":\"LocationSubRule\"},{\"isFarenheit\":true,\"value\":70,\"op\":\">\",\"type\":\"TemperatureSubRule\"},{\"isFarenheit\":true,\"value\":30,\"forcastTime\":3,\"op\":\"<\",\"type\":\"ForcastTempSubRule\"},{\"conditions\":[\"snow\"],\"type\":\"ConditionSubRule\"},{\"conditions\":[\"lightning\"],\"forcastTime\":5,\"type\":\"ForcastConditionSubRule\"},{\"value\":20,\"op\":\">=\",\"type\":\"WindSpeedSubRule\"},{\"value\":50,\"op\":\"<\",\"type\":\"HumiditySubRule\"},{\"timeRange\":{\"min\":830,\"max\":1400},\"op\":\"between\",\"type\":\"TimeSubRule\"}],\"version\":\"1.0\",\"isEnabled\":true}"
 
     func testJsonSerialization() {
-        let rule : Rule = Rule()
-        // todo, we need to enhance to have all rules
-        NSLog(rule.json(prettyPrint:true))
-        XCTAssertEqual(rule.json(), jsonResult, "not equal")
+        var rule : Rule = Rule()
+        rule.uuid = "blah"
+        // set the 2 default rules, every rule will have a msg and a locaiton subrule.
+        if var msg = rule.subrules[0] as? MessageSubRule {
+            msg.message = "This is a message"
+        }
+        if var loc = rule.subrules[1] as? LocationSubRule {
+            loc.location.locId = "123456"
+            loc.location.name = "Aurora, IL"
+        }
+        // now add the other subrules, to test serialization
+        rule.subrules.append(TemperatureSubRule(value: 70.0, op: CompOp.GT))
+        rule.subrules.append(ForcastTempSubRule(value: 30.0, op: CompOp.LT, forcastTime: 3))
+        rule.subrules.append(ConditionSubRule(conditions: [Condition.Snow:true]))
+        rule.subrules.append(ForcastConditionSubRule(conditions: [Condition.Lightning:true], forcastTime: 5))
+        rule.subrules.append(WindSpeedSubRule(value: 20, op: CompOp.GTE))
+        rule.subrules.append(HumiditySubRule(value: 50, op: CompOp.LT))
+        rule.subrules.append(TimeSubRule(timeRange: (830,1400), oper: TimeOp.BETWEEN))
+            
+        XCTAssertEqual(rule.json(), jsonResult, "not equal " + rule.json(prettyPrint: true))
     }
     
 //    func testPerformanceExample() {

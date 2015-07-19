@@ -8,10 +8,10 @@
 
 import Foundation
 
-class ForcastConditionSubRule : ConditionSubRule {
-    var forcastTime : Int
+public class ForcastConditionSubRule : ConditionSubRule {
+    public var forcastTime : Int
     
-    init(conditions: [Condition:Bool], forcastTime: Int) {
+    public init(conditions: [Condition:Bool], forcastTime: Int) {
         self.forcastTime = forcastTime
         super.init(conditions: conditions);
     }
@@ -25,7 +25,7 @@ class ForcastConditionSubRule : ConditionSubRule {
         self.init(conditions: copy2.conditions, forcastTime: copy2.forcastTime)
     }
     
-    override func copyWithZone(zone: NSZone) -> AnyObject {
+    override public func copyWithZone(zone: NSZone) -> AnyObject {
         return ForcastConditionSubRule(copy2: self)
     }
 }

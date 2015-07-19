@@ -9,10 +9,10 @@
 import Foundation
 
 public class Rule : NSObject, NSCopying {
-    var isEnabled : Bool;
-    var subrules : [SubRule]
-    var uuid : String
-    var message : String {
+    public var isEnabled : Bool;
+    public var subrules : [SubRule]
+    public var uuid : String
+    public var message : String {
         get {
             return (self.subrules[0] as! MessageSubRule).message
         }

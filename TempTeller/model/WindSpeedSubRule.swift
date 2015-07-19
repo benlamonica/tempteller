@@ -8,8 +8,8 @@
 
 import Foundation
 
-class WindSpeedSubRule : SingleValSubRule {
-    required init(value: Double, op: CompOp) {
+public class WindSpeedSubRule : SingleValSubRule {
+    required public init(value: Double, op: CompOp) {
         super.init(value: value, op: op)
     }
     convenience init(copy: WindSpeedSubRule) {
