@@ -10,7 +10,7 @@ import UIKit
 
 class RuleController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var data : [Rule] = [Rule(), Rule(), Rule(), Rule(), Rule(), Rule(), Rule(), Rule(), Rule(), Rule(), Rule()]
+    var data : [Rule] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,13 +80,19 @@ class RuleController: UITableViewController, UITableViewDataSource, UITableViewD
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let segueId = segue.identifier {
             switch segueId {
-                case "ShowDetail":
+                case "EditRule":
                     if let cell = sender as? RuleCell {
                         let controller = (segue.destinationViewController as! RuleDetailController)
                         controller.rule = cell.rule
                         controller.nav = navigationController
                     }
-                case "ShowConfig":
+                case "AddRule":
+                    let controller = (segue.destinationViewController as! RuleDetailController)
+                    controller.nav = navigationController
+                    let rule = Rule()
+                    controller.rule = rule
+                    data.append(rule)
+            case "ShowConfig":
                     let controller = segue.destinationViewController as! SettingsViewController
                     controller.nav = navigationController
                 default:
