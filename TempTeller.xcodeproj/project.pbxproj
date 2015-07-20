@@ -40,6 +40,7 @@
 		B5F1CF261B5D2C940047A376 /* SubRuleDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF201B5D2C940047A376 /* SubRuleDisplaying.swift */; };
 		B5F1CF271B5D2C940047A376 /* TemperatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF211B5D2C940047A376 /* TemperatureCell.swift */; };
 		B5F1CF291B5DAB710047A376 /* HumidityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF281B5DAB710047A376 /* HumidityCell.swift */; };
+		B5F1CF2B1B5DAC440047A376 /* WindSpeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF2A1B5DAC440047A376 /* WindSpeedCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		B5F1CF201B5D2C940047A376 /* SubRuleDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubRuleDisplaying.swift; sourceTree = "<group>"; };
 		B5F1CF211B5D2C940047A376 /* TemperatureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemperatureCell.swift; sourceTree = "<group>"; };
 		B5F1CF281B5DAB710047A376 /* HumidityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HumidityCell.swift; sourceTree = "<group>"; };
+		B5F1CF2A1B5DAC440047A376 /* WindSpeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindSpeedCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +235,7 @@
 				B5F1CF201B5D2C940047A376 /* SubRuleDisplaying.swift */,
 				B5F1CF211B5D2C940047A376 /* TemperatureCell.swift */,
 				B5F1CF281B5DAB710047A376 /* HumidityCell.swift */,
+				B5F1CF2A1B5DAC440047A376 /* WindSpeedCell.swift */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				B5F1CF0E1B5982BC0047A376 /* ForcastConditionSubRule.swift in Sources */,
 				B5F1CF061B59811C0047A376 /* TimeSubRule.swift in Sources */,
 				B5F1CF271B5D2C940047A376 /* TemperatureCell.swift in Sources */,
+				B5F1CF2B1B5DAC440047A376 /* WindSpeedCell.swift in Sources */,
 				B5F1CF221B5D2C940047A376 /* AddSubRuleCell.swift in Sources */,
 				B5F1CF291B5DAB710047A376 /* HumidityCell.swift in Sources */,
 				B5F1CF001B5980C40047A376 /* TemperatureSubRule.swift in Sources */,

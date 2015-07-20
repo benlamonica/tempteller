@@ -20,7 +20,7 @@ class TempTellerTests: XCTestCase {
         super.tearDown()
     }
     
-    let jsonResult = "{\"uuid\":\"blah\",\"subrules\":[{\"message\":\"This is a message\",\"type\":\"MessageSubRule\"},{\"location\":{\"locId\":\"123456\",\"name\":\"Aurora, IL\"},\"type\":\"LocationSubRule\"},{\"isFarenheit\":true,\"value\":70,\"op\":\">\",\"type\":\"TemperatureSubRule\"},{\"isFarenheit\":true,\"value\":30,\"forcastTime\":3,\"op\":\"<\",\"type\":\"ForcastTempSubRule\"},{\"conditions\":[\"snow\"],\"type\":\"ConditionSubRule\"},{\"conditions\":[\"lightning\"],\"forcastTime\":5,\"type\":\"ForcastConditionSubRule\"},{\"value\":20,\"op\":\">=\",\"type\":\"WindSpeedSubRule\"},{\"value\":50,\"op\":\"<\",\"type\":\"HumiditySubRule\"},{\"timeRange\":{\"min\":830,\"max\":1400},\"op\":\"between\",\"type\":\"TimeSubRule\"}],\"version\":\"1.0\",\"isEnabled\":true}"
+    let jsonResult = "{\"uuid\":\"blah\",\"subrules\":[{\"message\":\"This is a message\",\"type\":\"MessageSubRule\"},{\"location\":{\"locId\":\"123456\",\"name\":\"Aurora, IL\"},\"type\":\"LocationSubRule\"},{\"isFarenheit\":true,\"value\":70,\"op\":\">\",\"type\":\"TemperatureSubRule\"},{\"isFarenheit\":true,\"value\":30,\"forcastTime\":3,\"op\":\"<\",\"type\":\"ForcastTempSubRule\"},{\"conditions\":[\"snow\"],\"type\":\"ConditionSubRule\"},{\"conditions\":[\"lightning\"],\"forcastTime\":5,\"type\":\"ForcastConditionSubRule\"},{\"value\":20,\"units\":\"MPH\",\"op\":\">=\",\"type\":\"WindSpeedSubRule\"},{\"value\":50,\"op\":\"<\",\"type\":\"HumiditySubRule\"},{\"timeRange\":{\"min\":830,\"max\":1400},\"op\":\"between\",\"type\":\"TimeSubRule\"}],\"version\":\"1.0\",\"isEnabled\":true}"
 
     func testJsonSerialization() {
         var rule : Rule = Rule()
@@ -38,7 +38,7 @@ class TempTellerTests: XCTestCase {
         rule.subrules.append(ForcastTempSubRule(value: 30.0, op: CompOp.LT, isFarenheit: true, forcastTime: 3))
         rule.subrules.append(ConditionSubRule(conditions: [Condition.Snow:true]))
         rule.subrules.append(ForcastConditionSubRule(conditions: [Condition.Lightning:true], forcastTime: 5))
-        rule.subrules.append(WindSpeedSubRule(value: 20, op: CompOp.GTE))
+        rule.subrules.append(WindSpeedSubRule(value: 20, op: CompOp.GTE, units: SpeedUnits.MPH))
         rule.subrules.append(HumiditySubRule(value: 50, op: CompOp.LT))
         rule.subrules.append(TimeSubRule(timeRange: (830,1400), op: TimeOp.BETWEEN))
             
