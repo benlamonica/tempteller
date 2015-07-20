@@ -57,7 +57,7 @@
                                             <rect key="frame" x="318" y="29" width="51" height="31"/>
                                             <color key="onTintColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <action selector="update" destination="xYU-UE-6jg" eventType="valueChanged" id="Yy6-dG-0W4"/>
+                                                <action selector="toggleRuleEnable:" destination="l7g-Vi-UFd" eventType="valueChanged" id="JBQ-xC-L8v"/>
                                             </connections>
                                         </switch>
                                     </subviews>

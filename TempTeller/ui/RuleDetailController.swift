@@ -44,7 +44,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: "dismissPicker")
         pickerToolbar.setItems([doneButton], animated: false)
     }
-
+    
     @IBAction func save(sender: AnyObject?) {
         if let ruleToSave = editRule {
             rule.subrules = ruleToSave.subrules

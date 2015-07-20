@@ -42,6 +42,7 @@ class RuleController: UITableViewController, UITableViewDataSource, UITableViewD
         var err = NSErrorPointer()
         if let json = NSJSONSerialization.dataWithJSONObject(model, options: nil, error: err) {
             let jsonString = NSString(data: json, encoding: NSUTF8StringEncoding) as! String
+            NSLog(jsonString)
             settings.setValue(jsonString, forKey: "rules")
         } else {
             NSLog("Failed to serialize to JSON: \(err)")
@@ -71,7 +72,14 @@ class RuleController: UITableViewController, UITableViewDataSource, UITableViewD
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    @IBAction func toggleRuleEnable(sender: UISwitch) {
+        if let path = tableView.indexPathForCell((sender.superview?.superview as? UITableViewCell)!) {
+            data[path.item].isEnabled = sender.on
+            saveRules()
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         // make sure any added rules were saved instead of cancelled.
         data = data.filter({$0.saved == true})
         tableView.reloadData()
@@ -103,6 +111,7 @@ class RuleController: UITableViewController, UITableViewDataSource, UITableViewD
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
             data.removeAtIndex(indexPath.item)
             tableView.endUpdates()
+            saveRules()
         }
     }
     
