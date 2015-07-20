@@ -9,13 +9,12 @@
 import Foundation
 
 public class WindSpeedSubRule : SingleValSubRule {
-    required public init(value: Double, op: CompOp) {
-        super.init(value: value, op: op)
-    }
+
     convenience init(copy: WindSpeedSubRule) {
         self.init(value: copy.value, op: copy.op)
     }
-    convenience init() {
-        self.init(value: 0, op: CompOp.LTE)
+    
+    override public func copyWithZone(zone: NSZone) -> AnyObject {
+        return WindSpeedSubRule(copy: self)
     }
 }

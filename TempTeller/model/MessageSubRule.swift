@@ -19,6 +19,10 @@ public class MessageSubRule : SubRule, NSCopying {
         self.init(msg: "")
     }
     
+    convenience init(json: JSON) {
+        self.init(msg: json["message"].stringValue)
+    }
+    
     override public func copyWithZone(zone: NSZone) -> AnyObject {
         return MessageSubRule(msg: message)
     }

@@ -15,6 +15,10 @@ public class LocationSubRule : SubRule, NSCopying {
         self.init(loc: Location(name: ""))
     }
     
+    convenience init(json: JSON) {
+        self.init(loc: Location(json: json["location"]))
+    }
+    
     public init(loc: Location) {
         self.location = loc
         super.init()

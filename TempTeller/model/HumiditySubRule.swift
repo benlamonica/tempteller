@@ -9,13 +9,19 @@
 import Foundation
 
 public class HumiditySubRule : SingleValSubRule {
-    public required init(value: Double, op: CompOp) {
+    init(copy: HumiditySubRule) {
+        super.init(value: copy.value, op: copy.op)
+    }
+    
+    override public init(value: Double, op: CompOp) {
         super.init(value: value, op: op)
     }
-    convenience init() {
-        self.init(value: 0, op: CompOp.LTE)
+
+    override init(json: JSON) {
+        super.init(json: json)
     }
-    convenience init(copy: HumiditySubRule) {
-        self.init(value: copy.value, op: copy.op)
+    
+    override public func copyWithZone(zone: NSZone) -> AnyObject {
+        return HumiditySubRule(copy: self)
     }
 }

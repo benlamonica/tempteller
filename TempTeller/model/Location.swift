@@ -18,6 +18,10 @@ public class Location : NSObject, NSCopying, ConvertableToDictionary {
         super.init()
     }
     
+    convenience init(json: JSON) {
+        self.init(name: json["name"].stringValue, locId: json["locId"].stringValue)
+    }
+    
     convenience init(copy: Location) {
         self.init(name: copy.name, locId: copy.locId)
     }

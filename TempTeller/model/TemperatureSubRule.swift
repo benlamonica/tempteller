@@ -11,12 +11,13 @@ import Foundation
 public class TemperatureSubRule : SingleValSubRule {
     public var isFarenheit : Bool;
     
-    convenience init() {
-        self.init(value: 70, op: CompOp.LT)
+    override init(json: JSON) {
+        isFarenheit = json["isFarenheit"].boolValue
+        super.init(json: json)
     }
-    
-    public required init(value: Double, op: CompOp) {
-        isFarenheit = true
+
+    public init(value: Double, op: CompOp, isFarenheit: Bool) {
+        self.isFarenheit = isFarenheit
         super.init(value: value, op: op)
     }
 }

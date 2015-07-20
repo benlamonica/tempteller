@@ -16,6 +16,10 @@ public class ForcastConditionSubRule : ConditionSubRule {
         super.init(conditions: conditions);
     }
     
+    convenience init(json: JSON) {
+        self.init(conditions: ConditionSubRule.getConditionsFromJson(json), forcastTime: json["forcastTime"].intValue)
+    }
+    
     convenience init() {
         self.init(conditions: [Condition.Sunny:true], forcastTime: 12)
     }

@@ -11,21 +11,18 @@ import Foundation
 public class ForcastTempSubRule : TemperatureSubRule {
     public var forcastTime : Int
     
-    public init(value: Double, op: CompOp, forcastTime: Int) {
+    override init(json: JSON) {
+        forcastTime = json["forcastTime"].intValue
+        super.init(json: json)
+    }
+    
+    public init(value: Double, op: CompOp, isFarenheit: Bool, forcastTime: Int) {
         self.forcastTime = forcastTime
-        super.init(value: value, op: op);
-    }
-    
-    convenience init() {
-        self.init(value: 70, op: CompOp.LT, forcastTime: 12)
-    }
-    
-    convenience required public init(value: Double, op: CompOp) {
-        self.init(value: value, op: op, forcastTime: 12)
+        super.init(value: value, op: op, isFarenheit: isFarenheit);
     }
     
     convenience init(copy: ForcastTempSubRule) {
-        self.init(value: copy.value, op: copy.op, forcastTime: copy.forcastTime)
+        self.init(value: copy.value, op: copy.op, isFarenheit: copy.isFarenheit, forcastTime: copy.forcastTime)
     }
     
     override public func copyWithZone(zone: NSZone) -> AnyObject {

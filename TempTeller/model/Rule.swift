@@ -17,6 +17,39 @@ public class Rule : NSObject, NSCopying {
             return (self.subrules[0] as! MessageSubRule).message
         }
     }
+    
+    public init(json: String) {
+        let parsed = JSON(data: json.dataUsingEncoding(NSUTF8StringEncoding)!)
+        self.isEnabled = parsed["isEnabled"].boolValue
+        self.uuid = parsed["uuid"].stringValue
+        self.subrules = []
+        for parsedSubRule in parsed["subrules"].arrayValue {
+            let type = parsedSubRule["type"].stringValue
+            switch type {
+                case "ConditionSubRule":
+                    subrules.append(ConditionSubRule(json: parsedSubRule))
+                case "ForcastConditionSubRule":
+                    subrules.append(ForcastConditionSubRule(json: parsedSubRule))
+                case "TemperatureSubRule":
+                    subrules.append(TemperatureSubRule(json: parsedSubRule))
+                case "ForcastTempSubRule":
+                    subrules.append(ForcastTempSubRule(json: parsedSubRule))
+                case "LocationSubRule":
+                    subrules.append(LocationSubRule(json: parsedSubRule))
+                case "MessageSubRule":
+                    subrules.append(MessageSubRule(json: parsedSubRule))
+                case "TimeSubRule":
+                    subrules.append(TimeSubRule(json: parsedSubRule))
+                case "WindSpeedSubRule":
+                    subrules.append(WindSpeedSubRule(json: parsedSubRule))
+                case "HumiditySubRule":
+                    subrules.append(HumiditySubRule(json: parsedSubRule))
+                default:
+                    NSLog("Received unknown type \(type). Will skip.")
+            }
+        }
+    }
+    
     public override init() {
         isEnabled = true;
         uuid = NSUUID().UUIDString

@@ -43,7 +43,8 @@ func createModelFrom(mirror: MirrorType, #superclassName: String, inout #model: 
 public class SubRule : NSObject, NSCopying, ConvertableToDictionary {
     public func copyWithZone(zone: NSZone) -> AnyObject {
         NSLog("CRITICAL: Calling copyWithZone from SubRule, this should have been overridden")
-        return SubRule() // this should always be overridden, since SubRule is "abstract"
+        NSException(name:"UnimplementedException", reason:"Should never get here, subclass should have implemented", userInfo: nil).raise()
+        return SubRule()
     }
     
     func toDict() -> Dictionary<String, AnyObject> {
@@ -59,15 +60,22 @@ public class SingleValSubRule : SubRule, NSCopying, ConvertableToDictionary {
     public var value : Double
     public var op : CompOp
     
-    // in order to implement copyWithZone, this initializer must be "required", and all subclasses must implement
-    public required init(value: Double, op: CompOp) {
+    public init(value: Double, op: CompOp) {
         self.value = value
         self.op = op
         super.init()
     }
     
+    init(json: JSON) {
+        self.value = json["value"].doubleValue
+        self.op = CompOp(rawValue: json["op"].stringValue)!
+        super.init()
+    }
+    
     override public func copyWithZone(zone: NSZone) -> AnyObject {
-        return self.dynamicType.self(value: value, op: op)
+        NSLog("CRITICAL: Calling copyWithZone from SingleValueSubRule, this should have been overridden")
+        NSException(name:"UnimplementedException", reason:"Should never get here, subclass should have implemented", userInfo: nil).raise()
+        return SingleValSubRule(value: self.value, op: self.op)
     }
     
     override func toDict() -> Dictionary<String, AnyObject> {
@@ -75,5 +83,4 @@ public class SingleValSubRule : SubRule, NSCopying, ConvertableToDictionary {
         model["op"] = op.rawValue
         return model
     }
-    
 }

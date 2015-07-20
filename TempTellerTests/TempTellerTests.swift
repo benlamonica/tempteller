@@ -34,14 +34,21 @@ class TempTellerTests: XCTestCase {
             loc.location.name = "Aurora, IL"
         }
         // now add the other subrules, to test serialization
-        rule.subrules.append(TemperatureSubRule(value: 70.0, op: CompOp.GT))
-        rule.subrules.append(ForcastTempSubRule(value: 30.0, op: CompOp.LT, forcastTime: 3))
+        rule.subrules.append(TemperatureSubRule(value: 70.0, op: CompOp.GT, isFarenheit: true))
+        rule.subrules.append(ForcastTempSubRule(value: 30.0, op: CompOp.LT, isFarenheit: true, forcastTime: 3))
         rule.subrules.append(ConditionSubRule(conditions: [Condition.Snow:true]))
         rule.subrules.append(ForcastConditionSubRule(conditions: [Condition.Lightning:true], forcastTime: 5))
         rule.subrules.append(WindSpeedSubRule(value: 20, op: CompOp.GTE))
         rule.subrules.append(HumiditySubRule(value: 50, op: CompOp.LT))
-        rule.subrules.append(TimeSubRule(timeRange: (830,1400), oper: TimeOp.BETWEEN))
+        rule.subrules.append(TimeSubRule(timeRange: (830,1400), op: TimeOp.BETWEEN))
             
+        XCTAssertEqual(rule.json(), jsonResult, "not equal " + rule.json(prettyPrint: true))
+    }
+    
+    func testJsonDeserialization() {
+        // first de-serialize
+        let rule = Rule(json:jsonResult)
+        // then serialze again and compare..they should match
         XCTAssertEqual(rule.json(), jsonResult, "not equal " + rule.json(prettyPrint: true))
     }
     

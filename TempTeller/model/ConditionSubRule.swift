@@ -32,6 +32,18 @@ public class ConditionSubRule : SubRule, ConvertableToDictionary {
         self.conditions = conditions
         super.init()
     }
+
+    class func getConditionsFromJson(json: JSON) -> [Condition:Bool] {
+        var conditions : [Condition:Bool] = [:]
+        for condition in json["conditions"].arrayValue {
+            conditions[Condition(rawValue: condition.stringValue)!] = true
+        }
+        return conditions
+    }
+    
+    convenience init(json: JSON) {
+        self.init(conditions: ConditionSubRule.getConditionsFromJson(json))
+    }
     
     override public func copyWithZone(zone: NSZone) -> AnyObject {
         return ConditionSubRule(copy: self)
