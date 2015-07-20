@@ -48,6 +48,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     @IBAction func save(sender: AnyObject?) {
         if let ruleToSave = editRule {
             rule.subrules = ruleToSave.subrules
+            rule.saved = true
         }
         nav.popViewControllerAnimated(true)
     }

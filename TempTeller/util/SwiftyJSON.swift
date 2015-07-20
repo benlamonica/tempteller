@@ -54,6 +54,10 @@ public enum Type :Int{
 // MARK: - JSON Base
 
 public struct JSON {
+        
+    public init(data:String) {
+        self.init(data:data.dataUsingEncoding(NSUTF8StringEncoding)!)
+    }
     
     /**
     Creates a JSON using the data.

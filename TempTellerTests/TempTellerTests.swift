@@ -47,7 +47,7 @@ class TempTellerTests: XCTestCase {
     
     func testJsonDeserialization() {
         // first de-serialize
-        let rule = Rule(json:jsonResult)
+        let rule = Rule(json:JSON(data: jsonResult))
         // then serialze again and compare..they should match
         XCTAssertEqual(rule.json(), jsonResult, "not equal " + rule.json(prettyPrint: true))
     }

@@ -11,9 +11,9 @@ import UIKit
 class RuleController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
 
     var data : [Rule] = []
+    let settings = NSUserDefaults.standardUserDefaults()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    func stylizeTableViewHeader() {
         var nav = self.navigationController?.navigationBar
         nav?.barStyle = UIBarStyle.Black
         nav?.tintColor = UIColor.whiteColor()
@@ -26,7 +26,33 @@ class RuleController: UITableViewController, UITableViewDataSource, UITableViewD
         text.addAttribute(NSForegroundColorAttributeName, value: UIColor(red: 0x9F/255.0, green: 0xD9/255.0, blue: 0xE7/255.0, alpha: 1.0), range: NSRange(location: 4,length: 6))
         label.attributedText = text
         navigationItem.titleView = label
+    }
+    
+    func loadRules() {
+        if let rulesJson = settings.valueForKey("rules") as? String {
+            let json = JSON(data: rulesJson)
+            for rule in json.arrayValue {
+                data.append(Rule(json: rule))
+            }
+        }
+    }
+    
+    func saveRules() {
+        let model = data.map({$0.toDict()})
+        var err = NSErrorPointer()
+        if let json = NSJSONSerialization.dataWithJSONObject(model, options: nil, error: err) {
+            let jsonString = NSString(data: json, encoding: NSUTF8StringEncoding) as! String
+            settings.setValue(jsonString, forKey: "rules")
+        } else {
+            NSLog("Failed to serialize to JSON: \(err)")
+        }
         
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        stylizeTableViewHeader()
+        loadRules()
         registerForNotications()
     }
 
@@ -46,7 +72,10 @@ class RuleController: UITableViewController, UITableViewDataSource, UITableViewD
     }
     
     override func viewWillAppear(animated: Bool) {
+        // make sure any added rules were saved instead of cancelled.
+        data = data.filter({$0.saved == true})
         tableView.reloadData()
+        saveRules()
     }
     
     override func didReceiveMemoryWarning() {
@@ -90,6 +119,7 @@ class RuleController: UITableViewController, UITableViewDataSource, UITableViewD
                     let controller = (segue.destinationViewController as! RuleDetailController)
                     controller.nav = navigationController
                     let rule = Rule()
+                    rule.saved = false
                     controller.rule = rule
                     data.append(rule)
             case "ShowConfig":

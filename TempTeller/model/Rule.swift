@@ -8,42 +8,42 @@
 
 import Foundation
 
-public class Rule : NSObject, NSCopying {
+public class Rule : NSObject, NSCopying, ConvertableToDictionary {
     public var isEnabled : Bool;
     public var subrules : [SubRule]
     public var uuid : String
+    var saved = true // will be marked as true if the user hit the "Save" button after editing
     public var message : String {
         get {
             return (self.subrules[0] as! MessageSubRule).message
         }
     }
     
-    public init(json: String) {
-        let parsed = JSON(data: json.dataUsingEncoding(NSUTF8StringEncoding)!)
-        self.isEnabled = parsed["isEnabled"].boolValue
-        self.uuid = parsed["uuid"].stringValue
+    public init(json: JSON) {
+        self.isEnabled = json["isEnabled"].boolValue
+        self.uuid = json["uuid"].stringValue
         self.subrules = []
-        for parsedSubRule in parsed["subrules"].arrayValue {
-            let type = parsedSubRule["type"].stringValue
+        for jsonSubRule in json["subrules"].arrayValue {
+            let type = jsonSubRule["type"].stringValue
             switch type {
                 case "ConditionSubRule":
-                    subrules.append(ConditionSubRule(json: parsedSubRule))
+                    subrules.append(ConditionSubRule(json: jsonSubRule))
                 case "ForcastConditionSubRule":
-                    subrules.append(ForcastConditionSubRule(json: parsedSubRule))
+                    subrules.append(ForcastConditionSubRule(json: jsonSubRule))
                 case "TemperatureSubRule":
-                    subrules.append(TemperatureSubRule(json: parsedSubRule))
+                    subrules.append(TemperatureSubRule(json: jsonSubRule))
                 case "ForcastTempSubRule":
-                    subrules.append(ForcastTempSubRule(json: parsedSubRule))
+                    subrules.append(ForcastTempSubRule(json: jsonSubRule))
                 case "LocationSubRule":
-                    subrules.append(LocationSubRule(json: parsedSubRule))
+                    subrules.append(LocationSubRule(json: jsonSubRule))
                 case "MessageSubRule":
-                    subrules.append(MessageSubRule(json: parsedSubRule))
+                    subrules.append(MessageSubRule(json: jsonSubRule))
                 case "TimeSubRule":
-                    subrules.append(TimeSubRule(json: parsedSubRule))
+                    subrules.append(TimeSubRule(json: jsonSubRule))
                 case "WindSpeedSubRule":
-                    subrules.append(WindSpeedSubRule(json: parsedSubRule))
+                    subrules.append(WindSpeedSubRule(json: jsonSubRule))
                 case "HumiditySubRule":
-                    subrules.append(HumiditySubRule(json: parsedSubRule))
+                    subrules.append(HumiditySubRule(json: jsonSubRule))
                 default:
                     NSLog("Received unknown type \(type). Will skip.")
             }
@@ -70,14 +70,19 @@ public class Rule : NSObject, NSCopying {
         return Rule(copy: self)
     }
     
-    public func json(prettyPrint:Bool = false) -> String {
-        
+    func toDict() -> [String : AnyObject] {
         let model : [String:AnyObject] = [
             "version":"1.0",
             "uuid": uuid,
             "isEnabled":isEnabled,
             "subrules":subrules.map({$0.toDict()})
         ]
+        
+        return model
+    }
+    
+    public func json(prettyPrint:Bool = false) -> String {
+        let model = toDict()
         
         if let json = NSJSONSerialization.dataWithJSONObject(model, options: prettyPrint ? NSJSONWritingOptions.PrettyPrinted : nil, error: nil) {
             if let jsonString =  NSString(data: json, encoding: NSUTF8StringEncoding) as? String {
