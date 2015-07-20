@@ -457,7 +457,7 @@
                                             <outlet property="unitButton" destination="Fko-r6-Yn7" id="0fM-bv-cRn"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" showsReorderControl="YES" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="HumiditySubRule" id="O7c-jE-HhM">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" showsReorderControl="YES" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="HumiditySubRule" id="O7c-jE-HhM" customClass="HumidityCell" customModule="TempTeller" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="O7c-jE-HhM" id="pKc-Z8-psJ">
@@ -495,6 +495,10 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="humidity" destination="kQ6-hl-LfR" id="aVx-ew-18A"/>
+                                            <outlet property="opButton" destination="SLT-Hr-V2K" id="TK4-oK-IPL"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" showsReorderControl="YES" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="ConditionSubRule" id="xKu-9N-mIa">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
