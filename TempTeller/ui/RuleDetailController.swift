@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
+class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldDelegate, UITableViewDataSource {
     @IBOutlet var tableView : UITableView!
     var nav : UINavigationController!
     var rule : Rule! {
@@ -24,26 +24,53 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     var activeTextField : UITextField?
     var pickerToolbar : UIToolbar!
     
-    // for some reason, swift 1.2 doesn't let me reference ruleTypes when I'm defining ruleKeys unless it's static... perhaps later versions of swift won't have this restriction? Not sure why this is happening, but don't really care to spend a lot of time on it!
-    static let ruleTypes : [String:SubRule] = ["Time":TimeSubRule(),
-        "Location":LocationSubRule(),
-        "Temperature":TemperatureSubRule(),
-        "Humidity":HumiditySubRule(),
-        "Condition":ConditionSubRule(),
-        "Forecast Condition":ForcastConditionSubRule(),
-        "Forecast Temperature":ForcastTempSubRule()]
 
-    static let ruleKeys : [String] = RuleDetailController.ruleTypes.keys.array.sorted(<)
+
     
-    
-    
-    override func viewDidLoad() {
+    @objc class RulePickerDataSource : NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
+    // for some reason, swift 1.2 doesn't let me reference ruleTypes when I'm defining ruleKeys unless it's static... perhaps later versions of swift won't have this restriction? Not sure why this is happening, but don't really care to spend a lot of time on it!
+        let ruleTypes : [String:SubRule] = ["Time":TimeSubRule(),
+            "Location":LocationSubRule(),
+            "Temperature":TemperatureSubRule(),
+            "Humidity":HumiditySubRule(),
+            "Condition":ConditionSubRule(),
+            "Forecast Condition":ForcastConditionSubRule(),
+            "Forecast Temperature":ForcastTempSubRule()]
+        
+        let ruleKeys : [String]
+        
+        override init() {
+            ruleKeys = ruleTypes.keys.array.sorted(<)
+        }
+
+        func getSubRule(subruleIdx: Int) -> SubRule {
+            let subrule = ruleTypes[ruleKeys[subruleIdx]]!
+            return subrule.copy() as! SubRule
+        }
+        
+        func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+            return ruleKeys[row]
+        }
+        
+        // returns the number of 'columns' to display.
+        func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+            return 1
+        }
+        
+        // returns the # of rows in each component..
+        func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+            return count(ruleKeys)
+        }
+    }
+    let rulePickerDataSource = RulePickerDataSource()
+
+    func setupPicker() {
         // create a UIPicker view as a custom keyboard view
         picker = UIPickerView()
         picker.sizeToFit()
         picker.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
-        picker.delegate = self
-        picker.dataSource = self
+        picker.delegate = rulePickerDataSource
+        picker.dataSource = rulePickerDataSource
         picker.showsSelectionIndicator = true
         
         // add a done button
@@ -58,7 +85,11 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "dismissPicker")
         doneButton.tintColor = UIColor.whiteColor()
         cancelButton.tintColor = UIColor.whiteColor()
-        pickerToolbar.setItems([doneButton, spacer, cancelButton], animated: false)
+        pickerToolbar.setItems([cancelButton, spacer, doneButton], animated: false)
+    }
+    
+    override func viewDidLoad() {
+        setupPicker()
     }
     
     @IBAction func save(sender: AnyObject?) {
@@ -133,7 +164,8 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
 
     func pickSubRule() {
         let ruleChosen = picker.selectedRowInComponent(0)
-        editRule.subrules.append(RuleDetailController.ruleTypes[RuleDetailController.ruleKeys[ruleChosen]]!.copy() as! SubRule)
+        let ds = rulePickerDataSource
+        editRule.subrules.append(rulePickerDataSource.getSubRule(ruleChosen))
 
         // todo, animate the add
         tableView.beginUpdates()
@@ -150,9 +182,6 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         }
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-        return RuleDetailController.ruleKeys[row]
-    }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return count(editRule.subrules) + 1
@@ -277,15 +306,4 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         let newVal = (textField.text as NSString).stringByReplacingCharactersInRange(range, withString: string)
         return newVal.match("^-?\\d*\\.?\\d*$")
     }
-    
-    // returns the number of 'columns' to display.
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    // returns the # of rows in each component..
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return count(RuleDetailController.ruleKeys)
-    }
-
 }
