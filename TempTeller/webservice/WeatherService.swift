@@ -27,6 +27,7 @@ class WeatherService : NSObject, CLLocationManagerDelegate {
 
         let nsurl : NSURL! = NSURL(string: url!)
 
+//        NSURLSession.sharedSession().
         NSURLConnection.sendAsynchronousRequest(NSURLRequest(URL: nsurl), queue: queue) { (response : NSURLResponse!, data : NSData!, error: NSError!) -> Void in
             if error != nil {
                 if let handler = completionHandler {

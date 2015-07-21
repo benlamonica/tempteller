@@ -25,10 +25,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     var pickerToolbar : UIToolbar!
     
 
-
-    
-    @objc class RulePickerDataSource : NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
-    // for some reason, swift 1.2 doesn't let me reference ruleTypes when I'm defining ruleKeys unless it's static... perhaps later versions of swift won't have this restriction? Not sure why this is happening, but don't really care to spend a lot of time on it!
+    class RulePickerDataSource : NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
         let ruleTypes : [String:SubRule] = ["Time":TimeSubRule(),
             "Location":LocationSubRule(),
             "Temperature":TemperatureSubRule(),
