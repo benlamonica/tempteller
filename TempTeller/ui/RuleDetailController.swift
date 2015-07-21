@@ -23,7 +23,19 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     var picker : UIPickerView!
     var activeTextField : UITextField?
     var pickerToolbar : UIToolbar!
-    let ruleTypes : [String] = ["Time", "Location", "Temperature", "Humidity", "Condition", "Forecast Condition", "Forecast Temperature"].sorted(<)
+    
+    // for some reason, swift 1.2 doesn't let me reference ruleTypes when I'm defining ruleKeys unless it's static... perhaps later versions of swift won't have this restriction? Not sure why this is happening, but don't really care to spend a lot of time on it!
+    static let ruleTypes : [String:SubRule] = ["Time":TimeSubRule(),
+        "Location":LocationSubRule(),
+        "Temperature":TemperatureSubRule(),
+        "Humidity":HumiditySubRule(),
+        "Condition":ConditionSubRule(),
+        "Forecast Condition":ForcastConditionSubRule(),
+        "Forecast Temperature":ForcastTempSubRule()]
+
+    static let ruleKeys : [String] = RuleDetailController.ruleTypes.keys.array.sorted(<)
+    
+    
     
     override func viewDidLoad() {
         // create a UIPicker view as a custom keyboard view
@@ -121,7 +133,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
 
     func pickSubRule() {
         let ruleChosen = picker.selectedRowInComponent(0)
-        editRule.subrules.append(TemperatureSubRule(value: 100, op: CompOp.LT, isFarenheit: true))
+        editRule.subrules.append(RuleDetailController.ruleTypes[RuleDetailController.ruleKeys[ruleChosen]]!.copy() as! SubRule)
 
         // todo, animate the add
         tableView.beginUpdates()
@@ -139,7 +151,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-        return ruleTypes[row]
+        return RuleDetailController.ruleKeys[row]
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -273,7 +285,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     
     // returns the # of rows in each component..
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return count(ruleTypes)
+        return count(RuleDetailController.ruleKeys)
     }
 
 }

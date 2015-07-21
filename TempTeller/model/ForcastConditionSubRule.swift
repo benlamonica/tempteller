@@ -21,7 +21,7 @@ public class ForcastConditionSubRule : ConditionSubRule {
     }
     
     convenience init() {
-        self.init(conditions: [Condition.Sunny:true], forcastTime: 12)
+        self.init(conditions: [:], forcastTime: 12)
     }
     
     // have to name this something different than the super init(copy:) because swift won't let me override and change types

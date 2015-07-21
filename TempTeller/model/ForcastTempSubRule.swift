@@ -11,6 +11,10 @@ import Foundation
 public class ForcastTempSubRule : TemperatureSubRule {
     public var forcastTime : Int
     
+    convenience init() {
+        self.init(value: 70, op: CompOp.EQ, isFarenheit: true, forcastTime:12)
+    }
+    
     override init(json: JSON) {
         forcastTime = json["forcastTime"].intValue
         super.init(json: json)

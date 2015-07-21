@@ -13,6 +13,9 @@ public class HumiditySubRule : SingleValSubRule {
         super.init(value: copy.value, op: copy.op)
     }
     
+    convenience init() {
+        self.init(value: 0, op: CompOp.EQ)
+    }
     override public init(value: Double, op: CompOp) {
         super.init(value: value, op: op)
     }

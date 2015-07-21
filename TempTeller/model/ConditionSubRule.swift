@@ -21,7 +21,7 @@ public class ConditionSubRule : SubRule, ConvertableToDictionary {
     var conditions : [Condition:Bool];
     
     override convenience init() {
-        self.init(conditions: [Condition.Sunny:true])
+        self.init(conditions: [:])
     }
     
     convenience init(copy: ConditionSubRule) {
