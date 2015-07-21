@@ -21,11 +21,11 @@ public class ForcastTempSubRule : TemperatureSubRule {
         super.init(value: value, op: op, isFarenheit: isFarenheit);
     }
     
-    convenience init(copy: ForcastTempSubRule) {
+    convenience init(copyForcastTemp copy: ForcastTempSubRule) {
         self.init(value: copy.value, op: copy.op, isFarenheit: copy.isFarenheit, forcastTime: copy.forcastTime)
     }
     
     override public func copyWithZone(zone: NSZone) -> AnyObject {
-        return ForcastTempSubRule(copy: self)
+        return ForcastTempSubRule(copyForcastTemp: self)
     }
 }

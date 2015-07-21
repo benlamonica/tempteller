@@ -41,8 +41,12 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         pickerToolbar.tintColor = nil
         pickerToolbar.sizeToFit()
         
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: "dismissPicker")
-        pickerToolbar.setItems([doneButton], animated: false)
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: "pickSubRule")
+        let spacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "dismissPicker")
+        doneButton.tintColor = UIColor.whiteColor()
+        cancelButton.tintColor = UIColor.whiteColor()
+        pickerToolbar.setItems([doneButton, spacer, cancelButton], animated: false)
     }
     
     @IBAction func save(sender: AnyObject?) {
@@ -113,6 +117,18 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         textfield.inputAccessoryView = pickerToolbar
         textfield.becomeFirstResponder()
         activeTextField = textfield
+    }
+
+    func pickSubRule() {
+        let ruleChosen = picker.selectedRowInComponent(0)
+        editRule.subrules.append(TemperatureSubRule(value: 100, op: CompOp.LT, isFarenheit: true))
+
+        // todo, animate the add
+        tableView.beginUpdates()
+        tableView.insertRowsAtIndexPaths([NSIndexPath(forItem: count(editRule.subrules)-1, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
+        tableView.endUpdates()
+        
+        dismissPicker()
     }
     
     func dismissPicker() {
@@ -225,12 +241,12 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     @IBAction func flipSpeedUnitsButton(sender : UIButton) {
         if let label = sender.titleLabel {
             switch label.text! {
-            case "mph":
-                label.text = "kph"
-            case "kph":
-                label.text = "mph"
+            case SpeedUnits.MPH.rawValue:
+                label.text = SpeedUnits.KPH.rawValue
+            case SpeedUnits.KPH.rawValue:
+                label.text = SpeedUnits.MPH.rawValue
             default:
-                label.text = "mph"
+                label.text = SpeedUnits.MPH.rawValue
             }
         }
     }

@@ -815,6 +815,9 @@
                                                     <state key="normal" title="Add Condition...">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="addSubRule:" destination="TFd-vs-7ev" eventType="touchUpInside" id="se4-LB-tRB"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>

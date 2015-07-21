@@ -20,4 +20,12 @@ public class TemperatureSubRule : SingleValSubRule {
         self.isFarenheit = isFarenheit
         super.init(value: value, op: op)
     }
+    
+    convenience init(copy: TemperatureSubRule) {
+        self.init(value: copy.value, op: copy.op, isFarenheit: copy.isFarenheit)
+    }
+    
+    public override func copyWithZone(zone: NSZone) -> AnyObject {
+        return TemperatureSubRule(copy: self)
+    }
 }

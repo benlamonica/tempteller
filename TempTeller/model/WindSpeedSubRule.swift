@@ -9,7 +9,7 @@
 import Foundation
 
 public enum SpeedUnits : String {
-    case KPH = "KPH", MPH = "MPH", KNOTS = "knots"
+    case KPH = "KPH", MPH = "MPH"
 }
 
 public class WindSpeedSubRule : SingleValSubRule, ConvertableToDictionary {
