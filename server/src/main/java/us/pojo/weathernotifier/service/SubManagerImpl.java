@@ -1,6 +1,5 @@
 package us.pojo.weathernotifier.service;
 
-import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -55,17 +54,17 @@ public class SubManagerImpl implements SubManager {
 		}, 45*1000, 15*60*1000);
 	}
 	
-	private String getTempAndHumidityWithUnits(SubRequest req, WeatherData data) {
-		DecimalFormat df = new DecimalFormat("#00.#");
-		String temp;
-		if (!req.isFarenheitToBeUsed()) {
-			temp = df.format((data.getTemperature() - 32) * (5.0/9.0)) + "°C";
-		} else {
-			temp = df.format(data.getTemperature()) + "°F";
-		}
-		
-		return String.format("%s/%s%% humidity", temp, df.format(data.getHumidity()));
-	}
+//	private String getTempAndHumidityWithUnits(SubRequest req, WeatherData data) {
+//		DecimalFormat df = new DecimalFormat("#00.#");
+//		String temp;
+//		if (!req.isFarenheitToBeUsed()) {
+//			temp = df.format((data.getTemperature() - 32) * (5.0/9.0)) + "°C";
+//		} else {
+//			temp = df.format(data.getTemperature()) + "°F";
+//		}
+//		
+//		return String.format("%s/%s%% humidity", temp, df.format(data.getHumidity()));
+//	}
 	
 	private final Runnable CLEANUP_NOTIFICATIONS = new Runnable() {
 		public void run() {
@@ -87,49 +86,36 @@ public class SubManagerImpl implements SubManager {
 				log.info("Getting subscribers for {}", data);
 				List<SubRequest> subscribers = subDAO.getSubscribers(data);
 				log.info("Retrieved {} subscribers", subscribers.size());
-				for (SubRequest subRequest : subscribers) {
-					if (subRequest.isEnteringRange(data)) {
-						String msg = String.format("%s: Temp (%s) entered range. %s", subRequest.getName(), getTempAndHumidityWithUnits(subRequest, data), subRequest.getNoteEnter());
-						push.push(msg, subRequest.getDeviceId());
-						subRequest.setInRangeNotified(true);
-						subDAO.update(subRequest);
-					} else if (subRequest.isLeavingRange(data)){
-						String msg = String.format("%s: Temp (%s) left range. %s", subRequest.getName(), getTempAndHumidityWithUnits(subRequest, data), subRequest.getNoteLeave());
-						push.push(msg, subRequest.getDeviceId());
-						subRequest.setInRangeNotified(false);
-						subDAO.update(subRequest);
-					}
-				}
+				// TODO: perform the matching with the new data model.
+//				for (SubRequest subRequest : subscribers) {
+//					if (subRequest.isEnteringRange(data)) {
+//						String msg = String.format("%s: Temp (%s) entered range. %s", subRequest.getName(), getTempAndHumidityWithUnits(subRequest, data), subRequest.getNoteEnter());
+//						push.push(msg, subRequest.getDeviceId());
+//						subRequest.setInRangeNotified(true);
+//						subDAO.update(subRequest);
+//					} else if (subRequest.isLeavingRange(data)){
+//						String msg = String.format("%s: Temp (%s) left range. %s", subRequest.getName(), getTempAndHumidityWithUnits(subRequest, data), subRequest.getNoteLeave());
+//						push.push(msg, subRequest.getDeviceId());
+//						subRequest.setInRangeNotified(false);
+//						subDAO.update(subRequest);
+//					}
+//				}
 			}
 		}
 	}
 	
-	public boolean subscribe(SubRequest subRequest) {
-		if (subRequest == null) {
-			log.info("null subrequest received, doing nothing.");
+	public boolean subscribe(SubRequest req) {
+		if (req == null) {
+			log.info("null rule received, doing nothing.");
 			return false;
 		}
 
-		SubRequest savedRequest = subDAO.get(subRequest.getDeviceId());
-		
-		if (savedRequest != null && savedRequest.equals(subRequest)) {
-			log.info("already subscribed, doing nothing further.");
-			// everything is already subscribed, nothing to do
-			return true;
-		}
-		
-		if (subRequest.isSubscribed()) {
-			log.info("Subscribed: {}", subRequest);
-			return subDAO.save(subRequest);
-		} else {
-			log.info("Subscription has no notifications needed, removing the subscription");
-			subDAO.delete(subRequest);
-			return true;
-		}
+		log.info("subscribing: {}", req);
+		return subDAO.save(req);
 	}
 
 	public void notifySubscribers() {
-		List<String> ids = subDAO.getUniqueWOEIDs();
+		Set<String> ids = subDAO.getUniqueLocIds();
 		log.info("Notifying subscribers for {} woeIds", ids.size());
 		for (String woeId : ids) {
 			threadPool.execute(new FETCH_AND_NOTIFY(woeId));

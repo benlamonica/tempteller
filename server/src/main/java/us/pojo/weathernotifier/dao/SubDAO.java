@@ -7,10 +7,9 @@ import us.pojo.weathernotifier.model.SubRequest;
 import us.pojo.weathernotifier.model.WeatherData;
 
 public interface SubDAO {
-	public SubRequest get(String devId);
 	public boolean save(SubRequest req);
 	public void delete(SubRequest req);
-	public List<String> getUniqueWOEIDs();
+	public Set<String> getUniqueLocIds();
 	public List<SubRequest> getSubscribers(WeatherData data);
 	public void update(SubRequest subRequest);
 	public void deleteInvalidDevices(Set<String> invalidDevices);

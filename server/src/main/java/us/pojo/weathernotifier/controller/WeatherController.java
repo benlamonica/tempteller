@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import us.pojo.weathernotifier.model.Rule;
 import us.pojo.weathernotifier.model.Status;
 import us.pojo.weathernotifier.model.SubRequest;
-import us.pojo.weathernotifier.model.WOEID;
 import us.pojo.weathernotifier.model.WeatherData;
 import us.pojo.weathernotifier.service.SubManager;
 import us.pojo.weathernotifier.service.push.PushService;
@@ -49,29 +49,21 @@ public class WeatherController {
 		LoggerFactory.getLogger(WeatherController.class).info("WeatherNotifier instantiated!");
 	}
 
-	@RequestMapping("/WOEID/{query}")
-	public @ResponseBody WOEID getWOEID(@PathVariable("query") String query) {
-		return weather.getWOEID(query);
-	}
-	
 	@RequestMapping("/weather/{woeid}")
 	public @ResponseBody WeatherData getWeather(@PathVariable("woeid") String woeid) {
 		return weather.getWeather(woeid);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/subscribe")
-	public @ResponseBody Status[] subscribe(@RequestBody SubRequest[] subRequests) {
+	public @ResponseBody Status[] subscribe(@RequestBody SubRequest subRequest) {
 		ArrayList<Status> response = new ArrayList<Status>();
 		
-		if (subRequests.length > 0) {
-			subManager.unsubscribe(subRequests[0].getDeviceId());
-			for (SubRequest sub : subRequests) {
-				log.info("Subscribing {}", sub);
-				if (subManager.subscribe(sub)) {
-					response.add(new Status(sub.getDeviceId(), sub.getWoeId(), "yep"));
-				} else {
-					response.add(new Status(sub.getDeviceId(), sub.getWoeId(), "nope"));
-				}
+		for (Rule rule : subRequest.getRules()) {
+			log.info("Subscribing to {}", rule);
+			if (subManager.subscribe(subRequest)) {
+				response.add(new Status(rule.getUuid(), "yep"));
+			} else {
+				response.add(new Status(rule.getUuid(), "nope"));
 			}
 		}
 		

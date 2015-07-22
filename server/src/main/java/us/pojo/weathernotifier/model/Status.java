@@ -8,13 +8,10 @@ public class Status implements Serializable {
 
 	private String status;
 	
-	private String woeId;
+	private String ruleId;
 	
-	private String deviceId;
-	
-	public Status(String deviceId, String woeId, String status) {
-		this.woeId = woeId;
-		this.deviceId = deviceId;
+	public Status(String ruleId, String status) {
+		this.ruleId = ruleId;
 		this.status = status;
 	}
 	
@@ -22,15 +19,19 @@ public class Status implements Serializable {
 		return serialVersionUID;
 	}
 
-	public String getWoeId() {
-		return woeId;
-	}
-
-	public String getDeviceId() {
-		return deviceId;
-	}
-
 	public String getStatus() {
 		return status;
+	}
+
+	public String getRuleId() {
+		return ruleId;
+	}
+
+	public void setRuleId(String ruleId) {
+		this.ruleId = ruleId;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

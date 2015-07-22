@@ -4,7 +4,7 @@ import us.pojo.weathernotifier.model.SubRequest;
 
 public interface SubManager {
 
-	public boolean subscribe(SubRequest subRequest);
+	public boolean subscribe(SubRequest req);
 
 	public void unsubscribe(String deviceId);
 }

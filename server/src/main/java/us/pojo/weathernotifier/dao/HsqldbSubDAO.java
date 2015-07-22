@@ -18,11 +18,6 @@ public class HsqldbSubDAO implements SubDAO {
 		//new SingleConnectionDataSource(url, suppressClose);
 	}
 	
-	public SubRequest get(String devId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public boolean save(SubRequest req) {
 		// TODO Auto-generated method stub
 		return false;
@@ -51,6 +46,12 @@ public class HsqldbSubDAO implements SubDAO {
 	public void deleteInvalidDevices(Set<String> invalidDevices) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Set<String> getUniqueLocIds() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
