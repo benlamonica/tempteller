@@ -74,7 +74,7 @@ class RuleController: UITableViewController, UITableViewDataSource, UITableViewD
     
     @IBAction func toggleRuleEnable(sender: UISwitch) {
         if let path = tableView.indexPathForCell((sender.superview?.superview as? UITableViewCell)!) {
-            data[path.item].isEnabled = sender.on
+            data[path.item].enabled = sender.on
             saveRules()
         }
     }

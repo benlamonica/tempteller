@@ -13,14 +13,14 @@ class WeatherService : NSObject, CLLocationManagerDelegate {
     
     let queue = NSOperationQueue()
     let locationManager = CLLocationManager()
-    var callback : ((loc : Location?, errMsg: String?) -> ())!
+    var callback : ((name: String?, locId: String?, errMsg: String?) -> ())!
     
     override init() {
         super.init()
         locationManager.delegate = self
     }
     
-    func getLocation(search : String, completionHandler : ((loc : Location?, errMsg: String?) -> ())?) {
+    func getLocation(search : String, completionHandler : ((name: String?, locId: String?, errMsg: String?) -> ())?) {
         let url = NSString(string: "https://query.yahooapis.com/v1/public/yql?format=json&q=select * from geo.placefinder where text=\"\(search)\" and gflags=\"R\"").stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
         
         NSLog("Retrieving\n\(url)")
@@ -31,7 +31,7 @@ class WeatherService : NSObject, CLLocationManagerDelegate {
         NSURLConnection.sendAsynchronousRequest(NSURLRequest(URL: nsurl), queue: queue) { (response : NSURLResponse!, data : NSData!, error: NSError!) -> Void in
             if error != nil {
                 if let handler = completionHandler {
-                    handler(loc: nil, errMsg: "Error - Network Problem")
+                    handler(name: nil, locId: nil, errMsg: "Error - Network Problem")
                 }
             } else {
                 let jsonString = NSString(data: data, encoding: NSUTF8StringEncoding)
@@ -44,18 +44,18 @@ class WeatherService : NSObject, CLLocationManagerDelegate {
                     let woeId = json["query"]["results"]["Result"]["woeid"].stringValue
                     NSLog("woeId = \(woeId), \(locName)")
                     if let handler = completionHandler {
-                        handler(loc: Location(name: locName, locId: woeId), errMsg: nil)
+                        handler(name: locName, locId: woeId, errMsg: nil)
                     }
                 } else {
                     if let handler = completionHandler {
-                        handler(loc: nil, errMsg: "Could not find location")
+                        handler(name: nil, locId: nil, errMsg: "Could not find location")
                     }
                 }
             }
         }
     }
     
-    func getLocationWithGPS(callback : (loc : Location?, errMsg: String?) -> ()) {
+    func getLocationWithGPS(callback : (name: String?, locId: String?, errMsg: String?) -> ()) {
         self.callback = callback
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()

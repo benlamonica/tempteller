@@ -11,7 +11,7 @@ import UIKit
 class RuleCell : UITableViewCell {
     var rule : Rule {
         didSet {
-            isEnabled.setOn(rule.isEnabled, animated: false)
+            isEnabled.setOn(rule.enabled, animated: false)
             message.text = rule.message
         }
     }
@@ -22,7 +22,7 @@ class RuleCell : UITableViewCell {
     @IBOutlet var UITextime : UILabel!
     
     @IBAction func update() {
-        rule.isEnabled = isEnabled.on
+        rule.enabled = isEnabled.on
     }
     
     required init(coder aDecoder: NSCoder) {

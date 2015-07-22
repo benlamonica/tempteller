@@ -9,7 +9,7 @@
 import Foundation
 
 public class Rule : NSObject, NSCopying, ConvertableToDictionary {
-    public var isEnabled : Bool;
+    public var enabled : Bool;
     public var subrules : [SubRule]
     public var uuid : String
     var saved = true // will be marked as true if the user hit the "Save" button after editing
@@ -20,7 +20,7 @@ public class Rule : NSObject, NSCopying, ConvertableToDictionary {
     }
     
     public init(json: JSON) {
-        self.isEnabled = json["isEnabled"].boolValue
+        self.enabled = json["enabled"].boolValue
         self.uuid = json["uuid"].stringValue
         self.subrules = []
         for jsonSubRule in json["subrules"].arrayValue {
@@ -28,12 +28,12 @@ public class Rule : NSObject, NSCopying, ConvertableToDictionary {
             switch type {
                 case "ConditionSubRule":
                     subrules.append(ConditionSubRule(json: jsonSubRule))
-                case "ForcastConditionSubRule":
-                    subrules.append(ForcastConditionSubRule(json: jsonSubRule))
+                case "ForecastConditionSubRule":
+                    subrules.append(ForecastConditionSubRule(json: jsonSubRule))
                 case "TemperatureSubRule":
                     subrules.append(TemperatureSubRule(json: jsonSubRule))
-                case "ForcastTempSubRule":
-                    subrules.append(ForcastTempSubRule(json: jsonSubRule))
+                case "ForecastTempSubRule":
+                    subrules.append(ForecastTempSubRule(json: jsonSubRule))
                 case "LocationSubRule":
                     subrules.append(LocationSubRule(json: jsonSubRule))
                 case "MessageSubRule":
@@ -51,7 +51,7 @@ public class Rule : NSObject, NSCopying, ConvertableToDictionary {
     }
     
     public override init() {
-        isEnabled = true;
+        enabled = true;
         uuid = NSUUID().UUIDString
         subrules = [
             MessageSubRule(),
@@ -61,7 +61,7 @@ public class Rule : NSObject, NSCopying, ConvertableToDictionary {
     }
     
     public init(copy: Rule) {
-        self.isEnabled = copy.isEnabled
+        self.enabled = copy.enabled
         self.uuid = copy.uuid
         self.subrules = copy.subrules.map({$0.copy() as! SubRule})
     }
@@ -74,7 +74,7 @@ public class Rule : NSObject, NSCopying, ConvertableToDictionary {
         let model : [String:AnyObject] = [
             "version":"1.0",
             "uuid": uuid,
-            "isEnabled":isEnabled,
+            "enabled":enabled,
             "subrules":subrules.map({$0.toDict()})
         ]
         

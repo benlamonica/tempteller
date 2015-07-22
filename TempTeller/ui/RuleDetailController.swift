@@ -31,8 +31,8 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
             "Temperature":TemperatureSubRule(),
             "Humidity":HumiditySubRule(),
             "Condition":ConditionSubRule(),
-            "Forecast Condition":ForcastConditionSubRule(),
-            "Forecast Temperature":ForcastTempSubRule()]
+            "Forecast Condition":ForecastConditionSubRule(),
+            "Forecast Temperature":ForecastTempSubRule()]
         
         let ruleKeys : [String]
         
@@ -199,7 +199,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         }
     }
     
-    func lookupLocation(sender : UIButton, weatherLookup : ((loc : Location?, errMsg: String?) -> ()) -> ()) {
+    func lookupLocation(sender : UIButton, weatherLookup : ((name: String?, locId: String?, errMsg: String?) -> ()) -> ()) {
         let spinner = sender.superview?.viewWithTag(1) as! UIActivityIndicatorView
         let gpsButton = sender.superview?.viewWithTag(2) as! UIButton
         let zipButton = sender.superview?.viewWithTag(3) as! UIButton
@@ -210,11 +210,13 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         spinner.startAnimating()
         gpsButton.enabled = false
         zipButton.enabled = false
-        weatherLookup() { (loc, errMsg) -> () in
+        weatherLookup() { (name, locId, errMsg) -> () in
             dispatch_async(dispatch_get_main_queue()) {
-                if let location = loc {
-                    (self.editRule.subrules[indexPath!.item] as! LocationSubRule).location = location
-                    searchBox.text = location.name
+                if let searchText = name {
+                    let subRule = self.editRule.subrules[indexPath!.item] as! LocationSubRule
+                    subRule.name = searchText
+                    subRule.locId = locId!
+                    searchBox.text = searchText
                 }
                 
                 gpsButton.enabled = true
@@ -235,7 +237,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     
     @IBAction func lookupZip(sender : UIButton) {
         let searchBox = sender.superview?.viewWithTag(4) as! UITextField
-        func weatherLookup(callback: (loc : Location?, errMsg: String?) -> ()) -> () {
+        func weatherLookup(callback: (name: String?, locId: String?, errMsg: String?) -> ()) -> () {
             weatherService.getLocation(searchBox.text, completionHandler: callback)
         }
         lookupLocation(sender, weatherLookup: weatherLookup)

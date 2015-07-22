@@ -15,13 +15,13 @@ class LocationCell : UITableViewCell, SubRuleDisplaying {
     func displayRule(subrule : SubRule) {
         if let rule = subrule as? LocationSubRule {
             self.subrule = rule
-            location.text = rule.location.name
+            location.text = rule.name
         }
     }
     
     @IBAction func saveRule() {
         if let rule = subrule {
-            rule.location.name = location.text
+            rule.name = location.text
         }
     }
 

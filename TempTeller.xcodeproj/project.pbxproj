@@ -17,7 +17,6 @@
 		B5F1CEE51B597DBC0047A376 /* SwiftExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEE31B597DBC0047A376 /* SwiftExtensions.swift */; };
 		B5F1CEE61B597DBC0047A376 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEE41B597DBC0047A376 /* SwiftyJSON.swift */; };
 		B5F1CEF81B597E350047A376 /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEF71B597E350047A376 /* Rule.swift */; };
-		B5F1CEFA1B597E460047A376 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEF91B597E460047A376 /* Location.swift */; };
 		B5F1CEFC1B5980140047A376 /* SubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEFB1B5980140047A376 /* SubRule.swift */; };
 		B5F1CEFE1B5980310047A376 /* MessageSubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEFD1B5980310047A376 /* MessageSubRule.swift */; };
 		B5F1CF001B5980C40047A376 /* TemperatureSubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEFF1B5980C40047A376 /* TemperatureSubRule.swift */; };
@@ -26,8 +25,8 @@
 		B5F1CF061B59811C0047A376 /* TimeSubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF051B59811C0047A376 /* TimeSubRule.swift */; };
 		B5F1CF081B5981410047A376 /* LocationSubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF071B5981410047A376 /* LocationSubRule.swift */; };
 		B5F1CF0A1B5982490047A376 /* ConditionSubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF091B5982490047A376 /* ConditionSubRule.swift */; };
-		B5F1CF0C1B59829E0047A376 /* ForcastTempSubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF0B1B59829E0047A376 /* ForcastTempSubRule.swift */; };
-		B5F1CF0E1B5982BC0047A376 /* ForcastConditionSubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF0D1B5982BC0047A376 /* ForcastConditionSubRule.swift */; };
+		B5F1CF0C1B59829E0047A376 /* ForecastTempSubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF0B1B59829E0047A376 /* ForecastTempSubRule.swift */; };
+		B5F1CF0E1B5982BC0047A376 /* ForecastConditionSubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF0D1B5982BC0047A376 /* ForecastConditionSubRule.swift */; };
 		B5F1CF101B59853B0047A376 /* ConvertableToDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF0F1B59853B0047A376 /* ConvertableToDictionary.swift */; };
 		B5F1CF151B5986050047A376 /* RuleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF121B5986050047A376 /* RuleController.swift */; };
 		B5F1CF161B5986050047A376 /* RuleDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF131B5986050047A376 /* RuleDetailController.swift */; };
@@ -69,7 +68,6 @@
 		B5F1CEE31B597DBC0047A376 /* SwiftExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtensions.swift; sourceTree = "<group>"; };
 		B5F1CEE41B597DBC0047A376 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		B5F1CEF71B597E350047A376 /* Rule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
-		B5F1CEF91B597E460047A376 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		B5F1CEFB1B5980140047A376 /* SubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubRule.swift; sourceTree = "<group>"; };
 		B5F1CEFD1B5980310047A376 /* MessageSubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageSubRule.swift; sourceTree = "<group>"; };
 		B5F1CEFF1B5980C40047A376 /* TemperatureSubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemperatureSubRule.swift; sourceTree = "<group>"; };
@@ -78,8 +76,8 @@
 		B5F1CF051B59811C0047A376 /* TimeSubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSubRule.swift; sourceTree = "<group>"; };
 		B5F1CF071B5981410047A376 /* LocationSubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSubRule.swift; sourceTree = "<group>"; };
 		B5F1CF091B5982490047A376 /* ConditionSubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConditionSubRule.swift; sourceTree = "<group>"; };
-		B5F1CF0B1B59829E0047A376 /* ForcastTempSubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForcastTempSubRule.swift; sourceTree = "<group>"; };
-		B5F1CF0D1B5982BC0047A376 /* ForcastConditionSubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForcastConditionSubRule.swift; sourceTree = "<group>"; };
+		B5F1CF0B1B59829E0047A376 /* ForecastTempSubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastTempSubRule.swift; sourceTree = "<group>"; };
+		B5F1CF0D1B5982BC0047A376 /* ForecastConditionSubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastConditionSubRule.swift; sourceTree = "<group>"; };
 		B5F1CF0F1B59853B0047A376 /* ConvertableToDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertableToDictionary.swift; sourceTree = "<group>"; };
 		B5F1CF121B5986050047A376 /* RuleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleController.swift; sourceTree = "<group>"; };
 		B5F1CF131B5986050047A376 /* RuleDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleDetailController.swift; sourceTree = "<group>"; };
@@ -190,10 +188,9 @@
 			children = (
 				B5F1CF091B5982490047A376 /* ConditionSubRule.swift */,
 				B5F1CF0F1B59853B0047A376 /* ConvertableToDictionary.swift */,
-				B5F1CF0D1B5982BC0047A376 /* ForcastConditionSubRule.swift */,
-				B5F1CF0B1B59829E0047A376 /* ForcastTempSubRule.swift */,
+				B5F1CF0D1B5982BC0047A376 /* ForecastConditionSubRule.swift */,
+				B5F1CF0B1B59829E0047A376 /* ForecastTempSubRule.swift */,
 				B5F1CF011B5980E50047A376 /* HumiditySubRule.swift */,
-				B5F1CEF91B597E460047A376 /* Location.swift */,
 				B5F1CF071B5981410047A376 /* LocationSubRule.swift */,
 				B5F1CEFD1B5980310047A376 /* MessageSubRule.swift */,
 				B5F1CEF71B597E350047A376 /* Rule.swift */,
@@ -353,17 +350,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5F1CF0C1B59829E0047A376 /* ForcastTempSubRule.swift in Sources */,
+				B5F1CF0C1B59829E0047A376 /* ForecastTempSubRule.swift in Sources */,
 				B5F1CF251B5D2C940047A376 /* RuleCell.swift in Sources */,
 				B5F1CEE51B597DBC0047A376 /* SwiftExtensions.swift in Sources */,
-				B5F1CEFA1B597E460047A376 /* Location.swift in Sources */,
 				B5F1CF021B5980E50047A376 /* HumiditySubRule.swift in Sources */,
 				B5F1CEFC1B5980140047A376 /* SubRule.swift in Sources */,
 				B5F1CF0A1B5982490047A376 /* ConditionSubRule.swift in Sources */,
 				B5F1CF241B5D2C940047A376 /* MessageCell.swift in Sources */,
 				B5F1CF231B5D2C940047A376 /* LocationCell.swift in Sources */,
 				B5F1CF101B59853B0047A376 /* ConvertableToDictionary.swift in Sources */,
-				B5F1CF0E1B5982BC0047A376 /* ForcastConditionSubRule.swift in Sources */,
+				B5F1CF0E1B5982BC0047A376 /* ForecastConditionSubRule.swift in Sources */,
 				B5F1CF061B59811C0047A376 /* TimeSubRule.swift in Sources */,
 				B5F1CF271B5D2C940047A376 /* TemperatureCell.swift in Sources */,
 				B5F1CF2B1B5DAC440047A376 /* WindSpeedCell.swift in Sources */,

@@ -9,23 +9,29 @@
 import Foundation
 
 public class LocationSubRule : SubRule, NSCopying {
-    public var location : Location
+    public var name : String
+    public var locId: String
     
     override convenience init() {
-        self.init(loc: Location(name: ""))
+        self.init(name: "", locId: "")
     }
     
     convenience init(json: JSON) {
-        self.init(loc: Location(json: json["location"]))
+        self.init(name: json["name"].stringValue, locId: json["locId"].stringValue)
     }
     
-    public init(loc: Location) {
-        self.location = loc
+    public init(name: String, locId: String) {
+        self.name = name
+        self.locId = locId
         super.init()
     }
     
+    convenience init(copy: LocationSubRule) {
+        self.init(name: copy.name, locId: copy.locId)
+    }
+    
     override public func copyWithZone(zone: NSZone) -> AnyObject {
-        return LocationSubRule(loc: Location(copy: location))
+        return LocationSubRule(copy: self)
     }
     
 }
