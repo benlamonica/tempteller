@@ -19,7 +19,7 @@ class TemperatureCell : UITableViewCell, SubRuleDisplaying {
         if let rule = subrule as? TemperatureSubRule {
             self.subrule = rule
             temperature.text = String("\(rule.value)")
-            unitButton.titleLabel?.text = rule.isFarenheit ? "F" : "C"
+            unitButton.setTitle(rule.isFarenheit ? "˚F" : "˚C", forState: UIControlState.Normal)
             opButton.titleLabel?.text = rule.op.rawValue
         }
     }
@@ -42,7 +42,7 @@ class TemperatureCell : UITableViewCell, SubRuleDisplaying {
     func saveRule() {
         if let rule = subrule {
             rule.value = temperature.text.toDouble()
-            rule.isFarenheit = unitButton.titleLabel!.text == "F"
+            rule.isFarenheit = unitButton.titleLabel!.text == "˚F"
             rule.op = CompOp(rawValue: opButton.titleLabel!.text!)!
         }
     }

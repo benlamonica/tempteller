@@ -11,7 +11,6 @@
 		B5889B351B4F758300539E97 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5889B341B4F758300539E97 /* StoreKit.framework */; };
 		B5D1356C1B0B731A00ADC9E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1356B1B0B731A00ADC9E5 /* AppDelegate.swift */; };
 		B5D135711B0B731A00ADC9E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5D1356F1B0B731A00ADC9E5 /* Main.storyboard */; };
-		B5D135731B0B731A00ADC9E5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5D135721B0B731A00ADC9E5 /* Images.xcassets */; };
 		B5D135761B0B731A00ADC9E5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D135741B0B731A00ADC9E5 /* LaunchScreen.xib */; };
 		B5D135821B0B731A00ADC9E5 /* TempTellerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D135811B0B731A00ADC9E5 /* TempTellerTests.swift */; };
 		B5F1CEE51B597DBC0047A376 /* SwiftExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEE31B597DBC0047A376 /* SwiftExtensions.swift */; };
@@ -40,6 +39,8 @@
 		B5F1CF271B5D2C940047A376 /* TemperatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF211B5D2C940047A376 /* TemperatureCell.swift */; };
 		B5F1CF291B5DAB710047A376 /* HumidityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF281B5DAB710047A376 /* HumidityCell.swift */; };
 		B5F1CF2B1B5DAC440047A376 /* WindSpeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF2A1B5DAC440047A376 /* WindSpeedCell.swift */; };
+		B5F1CF2D1B67B9F40047A376 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5F1CF2C1B67B9F40047A376 /* Images.xcassets */; };
+		B5F1CF2F1B6855120047A376 /* ConditionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF2E1B6855120047A376 /* ConditionCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +61,6 @@
 		B5D1356A1B0B731A00ADC9E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5D1356B1B0B731A00ADC9E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5D135701B0B731A00ADC9E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B5D135721B0B731A00ADC9E5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B5D135751B0B731A00ADC9E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		B5D1357B1B0B731A00ADC9E5 /* TempTellerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TempTellerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5D135801B0B731A00ADC9E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -91,6 +91,8 @@
 		B5F1CF211B5D2C940047A376 /* TemperatureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemperatureCell.swift; sourceTree = "<group>"; };
 		B5F1CF281B5DAB710047A376 /* HumidityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HumidityCell.swift; sourceTree = "<group>"; };
 		B5F1CF2A1B5DAC440047A376 /* WindSpeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindSpeedCell.swift; sourceTree = "<group>"; };
+		B5F1CF2C1B67B9F40047A376 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		B5F1CF2E1B6855120047A376 /* ConditionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConditionCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,8 +150,8 @@
 		B5D135691B0B731A00ADC9E5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B5F1CF2C1B67B9F40047A376 /* Images.xcassets */,
 				B5D1356B1B0B731A00ADC9E5 /* AppDelegate.swift */,
-				B5D135721B0B731A00ADC9E5 /* Images.xcassets */,
 				B5D1356A1B0B731A00ADC9E5 /* Info.plist */,
 				B5D135741B0B731A00ADC9E5 /* LaunchScreen.xib */,
 				B538D9CA1B137FEA00D0A883 /* TempTeller.entitlements */,
@@ -226,12 +228,13 @@
 			isa = PBXGroup;
 			children = (
 				B5F1CF1C1B5D2C940047A376 /* AddSubRuleCell.swift */,
+				B5F1CF2E1B6855120047A376 /* ConditionCell.swift */,
+				B5F1CF281B5DAB710047A376 /* HumidityCell.swift */,
 				B5F1CF1D1B5D2C940047A376 /* LocationCell.swift */,
 				B5F1CF1E1B5D2C940047A376 /* MessageCell.swift */,
 				B5F1CF1F1B5D2C940047A376 /* RuleCell.swift */,
 				B5F1CF201B5D2C940047A376 /* SubRuleDisplaying.swift */,
 				B5F1CF211B5D2C940047A376 /* TemperatureCell.swift */,
-				B5F1CF281B5DAB710047A376 /* HumidityCell.swift */,
 				B5F1CF2A1B5DAC440047A376 /* WindSpeedCell.swift */,
 			);
 			path = cells;
@@ -330,9 +333,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5F1CF2D1B67B9F40047A376 /* Images.xcassets in Resources */,
 				B5D135711B0B731A00ADC9E5 /* Main.storyboard in Resources */,
 				B5D135761B0B731A00ADC9E5 /* LaunchScreen.xib in Resources */,
-				B5D135731B0B731A00ADC9E5 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +374,7 @@
 				B5F1CF261B5D2C940047A376 /* SubRuleDisplaying.swift in Sources */,
 				B5F1CF151B5986050047A376 /* RuleController.swift in Sources */,
 				B5F1CF1A1B59860F0047A376 /* WeatherService.swift in Sources */,
+				B5F1CF2F1B6855120047A376 /* ConditionCell.swift in Sources */,
 				B5F1CEE61B597DBC0047A376 /* SwiftyJSON.swift in Sources */,
 				B5F1CF161B5986050047A376 /* RuleDetailController.swift in Sources */,
 				B5F1CEF81B597E350047A376 /* Rule.swift in Sources */,

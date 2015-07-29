@@ -10,6 +10,7 @@
         <scene sceneID="CAf-VX-H5i">
             <objects>
                 <navigationController id="fuv-aw-5wh" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7lX-oC-Vsc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -193,7 +194,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="63" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="km3-gi-KGG">
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O4B-59-glE" userLabel="PickerTarget">
+                                <rect key="frame" x="139" y="319" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="63" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="km3-gi-KGG">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -434,7 +440,7 @@
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fko-r6-Yn7">
                                                     <rect key="frame" x="138" y="24" width="30" height="30"/>
                                                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <state key="normal" title="F">
+                                                    <state key="normal" title="˚F">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -443,6 +449,9 @@
                                                             <integer key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="flipTempUnitsButton:" destination="TFd-vs-7ev" eventType="touchUpInside" id="RgT-W4-5Rv"/>
+                                                    </connections>
                                                 </button>
                                                 <textField hidden="YES" opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IQm-XO-aUA" userLabel="PickerTarget">
                                                     <rect key="frame" x="285" y="24" width="31" height="30"/>
@@ -633,7 +642,7 @@
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="45y-SA-MXc">
                                                     <rect key="frame" x="138" y="24" width="30" height="30"/>
                                                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <state key="normal" title="F">
+                                                    <state key="normal" title="˚F">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -642,6 +651,9 @@
                                                             <integer key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="flipTempUnitsButton:" destination="TFd-vs-7ev" eventType="touchUpInside" id="MfQ-7r-ZiO"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7LL-ji-LA3">
                                                     <rect key="frame" x="175" y="24" width="30" height="30"/>
@@ -672,7 +684,7 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GWD-bg-FE2">
                                                     <rect key="frame" x="288" y="24" width="30" height="30"/>
-                                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <state key="normal" title="🕔">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -766,9 +778,9 @@
                                                 </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQm-Td-YdF">
                                                     <rect key="frame" x="8" y="24" width="40" height="30"/>
-                                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                     <state key="normal" title="&gt;">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
@@ -779,9 +791,9 @@
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rWB-kG-rmA">
                                                     <rect key="frame" x="138" y="24" width="44" height="30"/>
-                                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                     <state key="normal" title="mph">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
@@ -798,45 +810,50 @@
                                             <outlet property="windSpeed" destination="ais-GL-r1V" id="eNc-Pf-Ymc"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddSubRule" id="XvE-lN-lsb">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XvE-lN-lsb" id="b9c-du-Gev">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField hidden="YES" opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O4B-59-glE" userLabel="PickerTarget">
-                                                    <rect key="frame" x="139" y="17" width="97" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FsP-sR-F19">
-                                                    <rect key="frame" x="8" y="17" width="359" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                                    <state key="normal" title="Add Condition...">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="addSubRule:" destination="TFd-vs-7ev" eventType="touchUpInside" id="se4-LB-tRB"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="TFd-vs-7ev" id="2eR-YG-dhV"/>
                                     <outlet property="delegate" destination="TFd-vs-7ev" id="hDr-R8-X8Y"/>
                                 </connections>
                             </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="BoW-vG-qWg">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem systemItem="add" id="f4E-vh-MdE">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="addSubRule" destination="TFd-vs-7ev" id="k2y-vA-t6U"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="FTd-1C-wFO"/>
+                                    <barButtonItem image="swap" id="F2p-1u-qlQ">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="enableRowSwap" destination="TFd-vs-7ev" id="cBU-Ee-M7V"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="BoW-vG-qWg" secondAttribute="trailing" constant="-16" id="1SF-og-RCo"/>
                             <constraint firstAttribute="trailingMargin" secondItem="km3-gi-KGG" secondAttribute="trailing" constant="-16" id="2Fn-y5-H4l"/>
+                            <constraint firstItem="3F7-H7-23c" firstAttribute="top" secondItem="BoW-vG-qWg" secondAttribute="bottom" id="9Z2-53-5hc"/>
                             <constraint firstItem="km3-gi-KGG" firstAttribute="leading" secondItem="ZKc-ut-17K" secondAttribute="leadingMargin" constant="-16" id="Fdf-lS-LPR"/>
                             <constraint firstItem="3F7-H7-23c" firstAttribute="top" secondItem="km3-gi-KGG" secondAttribute="bottom" id="JHe-im-1Ve"/>
+                            <constraint firstItem="BoW-vG-qWg" firstAttribute="top" secondItem="km3-gi-KGG" secondAttribute="bottom" constant="-44" id="RBj-UE-MvJ"/>
+                            <constraint firstItem="BoW-vG-qWg" firstAttribute="bottom" secondItem="km3-gi-KGG" secondAttribute="bottom" id="fNO-da-Bk5"/>
                             <constraint firstItem="km3-gi-KGG" firstAttribute="top" secondItem="0Ha-uC-1oL" secondAttribute="bottom" constant="-64" id="iqP-gu-E7a"/>
+                            <constraint firstItem="BoW-vG-qWg" firstAttribute="leading" secondItem="km3-gi-KGG" secondAttribute="leading" id="v0t-ax-06m"/>
+                            <constraint firstItem="BoW-vG-qWg" firstAttribute="top" secondItem="km3-gi-KGG" secondAttribute="top" constant="623" id="w7K-Ox-PaJ"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="fNO-da-Bk5"/>
+                                <exclude reference="w7K-Ox-PaJ"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Edit Rule" id="dKi-Az-9ke">
                         <barButtonItem key="rightBarButtonItem" title="Save" id="HlL-Dv-RRL">
@@ -847,7 +864,9 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="reorderBtn" destination="F2p-1u-qlQ" id="IUy-XV-Jg0"/>
                         <outlet property="tableView" destination="km3-gi-KGG" id="JJn-nQ-PQP"/>
+                        <outlet property="toolbar" destination="BoW-vG-qWg" id="SBq-6N-cec"/>
                         <outlet property="view" destination="ZKc-ut-17K" id="Rhx-Kd-QN7"/>
                     </connections>
                 </viewController>
@@ -856,6 +875,9 @@
             <point key="canvasLocation" x="1238.5" y="1060.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="swap" width="40" height="40"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="mEd-Tb-3UK"/>
     </inferredMetricsTieBreakers>

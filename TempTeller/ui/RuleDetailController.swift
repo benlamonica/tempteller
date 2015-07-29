@@ -11,7 +11,10 @@ import UIKit
 
 class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldDelegate, UITableViewDataSource {
     @IBOutlet var tableView : UITableView!
+    @IBOutlet var reorderBtn : UIBarButtonItem!
+    let swapImg = UIImage(named: "swap")
     var nav : UINavigationController!
+    @IBOutlet var toolbar : UIToolbar!
     var rule : Rule! {
         didSet {
             editRule = rule.copy() as? Rule
@@ -87,6 +90,8 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     
     override func viewDidLoad() {
         setupPicker()
+        var insets = UIEdgeInsets(top: self.nav.navigationBar.bounds.height + UIApplication.sharedApplication().statusBarFrame.height, left: 0, bottom: toolbar.bounds.height, right: 0)
+        tableView.contentInset = insets
     }
     
     @IBAction func save(sender: AnyObject?) {
@@ -98,11 +103,15 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     }
     
     func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        // prevent the message and location and the "Add Rule" table cells from being deleted.
-        if indexPath.item < 2 || indexPath.item == count(editRule.subrules) {
+        // prevent the message and location
+        if indexPath.item < 2 {
             return UITableViewCellEditingStyle.None
         }
-        return UITableViewCellEditingStyle.Delete
+        if (!tableView.editing) {
+            return UITableViewCellEditingStyle.Delete
+        } else {
+            return UITableViewCellEditingStyle.None
+        }
     }
     
     func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
@@ -124,10 +133,21 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     }
     
     func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        if indexPath.item < 2 || indexPath.item == count(editRule.subrules) {
+        if indexPath.item < 2 {
             return false
         }
         return true
+    }
+    
+    @IBAction func enableRowSwap() {
+        tableView.setEditing(!tableView.editing, animated: true)
+        if (tableView.editing) {
+            reorderBtn.image = nil
+            reorderBtn.title = "Done"
+        } else {
+            reorderBtn.title = nil
+            reorderBtn.image = swapImg
+        }
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -151,8 +171,8 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     }
 
     
-    @IBAction func addSubRule(sender : UIButton) {
-        let textfield = sender.superview!.viewWithTag(100) as! UITextField
+    @IBAction func addSubRule() {
+        let textfield = view.viewWithTag(100) as! UITextField
         textfield.inputView = picker
         textfield.inputAccessoryView = pickerToolbar
         textfield.becomeFirstResponder()
@@ -181,22 +201,18 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return count(editRule.subrules) + 1
+        return count(editRule.subrules)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.item >= count(editRule.subrules) {
-            return tableView.dequeueReusableCellWithIdentifier("AddSubRule", forIndexPath: indexPath) as! UITableViewCell
-        } else {
-            let subRule = editRule.subrules[indexPath.item]
-            let className = subRule.classForCoder.description()
-            let cellType = className.substringFromIndex(find(className,".")!.successor())
-            let cell = tableView.dequeueReusableCellWithIdentifier(cellType, forIndexPath: indexPath) as! UITableViewCell
-            if let cell2 = cell as? SubRuleDisplaying {
-                cell2.displayRule(subRule)
-            }
-            return cell
+        let subRule = editRule.subrules[indexPath.item]
+        let className = subRule.classForCoder.description()
+        let cellType = className.substringFromIndex(find(className,".")!.successor())
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellType, forIndexPath: indexPath) as! UITableViewCell
+        if let cell2 = cell as? SubRuleDisplaying {
+            cell2.displayRule(subRule)
         }
+        return cell
     }
     
     func lookupLocation(sender : UIButton, weatherLookup : ((name: String?, locId: String?, errMsg: String?) -> ()) -> ()) {
@@ -247,23 +263,13 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         if let label = sender.titleLabel {
             switch label.text! {
                 case "˚F":
-                    label.text = "˚C"
-                case "˚C":
-                    label.text = "˚F"
+                    sender.setTitle("˚C", forState: UIControlState.Normal)
             default:
-                label.text = "˚F"
+                sender.setTitle("˚F", forState: UIControlState.Normal)
             }
         }
     }
 
-    @IBAction func tempUnitButtonPushed(unitButton: UIButton) {
-        if unitButton.titleLabel?.text == "F" {
-            unitButton.titleLabel?.text = "C"
-        } else {
-            unitButton.titleLabel?.text = "F"
-        }
-    }
-    
     @IBAction func opButtonPushed(opButton: UIButton) {
         var l = CompOp.EQ
         switch CompOp(rawValue:opButton.titleLabel!.text!)! {
