@@ -16,6 +16,8 @@ class ConditionCell : UITableViewCell, SubRuleDisplaying {
     @IBOutlet var wind : UIButton!
     @IBOutlet var snow : UIButton!
     
+    var tagMap = [1:Condition.Sunny, 2:Condition.Cloudy, 3:Condition.Rainy, 4:Condition.Snow, 5:Condition.Lightning, 6:Condition.Wind]
+    
     var subrule : ConditionSubRule!
     
     func showSelection(button : UIButton, selected: Bool) {
@@ -45,7 +47,7 @@ class ConditionCell : UITableViewCell, SubRuleDisplaying {
     }
     
     @IBAction func toggleCondition(button : UIButton) {
-        if let condition = Condition(rawValue: button.tag) {
+        if let condition = tagMap[button.tag] {
             if let val = subrule.conditions[condition] {
                 subrule.conditions[condition] = !val
             } else {
