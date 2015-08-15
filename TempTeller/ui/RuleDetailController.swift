@@ -148,11 +148,16 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
             reorderBtn.title = nil
             reorderBtn.image = swapImg
         }
-        tableView.reloadData()
+        
+        if tableView.frame.width <= 320 {
+            // animate the row size change for condition cells
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.item < count(editRule.subrules) {
+        if indexPath.item < count(editRule.subrules) && tableView.frame.width <= 320 {
             if editRule.subrules[indexPath.item] is ConditionSubRule && tableView.editing {
                 return 106
             }
