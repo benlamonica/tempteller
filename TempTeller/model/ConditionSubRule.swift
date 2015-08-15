@@ -13,8 +13,8 @@ public enum Condition : String {
     case Cloudy = "cloudy"
     case Rainy = "rainy"
     case Lightning = "lightning"
-    case Snow = "snow"
-    case Wind = "wind"
+    case Snow = "snowy"
+    case Wind = "windy"
 }
 
 public enum BooleanOp : String {

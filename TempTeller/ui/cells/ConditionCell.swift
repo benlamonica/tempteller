@@ -11,6 +11,7 @@ import UIKit
 class ConditionCell : UITableViewCell, SubRuleDisplaying, UICollectionViewDataSource, UICollectionViewDelegate {
     @IBOutlet var buttons : UICollectionView!
     @IBOutlet var opButton : UIButton!
+    @IBOutlet var label : UILabel!
     
     var tagMap : [Int:Condition] = [:]
     var conditionMap : [Condition:Int] = [:]
@@ -47,6 +48,7 @@ class ConditionCell : UITableViewCell, SubRuleDisplaying, UICollectionViewDataSo
             }
             
             opButton.setTitle(rule.op.rawValue, forState: UIControlState.Normal)
+            updateLabel()
         }
     }
     
@@ -55,6 +57,7 @@ class ConditionCell : UITableViewCell, SubRuleDisplaying, UICollectionViewDataSo
         let newOp = currentOp == BooleanOp.IS_NOT ? BooleanOp.IS : BooleanOp.IS_NOT
         button.setTitle(newOp.rawValue, forState: UIControlState.Normal)
         subrule.op = newOp
+        updateLabel()
     }
     
     @IBAction func toggleCondition(button : UIButton) {
@@ -66,6 +69,8 @@ class ConditionCell : UITableViewCell, SubRuleDisplaying, UICollectionViewDataSo
             } else {
                 subrule.conditions.removeValueForKey(condition)
             }
+            
+            updateLabel()
         }
         
     }
@@ -91,6 +96,12 @@ class ConditionCell : UITableViewCell, SubRuleDisplaying, UICollectionViewDataSo
 
         return cell
 
+    }
+    
+    func updateLabel() {
+        let conditions = sorted(subrule.conditions.keys, {self.conditionMap[$0] < self.conditionMap[$1]}).map {$0.rawValue}
+        let conditionStr = join(" or ", conditions)
+        label.text = "Current Condition \(subrule.op.rawValue) \(conditionStr)"
     }
 
 }

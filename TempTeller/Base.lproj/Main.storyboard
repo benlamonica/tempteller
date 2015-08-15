@@ -527,8 +527,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xKu-9N-mIa" id="KA9-1m-kUi">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Condition" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FW1-DR-WME">
-                                                    <rect key="frame" x="8" y="8" width="99.5" height="14.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Condition" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FW1-DR-WME">
+                                                    <rect key="frame" x="8" y="8" width="359" height="14.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -651,7 +651,7 @@
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </view>
                                                         </collectionViewCell>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="snow" id="60q-Lc-qd9">
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="snowy" id="60q-Lc-qd9">
                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -703,7 +703,7 @@
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </view>
                                                         </collectionViewCell>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="wind" id="D4V-ZU-pEK">
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="windy" id="D4V-ZU-pEK">
                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -740,8 +740,11 @@
                                             <constraints>
                                                 <constraint firstItem="YHt-aJ-0Uq" firstAttribute="leading" secondItem="rQA-WZ-9bE" secondAttribute="trailing" constant="8" id="1L0-eF-gTo"/>
                                                 <constraint firstItem="rQA-WZ-9bE" firstAttribute="top" secondItem="YHt-aJ-0Uq" secondAttribute="top" id="3LG-HO-Xnf"/>
+                                                <constraint firstItem="FW1-DR-WME" firstAttribute="top" secondItem="KA9-1m-kUi" secondAttribute="topMargin" id="6oK-l3-KEa"/>
                                                 <constraint firstItem="rQA-WZ-9bE" firstAttribute="top" secondItem="KA9-1m-kUi" secondAttribute="topMargin" constant="17.5" id="B8X-UU-kIA"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="YHt-aJ-0Uq" secondAttribute="bottom" constant="1.5" id="DQy-4Y-54Z"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="FW1-DR-WME" secondAttribute="trailing" id="E28-q2-yuX"/>
+                                                <constraint firstItem="FW1-DR-WME" firstAttribute="leading" secondItem="KA9-1m-kUi" secondAttribute="leadingMargin" id="NaC-D4-Xq0"/>
                                                 <constraint firstAttribute="centerX" secondItem="rQA-WZ-9bE" secondAttribute="centerX" constant="151.5" id="NvV-d0-MSe"/>
                                                 <constraint firstItem="rQA-WZ-9bE" firstAttribute="leading" secondItem="KA9-1m-kUi" secondAttribute="leadingMargin" priority="600" id="Z7Z-f9-PO4"/>
                                                 <constraint firstItem="YHt-aJ-0Uq" firstAttribute="trailing" secondItem="KA9-1m-kUi" secondAttribute="trailingMargin" id="gpx-Dz-Dv2"/>
@@ -754,6 +757,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="buttons" destination="YHt-aJ-0Uq" id="B37-Js-aJo"/>
+                                            <outlet property="label" destination="FW1-DR-WME" id="fkM-m1-uzm"/>
                                             <outlet property="opButton" destination="rQA-WZ-9bE" id="vAi-MD-1m7"/>
                                         </connections>
                                     </tableViewCell>

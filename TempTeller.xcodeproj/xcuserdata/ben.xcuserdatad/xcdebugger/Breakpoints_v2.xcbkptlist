@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TempTeller/ui/cells/ConditionCell.swift"
-            timestampString = "461336408.609764"
+            timestampString = "461355567.008314"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
             landmarkName = "displayRule(_:)"
             landmarkType = "5">
          </BreakpointContent>
