@@ -17,19 +17,26 @@ public enum Condition : String {
     case Wind = "wind"
 }
 
+public enum BooleanOp : String {
+    case IS = "is"
+    case IS_NOT = "is not"
+}
+
 public class ConditionSubRule : SubRule, ConvertableToDictionary {
     var conditions : [Condition:Bool];
+    var op : BooleanOp
     
     override convenience init() {
-        self.init(conditions: [:])
+        self.init(conditions: [:], op: BooleanOp.IS)
     }
     
     convenience init(copy: ConditionSubRule) {
-        self.init(conditions: copy.conditions)
+        self.init(conditions: copy.conditions, op: copy.op)
     }
     
-    public init(conditions: [Condition:Bool]) {
+    public init(conditions: [Condition:Bool], op: BooleanOp) {
         self.conditions = conditions
+        self.op = op
         super.init()
     }
 
@@ -42,7 +49,7 @@ public class ConditionSubRule : SubRule, ConvertableToDictionary {
     }
     
     convenience init(json: JSON) {
-        self.init(conditions: ConditionSubRule.getConditionsFromJson(json))
+        self.init(conditions: ConditionSubRule.getConditionsFromJson(json), op: BooleanOp(rawValue: json["op"].string ?? "is")!)
     }
     
     override public func copyWithZone(zone: NSZone) -> AnyObject {
@@ -54,6 +61,7 @@ public class ConditionSubRule : SubRule, ConvertableToDictionary {
         let filtered = conditions.keys.filter {self.conditions[$0] != nil && self.conditions[$0]!}
         let filteredConditions = filtered.map {$0.rawValue}
         model["conditions"] = filteredConditions.array
+        model["op"] = op.rawValue
         return model
     }
 }

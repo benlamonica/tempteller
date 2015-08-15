@@ -10,5 +10,4 @@ import UIKit
 
 protocol SubRuleDisplaying {
     func displayRule(subrule : SubRule)
-    func saveRule()
 }

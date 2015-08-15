@@ -148,17 +148,17 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
             reorderBtn.title = nil
             reorderBtn.image = swapImg
         }
+        tableView.reloadData()
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
         if indexPath.item < count(editRule.subrules) {
-            if editRule.subrules[indexPath.item] is ConditionSubRule {
+            if editRule.subrules[indexPath.item] is ConditionSubRule && tableView.editing {
                 return 106
             }
         }
-            
-        return 64
+        
+        return 70
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -297,16 +297,6 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         }
     }
     
-    @IBAction func flipBoolButton(sender : UIButton) {
-        if let label = sender.titleLabel {
-            if label.text == "is" {
-                label.text = "is not"
-            } else {
-                label.text = "is"
-            }
-        }
-    }
-
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         let newVal = (textField.text as NSString).stringByReplacingCharactersInRange(range, withString: string)
         return newVal.match("^-?\\d*\\.?\\d*$")

@@ -22,7 +22,7 @@ class HumidityCell : UITableViewCell, SubRuleDisplaying {
         }
     }
     
-    func saveRule() {
+    @IBAction func saveRule() {
         if let rule = subrule {
             rule.value = humidity.text.toDouble()
             rule.op = CompOp(rawValue: opButton.titleLabel!.text!)!

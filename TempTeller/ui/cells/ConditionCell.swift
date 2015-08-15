@@ -8,62 +8,89 @@
 
 import UIKit
 
-class ConditionCell : UITableViewCell, SubRuleDisplaying {
-    @IBOutlet var sunny : UIButton!
-    @IBOutlet var cloudy : UIButton!
-    @IBOutlet var rainy : UIButton!
-    @IBOutlet var lightning : UIButton!
-    @IBOutlet var wind : UIButton!
-    @IBOutlet var snow : UIButton!
+class ConditionCell : UITableViewCell, SubRuleDisplaying, UICollectionViewDataSource, UICollectionViewDelegate {
+    @IBOutlet var buttons : UICollectionView!
+    @IBOutlet var opButton : UIButton!
     
-    var tagMap = [1:Condition.Sunny, 2:Condition.Cloudy, 3:Condition.Rainy, 4:Condition.Snow, 5:Condition.Lightning, 6:Condition.Wind]
+    var tagMap : [Int:Condition] = [:]
+    var conditionMap : [Condition:Int] = [:]
     
     var subrule : ConditionSubRule!
+
+    func addTag(tag: Int, condition: Condition) {
+        tagMap[tag] = condition
+        conditionMap[condition] = tag
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        addTag(1, condition: Condition.Sunny)
+        addTag(2, condition: Condition.Cloudy)
+        addTag(3, condition: Condition.Rainy)
+        addTag(4, condition: Condition.Lightning)
+        addTag(5, condition: Condition.Snow)
+        addTag(6, condition: Condition.Wind)
+    }
     
-    func showSelection(button : UIButton, selected: Bool) {
-        button.backgroundColor = selected ? UIColor.groupTableViewBackgroundColor() : UIColor.clearColor()
+    func showSelection(weatherButton : UIButton?, selected: Bool) {
+        if let button = weatherButton {
+            button.backgroundColor = selected ? UIColor.groupTableViewBackgroundColor() : UIColor.clearColor()
+        }
     }
     
     func displayRule(subrule : SubRule) {
         if let rule = subrule as? ConditionSubRule {
             self.subrule = rule
+            
             for (k,v) in rule.conditions {
-                switch k {
-                case Condition.Sunny :
-                    showSelection(sunny, selected: v)
-                case Condition.Wind :
-                    showSelection(wind, selected: v)
-                case Condition.Rainy :
-                    showSelection(rainy, selected: v)
-                case Condition.Lightning :
-                    showSelection(lightning, selected: v)
-                case Condition.Snow :
-                    showSelection(snow, selected: v)
-                case Condition.Cloudy :
-                    showSelection(cloudy, selected: v)
-                }
+                showSelection(buttons.viewWithTag(conditionMap[k]!) as? UIButton, selected: v)
             }
+            
+            opButton.setTitle(rule.op.rawValue, forState: UIControlState.Normal)
         }
+    }
+    
+    @IBAction func toggleOp(button : UIButton) {
+        let currentOp = BooleanOp(rawValue: button.titleLabel!.text!)!
+        let newOp = currentOp == BooleanOp.IS_NOT ? BooleanOp.IS : BooleanOp.IS_NOT
+        button.setTitle(newOp.rawValue, forState: UIControlState.Normal)
+        subrule.op = newOp
     }
     
     @IBAction func toggleCondition(button : UIButton) {
         if let condition = tagMap[button.tag] {
-            if let val = subrule.conditions[condition] {
-                subrule.conditions[condition] = !val
-            } else {
+            let val : Bool = subrule.conditions[condition] ?? false
+            showSelection(button, selected: !val)
+            if (!val) {
                 subrule.conditions[condition] = true
+            } else {
+                subrule.conditions.removeValueForKey(condition)
             }
-            showSelection(button, selected: subrule.conditions[condition]!)
         }
         
     }
     
-    @IBAction func saveRule() {
-        subrule.conditions[Condition.Sunny] = sunny.selected
-        subrule.conditions[Condition.Cloudy] = cloudy.selected
-        subrule.conditions[Condition.Lightning] = lightning.selected
-        subrule.conditions[Condition.Wind] = wind.selected
-        subrule.conditions[Condition.Snow] = snow.selected
-        subrule.conditions[Condition.Rainy] = rainy.selected
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return tagMap.count
     }
+
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let tag = indexPath.item+1
+        var cell : UICollectionViewCell
+        var condition = Condition.Sunny
+        if let c = tagMap[tag]  { // add 1 to the indexPath, because our tags start with 1, not 0
+            cell = collectionView.dequeueReusableCellWithReuseIdentifier(c.rawValue, forIndexPath: indexPath) as! UICollectionViewCell
+            condition = c
+        } else {
+            cell = collectionView.dequeueReusableCellWithReuseIdentifier(Condition.Sunny.rawValue, forIndexPath: indexPath) as! UICollectionViewCell
+        }
+        
+        if let button = cell.viewWithTag(tag) as? UIButton {
+            showSelection(button, selected: subrule.conditions[condition] == true)
+        }
+
+        return cell
+
+    }
+
 }

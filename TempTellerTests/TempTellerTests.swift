@@ -20,7 +20,7 @@ class TempTellerTests: XCTestCase {
         super.tearDown()
     }
     
-    let jsonResult = "{\"uuid\":\"blah\",\"enabled\":true,\"version\":\"1.0\",\"subrules\":[{\"message\":\"This is a message\",\"type\":\"MessageSubRule\"},{\"name\":\"Aurora, IL\",\"locId\":\"123456\",\"type\":\"LocationSubRule\"},{\"isFarenheit\":true,\"value\":70,\"op\":\">\",\"type\":\"TemperatureSubRule\"},{\"isFarenheit\":true,\"value\":30,\"forecastTime\":3,\"op\":\"<\",\"type\":\"ForecastTempSubRule\"},{\"conditions\":[\"snow\"],\"type\":\"ConditionSubRule\"},{\"forecastTime\":5,\"conditions\":[\"lightning\"],\"type\":\"ForecastConditionSubRule\"},{\"value\":20,\"units\":\"MPH\",\"op\":\">=\",\"type\":\"WindSpeedSubRule\"},{\"value\":50,\"op\":\"<\",\"type\":\"HumiditySubRule\"},{\"timeRange\":{\"min\":830,\"max\":1400},\"op\":\"between\",\"type\":\"TimeSubRule\"}]}"
+    let jsonResult = "{\"uuid\":\"blah\",\"enabled\":true,\"version\":\"1.0\",\"subrules\":[{\"message\":\"This is a message\",\"type\":\"MessageSubRule\"},{\"name\":\"Aurora, IL\",\"locId\":\"123456\",\"type\":\"LocationSubRule\"},{\"isFarenheit\":true,\"value\":70,\"op\":\">\",\"type\":\"TemperatureSubRule\"},{\"isFarenheit\":true,\"value\":30,\"forecastTime\":3,\"op\":\"<\",\"type\":\"ForecastTempSubRule\"},{\"conditions\":[\"snow\"],\"type\":\"ConditionSubRule\",\"op\":\"is\"},{\"forecastTime\":5,\"conditions\":[\"lightning\"],\"type\":\"ForecastConditionSubRule\",\"op\":\"is not\"},{\"value\":20,\"units\":\"MPH\",\"op\":\">=\",\"type\":\"WindSpeedSubRule\"},{\"value\":50,\"op\":\"<\",\"type\":\"HumiditySubRule\"},{\"timeRange\":{\"min\":830,\"max\":1400},\"op\":\"between\",\"type\":\"TimeSubRule\"}]}"
 
     func testJsonSerialization() {
         var rule : Rule = Rule()
@@ -36,20 +36,20 @@ class TempTellerTests: XCTestCase {
         // now add the other subrules, to test serialization
         rule.subrules.append(TemperatureSubRule(value: 70.0, op: CompOp.GT, isFarenheit: true))
         rule.subrules.append(ForecastTempSubRule(value: 30.0, op: CompOp.LT, isFarenheit: true, forecastTime: 3))
-        rule.subrules.append(ConditionSubRule(conditions: [Condition.Snow:true]))
-        rule.subrules.append(ForecastConditionSubRule(conditions: [Condition.Lightning:true], forecastTime: 5))
+        rule.subrules.append(ConditionSubRule(conditions: [Condition.Snow:true], op: BooleanOp.IS))
+        rule.subrules.append(ForecastConditionSubRule(conditions: [Condition.Lightning:true], op: BooleanOp.IS_NOT, forecastTime: 5))
         rule.subrules.append(WindSpeedSubRule(value: 20, op: CompOp.GTE, units: SpeedUnits.MPH))
         rule.subrules.append(HumiditySubRule(value: 50, op: CompOp.LT))
         rule.subrules.append(TimeSubRule(timeRange: (830,1400), op: TimeOp.BETWEEN))
             
-        XCTAssertEqual(rule.json(), jsonResult, "not equal " + rule.json(prettyPrint: true))
+        XCTAssertEqual(sorted(rule.json()), sorted(jsonResult), "not equal \n expects:\n" + jsonResult + "\nbut was:\n" + rule.json(prettyPrint: true))
     }
     
     func testJsonDeserialization() {
         // first de-serialize
         let rule = Rule(json:JSON(data: jsonResult))
         // then serialze again and compare..they should match
-        XCTAssertEqual(rule.json(), jsonResult, "not equal " + rule.json(prettyPrint: true))
+        XCTAssertEqual(sorted(rule.json()), sorted(jsonResult), "not equal \n expects:\n" + jsonResult + "\nbut was:\n" + rule.json(prettyPrint: true))
     }
     
 //    func testPerformanceExample() {

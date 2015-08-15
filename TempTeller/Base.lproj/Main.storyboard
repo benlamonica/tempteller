@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fuv-aw-5wh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fuv-aw-5wh">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -488,6 +488,9 @@
                                                     <rect key="frame" x="63" y="24" width="62" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="saveRule" destination="O7c-jE-HhM" eventType="valueChanged" id="cU1-Zf-q9O"/>
+                                                    </connections>
                                                 </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLT-Hr-V2K">
                                                     <rect key="frame" x="8" y="24" width="40" height="30"/>
@@ -501,6 +504,9 @@
                                                             <integer key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="saveRule" destination="O7c-jE-HhM" eventType="touchUpInside" id="u6X-nH-2zB"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJd-9f-Opp">
                                                     <rect key="frame" x="133" y="28" width="18" height="21"/>
@@ -542,155 +548,213 @@
                                                             <integer key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
-                                                </button>
-                                                <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="800" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QY4-2A-9nJ">
-                                                    <rect key="frame" x="82" y="25" width="35" height="35"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="35" id="RmD-FS-PCG"/>
-                                                        <constraint firstAttribute="width" constant="35" id="czj-Ls-TQa"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                                    <state key="normal" title="☀️">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
-                                                        <action selector="toggleCondition:" destination="xKu-9N-mIa" eventType="touchUpInside" id="bPu-Lo-f0V"/>
+                                                        <action selector="toggleOp:" destination="xKu-9N-mIa" eventType="touchUpInside" id="lbQ-GR-PJr"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="800" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gsK-F8-VCM">
-                                                    <rect key="frame" x="232" y="25" width="35" height="35"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                                    <state key="normal" title="⚡️">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YHt-aJ-0Uq">
+                                                    <rect key="frame" x="72" y="25" width="295" height="35"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="UET-pg-p2f">
+                                                        <size key="itemSize" width="35" height="35"/>
+                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    </collectionViewFlowLayout>
+                                                    <cells>
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="sunny" id="OUf-bH-hcH">
+                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QY4-2A-9nJ">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="35" id="f1i-a7-AKF"/>
+                                                                            <constraint firstAttribute="height" constant="35" id="xJb-5b-VeO"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                                        <state key="normal" title="☀️">
+                                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </state>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                                <integer key="value" value="5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="toggleCondition:" destination="xKu-9N-mIa" eventType="touchUpInside" id="cFD-cB-MXs"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            </view>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstItem="QY4-2A-9nJ" firstAttribute="top" secondItem="OUf-bH-hcH" secondAttribute="topMargin" constant="-8" id="N4o-NR-pk5"/>
+                                                                <constraint firstItem="QY4-2A-9nJ" firstAttribute="leading" secondItem="OUf-bH-hcH" secondAttribute="leadingMargin" constant="-8" id="op0-pC-cHf"/>
+                                                            </constraints>
+                                                        </collectionViewCell>
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="rainy" id="FRh-d2-tna">
+                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ay-EQ-StC">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <state key="normal" title="💧">
+                                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </state>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                                <integer key="value" value="5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="toggleCondition:" destination="xKu-9N-mIa" eventType="touchUpInside" id="xQk-8j-Zzu"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            </view>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </collectionViewCell>
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="lightning" id="zgL-3h-dBK">
+                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gsK-F8-VCM">
+                                                                        <rect key="frame" x="-0.5" y="0.0" width="35" height="35"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                                        <state key="normal" title="⚡️">
+                                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </state>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                                <integer key="value" value="5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="toggleCondition:" destination="xKu-9N-mIa" eventType="touchUpInside" id="y2B-hL-lLP"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            </view>
+                                                        </collectionViewCell>
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="snow" id="60q-Lc-qd9">
+                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z3f-I8-bjd">
+                                                                        <rect key="frame" x="-0.5" y="0.0" width="35" height="35"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                                        <state key="normal" title="❄️">
+                                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </state>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                                <integer key="value" value="5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="toggleCondition:" destination="xKu-9N-mIa" eventType="touchUpInside" id="HQ6-Yz-vFZ"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            </view>
+                                                        </collectionViewCell>
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cloudy" id="XNg-bl-OSm">
+                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KFw-7y-s17">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                                        <state key="normal" title="☁️">
+                                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </state>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                                <integer key="value" value="5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="toggleCondition:" destination="xKu-9N-mIa" eventType="touchUpInside" id="pzZ-hF-OAJ"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            </view>
+                                                        </collectionViewCell>
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="wind" id="D4V-ZU-pEK">
+                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aUt-la-82o">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                                        <state key="normal" title="🍃">
+                                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </state>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                                <integer key="value" value="5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="toggleCondition:" destination="xKu-9N-mIa" eventType="touchUpInside" id="h5C-1M-enc"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            </view>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </collectionViewCell>
+                                                    </cells>
                                                     <connections>
-                                                        <action selector="toggleCondition:" destination="xKu-9N-mIa" eventType="touchUpInside" id="y2B-hL-lLP"/>
+                                                        <outlet property="dataSource" destination="xKu-9N-mIa" id="9hU-dB-7Ls"/>
+                                                        <outlet property="delegate" destination="xKu-9N-mIa" id="FLX-5T-6jz"/>
                                                     </connections>
-                                                </button>
-                                                <button opaque="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="800" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z3f-I8-bjd">
-                                                    <rect key="frame" x="282" y="25" width="35" height="35"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                                    <state key="normal" title="❄️">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="toggleCondition:" destination="xKu-9N-mIa" eventType="touchUpInside" id="HQ6-Yz-vFZ"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="800" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ay-EQ-StC">
-                                                    <rect key="frame" x="182" y="25" width="35" height="35"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                                    <state key="normal" title="💧">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="toggleCondition:" destination="xKu-9N-mIa" eventType="touchUpInside" id="xQk-8j-Zzu"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="800" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aUt-la-82o">
-                                                    <rect key="frame" x="332" y="25" width="35" height="35"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                                    <state key="normal" title="💨">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="toggleCondition:" destination="xKu-9N-mIa" eventType="touchUpInside" id="P6f-9i-edS"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="800" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KFw-7y-s17">
-                                                    <rect key="frame" x="132" y="25" width="35" height="35"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                                    <state key="normal" title="☁️">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="toggleCondition:" destination="xKu-9N-mIa" eventType="touchUpInside" id="pzZ-hF-OAJ"/>
-                                                    </connections>
-                                                </button>
+                                                </collectionView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="gsK-F8-VCM" firstAttribute="leading" secondItem="rQA-WZ-9bE" secondAttribute="trailing" priority="200" constant="168" id="04m-Qw-Wtk"/>
-                                                <constraint firstItem="aUt-la-82o" firstAttribute="width" secondItem="QY4-2A-9nJ" secondAttribute="width" id="06u-MW-U4X"/>
-                                                <constraint firstItem="QY4-2A-9nJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rQA-WZ-9bE" secondAttribute="trailing" id="11E-NG-tGy"/>
-                                                <constraint firstItem="aUt-la-82o" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Z3f-I8-bjd" secondAttribute="trailing" id="1vp-fO-nc2"/>
-                                                <constraint firstItem="aUt-la-82o" firstAttribute="centerY" secondItem="rQA-WZ-9bE" secondAttribute="centerY" id="2cD-NX-H2e"/>
-                                                <constraint firstItem="0Ay-EQ-StC" firstAttribute="centerY" secondItem="QY4-2A-9nJ" secondAttribute="centerY" id="3eT-SM-xzQ"/>
-                                                <constraint firstItem="QY4-2A-9nJ" firstAttribute="width" secondItem="KFw-7y-s17" secondAttribute="width" id="4JS-a2-URK"/>
-                                                <constraint firstItem="Z3f-I8-bjd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gsK-F8-VCM" secondAttribute="trailing" id="99o-Jm-XWG"/>
-                                                <constraint firstItem="QY4-2A-9nJ" firstAttribute="leading" secondItem="KA9-1m-kUi" secondAttribute="leadingMargin" priority="200" constant="74" id="9IQ-lY-9Xb"/>
+                                                <constraint firstItem="YHt-aJ-0Uq" firstAttribute="leading" secondItem="rQA-WZ-9bE" secondAttribute="trailing" constant="8" id="1L0-eF-gTo"/>
+                                                <constraint firstItem="rQA-WZ-9bE" firstAttribute="top" secondItem="YHt-aJ-0Uq" secondAttribute="top" id="3LG-HO-Xnf"/>
                                                 <constraint firstItem="rQA-WZ-9bE" firstAttribute="top" secondItem="KA9-1m-kUi" secondAttribute="topMargin" constant="17.5" id="B8X-UU-kIA"/>
-                                                <constraint firstItem="0Ay-EQ-StC" firstAttribute="height" secondItem="QY4-2A-9nJ" secondAttribute="height" id="BlC-ZD-3mF"/>
-                                                <constraint firstItem="Z3f-I8-bjd" firstAttribute="width" secondItem="QY4-2A-9nJ" secondAttribute="width" id="DS9-CK-GhY"/>
-                                                <constraint firstItem="QY4-2A-9nJ" firstAttribute="height" secondItem="gsK-F8-VCM" secondAttribute="height" id="DqO-Yh-pyR"/>
-                                                <constraint firstItem="aUt-la-82o" firstAttribute="leading" secondItem="rQA-WZ-9bE" secondAttribute="trailing" priority="200" constant="268" id="FVm-Wd-ZDo"/>
-                                                <constraint firstItem="0Ay-EQ-StC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KFw-7y-s17" secondAttribute="trailing" id="K5K-uF-ZKU"/>
-                                                <constraint firstItem="KFw-7y-s17" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="QY4-2A-9nJ" secondAttribute="trailing" id="Mwu-Gf-Aiq"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="YHt-aJ-0Uq" secondAttribute="bottom" constant="1.5" id="DQy-4Y-54Z"/>
                                                 <constraint firstAttribute="centerX" secondItem="rQA-WZ-9bE" secondAttribute="centerX" constant="151.5" id="NvV-d0-MSe"/>
-                                                <constraint firstItem="aUt-la-82o" firstAttribute="width" secondItem="QY4-2A-9nJ" secondAttribute="width" id="PP6-si-f9L"/>
-                                                <constraint firstItem="QY4-2A-9nJ" firstAttribute="width" secondItem="gsK-F8-VCM" secondAttribute="width" id="PTj-DZ-X6Q"/>
-                                                <constraint firstItem="QY4-2A-9nJ" firstAttribute="centerY" secondItem="KFw-7y-s17" secondAttribute="centerY" id="RTo-BL-Yyi"/>
-                                                <constraint firstItem="Z3f-I8-bjd" firstAttribute="height" secondItem="QY4-2A-9nJ" secondAttribute="height" id="UFr-yg-gVM"/>
-                                                <constraint firstItem="QY4-2A-9nJ" firstAttribute="height" secondItem="KFw-7y-s17" secondAttribute="height" id="Ypu-yI-wEU"/>
-                                                <constraint firstItem="rQA-WZ-9bE" firstAttribute="leading" secondItem="KA9-1m-kUi" secondAttribute="leadingMargin" id="Z7Z-f9-PO4"/>
-                                                <constraint firstItem="aUt-la-82o" firstAttribute="height" secondItem="QY4-2A-9nJ" secondAttribute="height" id="amD-ha-gt5"/>
-                                                <constraint firstItem="QY4-2A-9nJ" firstAttribute="centerY" secondItem="gsK-F8-VCM" secondAttribute="centerY" id="c4E-lf-7hT"/>
-                                                <constraint firstItem="aUt-la-82o" firstAttribute="centerY" secondItem="QY4-2A-9nJ" secondAttribute="centerY" id="fnw-Sy-MeM"/>
-                                                <constraint firstItem="Z3f-I8-bjd" firstAttribute="leading" secondItem="rQA-WZ-9bE" secondAttribute="trailing" priority="200" constant="218" id="g63-Ea-gez"/>
-                                                <constraint firstItem="aUt-la-82o" firstAttribute="height" secondItem="QY4-2A-9nJ" secondAttribute="height" id="jm2-7W-cD1"/>
-                                                <constraint firstItem="KFw-7y-s17" firstAttribute="leading" secondItem="rQA-WZ-9bE" secondAttribute="trailing" priority="200" constant="68" id="nMz-0p-v90"/>
-                                                <constraint firstItem="gsK-F8-VCM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0Ay-EQ-StC" secondAttribute="trailing" id="qW5-8J-Rjm"/>
-                                                <constraint firstItem="Z3f-I8-bjd" firstAttribute="centerY" secondItem="QY4-2A-9nJ" secondAttribute="centerY" id="rcy-A1-GKJ"/>
-                                                <constraint firstItem="KFw-7y-s17" firstAttribute="leading" secondItem="QY4-2A-9nJ" secondAttribute="trailing" id="vx1-tb-ckc"/>
-                                                <constraint firstItem="rQA-WZ-9bE" firstAttribute="top" secondItem="QY4-2A-9nJ" secondAttribute="top" constant="0.5" id="xkT-Hu-YrG"/>
-                                                <constraint firstItem="aUt-la-82o" firstAttribute="trailing" secondItem="KA9-1m-kUi" secondAttribute="trailingMargin" id="y6b-JQ-7pU"/>
-                                                <constraint firstItem="0Ay-EQ-StC" firstAttribute="leading" secondItem="rQA-WZ-9bE" secondAttribute="trailing" priority="200" constant="118" id="yst-rH-58V"/>
-                                                <constraint firstItem="0Ay-EQ-StC" firstAttribute="width" secondItem="QY4-2A-9nJ" secondAttribute="width" id="zON-MG-CXL"/>
+                                                <constraint firstItem="rQA-WZ-9bE" firstAttribute="leading" secondItem="KA9-1m-kUi" secondAttribute="leadingMargin" priority="600" id="Z7Z-f9-PO4"/>
+                                                <constraint firstItem="YHt-aJ-0Uq" firstAttribute="trailing" secondItem="KA9-1m-kUi" secondAttribute="trailingMargin" id="gpx-Dz-Dv2"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
                                                     <exclude reference="NvV-d0-MSe"/>
-                                                    <exclude reference="vx1-tb-ckc"/>
-                                                    <exclude reference="2cD-NX-H2e"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="cloudy" destination="KFw-7y-s17" id="dep-Bj-4HO"/>
-                                            <outlet property="lightning" destination="gsK-F8-VCM" id="ysl-BU-cTf"/>
-                                            <outlet property="rainy" destination="0Ay-EQ-StC" id="yH9-Of-sga"/>
-                                            <outlet property="snow" destination="Z3f-I8-bjd" id="AjM-Cf-pkF"/>
-                                            <outlet property="sunny" destination="QY4-2A-9nJ" id="8hM-Dd-yoc"/>
-                                            <outlet property="wind" destination="aUt-la-82o" id="LUN-0g-v4o"/>
+                                            <outlet property="buttons" destination="YHt-aJ-0Uq" id="B37-Js-aJo"/>
+                                            <outlet property="opButton" destination="rQA-WZ-9bE" id="vAi-MD-1m7"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" showsReorderControl="YES" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="ForecastTempSubRule" id="uZe-pW-dFX">
@@ -836,7 +900,7 @@
                                                     <rect key="frame" x="252" y="24" width="30" height="30"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                    <state key="normal" title="💨">
+                                                    <state key="normal" title="🍃">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
