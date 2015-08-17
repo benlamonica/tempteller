@@ -43,7 +43,7 @@ public class ConditionSubRule : SubRule, ConvertableToDictionary {
     class func getConditionsFromJson(json: JSON) -> [Condition:Bool] {
         var conditions : [Condition:Bool] = [:]
         for condition in json["conditions"].arrayValue {
-            conditions[Condition(rawValue: condition.stringValue)!] = true
+            conditions[Condition(rawValue: condition.string ?? "sunny")!] = true
         }
         return conditions
     }

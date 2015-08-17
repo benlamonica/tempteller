@@ -969,7 +969,7 @@
                                 </connections>
                             </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="BoW-vG-qWg">
-                                <rect key="frame" x="-8" y="623" width="391" height="44"/>
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
                                     <barButtonItem systemItem="add" id="f4E-vh-MdE">
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -989,20 +989,36 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="BoW-vG-qWg" secondAttribute="trailing" constant="-24" id="1SF-og-RCo"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="BoW-vG-qWg" secondAttribute="trailing" id="1SF-og-RCo"/>
                             <constraint firstAttribute="trailingMargin" secondItem="km3-gi-KGG" secondAttribute="trailing" constant="-16" id="2Fn-y5-H4l"/>
+                            <constraint firstAttribute="centerX" secondItem="km3-gi-KGG" secondAttribute="centerX" id="6da-jV-jzC"/>
+                            <constraint firstItem="km3-gi-KGG" firstAttribute="width" secondItem="ZKc-ut-17K" secondAttribute="width" id="92n-6l-e8y"/>
                             <constraint firstItem="3F7-H7-23c" firstAttribute="top" secondItem="BoW-vG-qWg" secondAttribute="bottom" id="9Z2-53-5hc"/>
                             <constraint firstItem="km3-gi-KGG" firstAttribute="leading" secondItem="ZKc-ut-17K" secondAttribute="leadingMargin" constant="-16" id="Fdf-lS-LPR"/>
                             <constraint firstItem="3F7-H7-23c" firstAttribute="top" secondItem="km3-gi-KGG" secondAttribute="bottom" id="JHe-im-1Ve"/>
                             <constraint firstItem="BoW-vG-qWg" firstAttribute="top" secondItem="km3-gi-KGG" secondAttribute="bottom" constant="-44" id="RBj-UE-MvJ"/>
+                            <constraint firstItem="BoW-vG-qWg" firstAttribute="width" secondItem="km3-gi-KGG" secondAttribute="width" id="Rid-w6-f0P"/>
+                            <constraint firstItem="BoW-vG-qWg" firstAttribute="leading" secondItem="ZKc-ut-17K" secondAttribute="leadingMargin" constant="-16" id="Vb0-vl-qYh"/>
+                            <constraint firstItem="km3-gi-KGG" firstAttribute="leading" secondItem="ZKc-ut-17K" secondAttribute="leadingMargin" constant="-16" id="eCQ-dV-ZWV"/>
                             <constraint firstItem="BoW-vG-qWg" firstAttribute="bottom" secondItem="km3-gi-KGG" secondAttribute="bottom" id="fNO-da-Bk5"/>
+                            <constraint firstItem="BoW-vG-qWg" firstAttribute="leading" secondItem="km3-gi-KGG" secondAttribute="leading" id="iRz-Yd-gBT"/>
                             <constraint firstItem="km3-gi-KGG" firstAttribute="top" secondItem="0Ha-uC-1oL" secondAttribute="bottom" constant="-64" id="iqP-gu-E7a"/>
+                            <constraint firstItem="km3-gi-KGG" firstAttribute="leading" secondItem="BoW-vG-qWg" secondAttribute="trailing" constant="-359" id="jhR-vC-Qqs"/>
+                            <constraint firstItem="BoW-vG-qWg" firstAttribute="trailing" secondItem="ZKc-ut-17K" secondAttribute="trailingMargin" constant="24" id="p6T-bF-euA"/>
                             <constraint firstItem="BoW-vG-qWg" firstAttribute="leading" secondItem="km3-gi-KGG" secondAttribute="leading" constant="-8" id="v0t-ax-06m"/>
                             <constraint firstItem="BoW-vG-qWg" firstAttribute="top" secondItem="km3-gi-KGG" secondAttribute="top" constant="623" id="w7K-Ox-PaJ"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="2Fn-y5-H4l"/>
+                                <exclude reference="Fdf-lS-LPR"/>
+                                <exclude reference="eCQ-dV-ZWV"/>
+                                <exclude reference="jhR-vC-Qqs"/>
+                                <exclude reference="1SF-og-RCo"/>
+                                <exclude reference="Vb0-vl-qYh"/>
                                 <exclude reference="fNO-da-Bk5"/>
+                                <exclude reference="p6T-bF-euA"/>
+                                <exclude reference="v0t-ax-06m"/>
                                 <exclude reference="w7K-Ox-PaJ"/>
                             </mask>
                         </variation>

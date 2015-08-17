@@ -90,8 +90,10 @@ class ConditionCell : UITableViewCell, SubRuleDisplaying, UICollectionViewDataSo
             cell = collectionView.dequeueReusableCellWithReuseIdentifier(Condition.Sunny.rawValue, forIndexPath: indexPath) as! UICollectionViewCell
         }
         
-        if let button = cell.viewWithTag(tag) as? UIButton {
-            showSelection(button, selected: subrule.conditions[condition] == true)
+        if subrule != nil {
+            if let button = cell.viewWithTag(tag) as? UIButton {
+                showSelection(button, selected: subrule.conditions[condition] == true)
+            }
         }
 
         return cell
