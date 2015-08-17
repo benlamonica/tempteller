@@ -43,9 +43,15 @@ class ConditionCell : UITableViewCell, SubRuleDisplaying, UICollectionViewDataSo
         if let rule = subrule as? ConditionSubRule {
             self.subrule = rule
             
+            // clear all button states
+            for tag in tagMap.keys {
+                showSelection(buttons.viewWithTag(tag) as? UIButton, selected: false)
+            }
+            
             for (k,v) in rule.conditions {
                 showSelection(buttons.viewWithTag(conditionMap[k]!) as? UIButton, selected: v)
             }
+            
             
             opButton.setTitle(rule.op.rawValue, forState: UIControlState.Normal)
             updateLabel()

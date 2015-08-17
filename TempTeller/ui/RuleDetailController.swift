@@ -116,8 +116,13 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     
     func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
         var movingRule = editRule.subrules[sourceIndexPath.item]
-        editRule.subrules.removeAtIndex(sourceIndexPath.item)
-        editRule.subrules.insert(movingRule, atIndex: destinationIndexPath.item)
+        if sourceIndexPath.item > destinationIndexPath.item {
+            editRule.subrules.removeAtIndex(sourceIndexPath.item)
+            editRule.subrules.insert(movingRule, atIndex: destinationIndexPath.item)
+        } else {
+            editRule.subrules.insert(movingRule, atIndex: destinationIndexPath.item)
+            editRule.subrules.removeAtIndex(sourceIndexPath.item)
+        }
         tableView.reloadData()
     }
     

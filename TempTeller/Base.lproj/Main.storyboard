@@ -241,12 +241,12 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location - all rules below this will use this location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LdF-MC-xFz">
-                                                    <rect key="frame" x="8" y="0.0" width="323" height="21"/>
+                                                    <rect key="frame" x="8" y="0.0" width="279.5" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="GLe-vV-x2z"/>
                                                         <constraint firstAttribute="height" constant="21" id="uvx-ZU-F3F"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
