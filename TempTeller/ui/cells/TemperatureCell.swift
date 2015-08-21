@@ -24,22 +24,7 @@ class TemperatureCell : UITableViewCell, SubRuleDisplaying {
         }
     }
     
-    override func prepareForReuse() {
-        NSLog("prepare!")
-    }
-    
-//    override func didTransitionToState(state: UITableViewCellStateMask) {
-//        if state == UITableViewCellStateMask.ShowingEditControlMask {
-//            NSLog(self.contentView.description)
-//            let delViews = self.subviews.filter({ $0.classForCoder.description() == "UITableViewCellEditControl"})
-//            if count(delViews) > 0 {
-//                delViews[0].removeFromSuperview()
-//            }
-//        }
-//    }
-
-    
-    func saveRule() {
+    @IBAction func saveRule() {
         if let rule = subrule {
             rule.value = temperature.text.toDouble()
             rule.isFarenheit = unitButton.titleLabel!.text == "˚F"

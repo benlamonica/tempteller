@@ -14,24 +14,24 @@ public enum TimeOp : String {
 }
 
 public class TimeSubRule : SubRule, NSCopying, ConvertableToDictionary {
-    public var timeRange : (min:Int, max:Int)
+    public var timeRange : (min:String, max:String)
     public var op : TimeOp
     override convenience init() {
-        self.init(timeRange: (0,0), op:TimeOp.AT);
+        self.init(timeRange: ("12:00 PM", "12:00 PM"), op:TimeOp.AT);
     }
     
     convenience init(copy: TimeSubRule) {
         self.init(timeRange: copy.timeRange, op: copy.op)
     }
     
-    public init(timeRange: (min:Int, max:Int), op: TimeOp) {
+    public init(timeRange: (min:String, max:String), op: TimeOp) {
         self.timeRange = timeRange
         self.op = op
         super.init()
     }
     
     convenience init(json: JSON) {
-        self.init(timeRange: (json["timeRange"]["min"].intValue, json["timeRange"]["max"].intValue), op: TimeOp(rawValue: json["op"].stringValue)!)
+        self.init(timeRange: (json["timeRange"]["min"].string ?? "12:00 PM", json["timeRange"]["max"].string ?? "12:00 PM"), op: TimeOp(rawValue: json["op"].stringValue)!)
     }
     
     override public func copyWithZone(zone: NSZone) -> AnyObject {

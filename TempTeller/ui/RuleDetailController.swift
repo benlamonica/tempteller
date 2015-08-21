@@ -116,6 +116,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     
     func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
         var movingRule = editRule.subrules[sourceIndexPath.item]
+
         if sourceIndexPath.item > destinationIndexPath.item {
             editRule.subrules.removeAtIndex(sourceIndexPath.item)
             editRule.subrules.insert(movingRule, atIndex: destinationIndexPath.item)
@@ -123,6 +124,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
             editRule.subrules.insert(movingRule, atIndex: destinationIndexPath.item)
             editRule.subrules.removeAtIndex(sourceIndexPath.item)
         }
+
         tableView.reloadData()
     }
     
@@ -154,7 +156,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
             reorderBtn.image = swapImg
         }
         
-        if tableView.frame.width <= 320 {
+        if tableView.frame.width <= 400 {
             // animate the row size change for condition cells
             tableView.beginUpdates()
             tableView.endUpdates()
@@ -167,7 +169,13 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
                 return 106
             }
         }
-        
+
+        if indexPath.item < count(editRule.subrules) && tableView.frame.width <= 400 {
+            if editRule.subrules[indexPath.item] is ForecastConditionSubRule && tableView.editing {
+                return 106
+            }
+        }
+
         return 70
     }
     

@@ -40,7 +40,7 @@ class TempTellerTests: XCTestCase {
         rule.subrules.append(ForecastConditionSubRule(conditions: [Condition.Lightning:true], op: BooleanOp.IS_NOT, forecastTime: 5))
         rule.subrules.append(WindSpeedSubRule(value: 20, op: CompOp.GTE, units: SpeedUnits.MPH))
         rule.subrules.append(HumiditySubRule(value: 50, op: CompOp.LT))
-        rule.subrules.append(TimeSubRule(timeRange: (830,1400), op: TimeOp.BETWEEN))
+        rule.subrules.append(TimeSubRule(timeRange: ("8:30 AM","2:00 PM"), op: TimeOp.BETWEEN))
             
         XCTAssertEqual(sorted(rule.json()), sorted(jsonResult), "not equal \n expects:\n" + jsonResult + "\nbut was:\n" + rule.json(prettyPrint: true))
     }
