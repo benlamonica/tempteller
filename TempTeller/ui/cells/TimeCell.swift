@@ -14,13 +14,26 @@ class TimeCell : UITableViewCell, SubRuleDisplaying {
     @IBOutlet var toTime : UIButton!
     @IBOutlet var andLabel : UILabel!
     @IBOutlet var timeOp : UIButton!
-    @IBOutlet var timeEditor: UITextField!
-    
+    @IBOutlet var textfield: UITextField!
+    var pickerView : UIPickerView!
     var subrule : TimeSubRule!
+    var timeEditor : TimeEditor!
     
+    func save() {
+        subrule.timeRange.min = fromTime.titleLabel!.text!
+        subrule.timeRange.max = toTime.titleLabel!.text!
+        displayRule(subrule)
+    }
     
     @IBAction func editTime(sender: UIButton) {
-    
+        if timeEditor == nil {
+            timeEditor = TimeEditor(textfield: textfield)
+        }
+        timeEditor.showPicker(sender.titleLabel!.text!) { (newTime) -> () in
+            sender.titleLabel!.text! = newTime
+            sender.setTitle(newTime, forState: UIControlState.Normal)
+            self.save()
+        }
     }
     
     @IBAction func toggleTimeOp() {

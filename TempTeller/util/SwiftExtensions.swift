@@ -20,6 +20,11 @@ extension String: RegularExpressionMatchable {
     }
 }
 
+infix operator =~ { associativity left precedence 130 }
+func =~<T: RegularExpressionMatchable> (left: T, right: String) -> Bool {
+    return left.match(right, options: nil)
+}
+
 extension String {
     func toDouble() -> Double {
         return (self as NSString).doubleValue
