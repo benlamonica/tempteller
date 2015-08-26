@@ -227,94 +227,22 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         let className = subRule.classForCoder.description()
         let cellType = className.substringFromIndex(find(className,".")!.successor())
         let cell = tableView.dequeueReusableCellWithIdentifier(cellType, forIndexPath: indexPath) as! UITableViewCell
-        if let cell2 = cell as? SubRuleDisplaying {
-            cell2.displayRule(subRule)
+
+        // inject the weather service into the location cell so that it can do location lookup
+        if let locCell = cell as? LocationCell {
+            locCell.weatherService = weatherService
         }
+        
+        if let subCell = cell as? SubRuleDisplaying {
+            subCell.displayRule(subRule)
+        }
+        
         return cell
     }
     
-    func lookupLocation(sender : UIButton, weatherLookup : ((name: String?, locId: String?, errMsg: String?) -> ()) -> ()) {
-        let spinner = sender.superview?.viewWithTag(1) as! UIActivityIndicatorView
-        let gpsButton = sender.superview?.viewWithTag(2) as! UIButton
-        let zipButton = sender.superview?.viewWithTag(3) as! UIButton
-        let searchBox = sender.superview?.viewWithTag(4) as! UITextField
-        let cell = sender.superview?.superview! as! UITableViewCell
-        let indexPath = tableView.indexPathForCell(cell)
-        
-        spinner.startAnimating()
-        gpsButton.enabled = false
-        zipButton.enabled = false
-        weatherLookup() { (name, locId, errMsg) -> () in
-            dispatch_async(dispatch_get_main_queue()) {
-                if let searchText = name {
-                    let subRule = self.editRule.subrules[indexPath!.item] as! LocationSubRule
-                    subRule.name = searchText
-                    subRule.locId = locId!
-                    searchBox.text = searchText
-                }
-                
-                gpsButton.enabled = true
-                zipButton.enabled = true
-                spinner.stopAnimating()
-                
-                if let error = errMsg {
-                    let av = UIAlertView(title: "Unable to lookup location", message: error, delegate: nil, cancelButtonTitle: nil, otherButtonTitles: "Dismiss")
-                    av.show()
-                }
-            }
-        }
-    }
     
-    @IBAction func lookupGPS(sender : UIButton) {
-        lookupLocation(sender, weatherLookup: weatherService.getLocationWithGPS)
-    }
     
-    @IBAction func lookupZip(sender : UIButton) {
-        let searchBox = sender.superview?.viewWithTag(4) as! UITextField
-        func weatherLookup(callback: (name: String?, locId: String?, errMsg: String?) -> ()) -> () {
-            weatherService.getLocation(searchBox.text, completionHandler: callback)
-        }
-        lookupLocation(sender, weatherLookup: weatherLookup)
-    }
-    
-    @IBAction func flipTempUnitsButton(sender : UIButton) {
-        if let label = sender.titleLabel {
-            switch label.text! {
-                case "˚F":
-                    sender.setTitle("˚C", forState: UIControlState.Normal)
-            default:
-                sender.setTitle("˚F", forState: UIControlState.Normal)
-            }
-        }
-    }
 
-    @IBAction func opButtonPushed(opButton: UIButton) {
-        var l = CompOp.EQ
-        switch CompOp(rawValue:opButton.titleLabel!.text!)! {
-        case .LT: l = .LTE
-        case .LTE: l = .GT
-        case .GT: l = .GTE
-        case .GTE: l = .EQ
-        case .EQ: l = .LT
-        default: l = .EQ
-        }
-        
-        opButton.setTitle(l.rawValue, forState: UIControlState.Normal)
-    }
-    
-    @IBAction func flipSpeedUnitsButton(sender : UIButton) {
-        if let label = sender.titleLabel {
-            switch label.text! {
-            case SpeedUnits.MPH.rawValue:
-                label.text = SpeedUnits.KPH.rawValue
-            case SpeedUnits.KPH.rawValue:
-                label.text = SpeedUnits.MPH.rawValue
-            default:
-                label.text = SpeedUnits.MPH.rawValue
-            }
-        }
-    }
-    
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         let newVal = (textField.text as NSString).stringByReplacingCharactersInRange(range, withString: string)
         return newVal.match("^-?\\d*\\.?\\d*$")

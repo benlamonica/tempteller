@@ -15,6 +15,17 @@ class TemperatureCell : UITableViewCell, SubRuleDisplaying {
     
     var subrule : TemperatureSubRule?
     
+    @IBAction func flipTempUnitsButton(sender : UIButton) {
+        if let label = sender.titleLabel {
+            switch label.text! {
+            case "˚F":
+                sender.setTitle("˚C", forState: UIControlState.Normal)
+            default:
+                sender.setTitle("˚F", forState: UIControlState.Normal)
+            }
+        }
+    }
+
     func displayRule(subrule : SubRule) {
         if let rule = subrule as? TemperatureSubRule {
             self.subrule = rule

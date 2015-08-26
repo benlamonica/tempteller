@@ -15,6 +15,19 @@ class WindSpeedCell : UITableViewCell, SubRuleDisplaying {
     
     var subrule : WindSpeedSubRule?
     
+    @IBAction func flipSpeedUnitsButton(sender : UIButton) {
+        if let label = sender.titleLabel {
+            switch label.text! {
+            case SpeedUnits.MPH.rawValue:
+                label.text = SpeedUnits.KPH.rawValue
+            case SpeedUnits.KPH.rawValue:
+                label.text = SpeedUnits.MPH.rawValue
+            default:
+                label.text = SpeedUnits.MPH.rawValue
+            }
+        }
+    }
+    
     func displayRule(subrule : SubRule) {
         if let rule = subrule as? WindSpeedSubRule {
             self.subrule = rule

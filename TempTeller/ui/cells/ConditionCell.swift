@@ -106,10 +106,14 @@ class ConditionCell : UITableViewCell, SubRuleDisplaying, UICollectionViewDataSo
 
     }
     
+    func getConditionType() -> String {
+        return "Current Condition"
+    }
+    
     func updateLabel() {
         let conditions = sorted(subrule.conditions.keys, {self.conditionMap[$0] < self.conditionMap[$1]}).map {$0.rawValue}
         let conditionStr = join(" or ", conditions)
-        label.text = "Current Condition \(subrule.op.rawValue) \(conditionStr)"
+        label.text = "\(getConditionType()) \(subrule.op.rawValue) \(conditionStr)"
     }
 
 }

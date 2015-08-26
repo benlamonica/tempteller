@@ -10,4 +10,8 @@ import Foundation
 
 class ForecastConditionCell : ConditionCell {
     
+    override func getConditionType() -> String {
+        return "Forecast Condition"
+    }
+
 }

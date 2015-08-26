@@ -228,9 +228,6 @@
                                                     <rect key="frame" x="8" y="23" width="273" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
-                                                    <connections>
-                                                        <action selector="saveRule" destination="Mxs-pQ-SZI" eventType="valueChanged" id="Obo-AV-WnW"/>
-                                                    </connections>
                                                 </textField>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvs-fL-K27">
                                                     <rect key="frame" x="289" y="23" width="35" height="35"/>
@@ -255,7 +252,7 @@
                                                         </mask>
                                                     </variation>
                                                     <connections>
-                                                        <action selector="lookupZip:" destination="TFd-vs-7ev" eventType="touchUpInside" id="luV-GW-23D"/>
+                                                        <action selector="lookupZip:" destination="Mxs-pQ-SZI" eventType="touchUpInside" id="gen-O2-1Yf"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dnj-S2-Lpi">
@@ -284,7 +281,7 @@
                                                         </mask>
                                                     </variation>
                                                     <connections>
-                                                        <action selector="lookupGPS:" destination="TFd-vs-7ev" eventType="touchUpInside" id="eX4-AH-WUN"/>
+                                                        <action selector="lookupGPS:" destination="Mxs-pQ-SZI" eventType="touchUpInside" id="dRa-Bx-6C2"/>
                                                     </connections>
                                                 </button>
                                                 <activityIndicatorView hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="7F8-Av-1tc">
@@ -351,7 +348,10 @@
                                             </variation>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="gpsButton" destination="Dnj-S2-Lpi" id="5n6-cz-lDd"/>
                                             <outlet property="location" destination="eFf-Sh-ahx" id="Q8F-g2-QH3"/>
+                                            <outlet property="spinner" destination="7F8-Av-1tc" id="7Eb-95-Xmv"/>
+                                            <outlet property="zipButton" destination="dvs-fL-K27" id="ZPE-kN-b3X"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="MessageSubRule" rowHeight="63" id="08N-27-1cP" customClass="MessageCell" customModule="TempTeller" customModuleProvider="target">
@@ -605,8 +605,11 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xKu-9N-mIa" id="KA9-1m-kUi">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Condition" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FW1-DR-WME">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Condition" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FW1-DR-WME">
                                                     <rect key="frame" x="8" y="8" width="359" height="14.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="15" id="KNt-M7-Kie"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -822,6 +825,7 @@
                                                 <constraint firstItem="rQA-WZ-9bE" firstAttribute="top" secondItem="KA9-1m-kUi" secondAttribute="topMargin" constant="17.5" id="B8X-UU-kIA"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="YHt-aJ-0Uq" secondAttribute="bottom" constant="1.5" id="DQy-4Y-54Z"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="FW1-DR-WME" secondAttribute="trailing" id="E28-q2-yuX"/>
+                                                <constraint firstItem="rQA-WZ-9bE" firstAttribute="top" secondItem="FW1-DR-WME" secondAttribute="bottom" constant="2.5" id="NS4-bC-9vL"/>
                                                 <constraint firstItem="FW1-DR-WME" firstAttribute="leading" secondItem="KA9-1m-kUi" secondAttribute="leadingMargin" id="NaC-D4-Xq0"/>
                                                 <constraint firstAttribute="centerX" secondItem="rQA-WZ-9bE" secondAttribute="centerX" constant="151.5" id="NvV-d0-MSe"/>
                                                 <constraint firstItem="rQA-WZ-9bE" firstAttribute="leading" secondItem="KA9-1m-kUi" secondAttribute="leadingMargin" priority="600" id="Z7Z-f9-PO4"/>
@@ -829,6 +833,7 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
+                                                    <exclude reference="B8X-UU-kIA"/>
                                                     <exclude reference="NvV-d0-MSe"/>
                                                 </mask>
                                             </variation>
