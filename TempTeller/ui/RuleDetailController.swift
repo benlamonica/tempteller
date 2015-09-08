@@ -32,12 +32,13 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         let ruleTypes : [String:SubRule] = ["Time":TimeSubRule(),
             "Location":LocationSubRule(),
             "Temperature":TemperatureSubRule(),
-            "Humidity":HumiditySubRule(),
+            "Relative Humidity":HumiditySubRule(),
             "Condition":ConditionSubRule(),
             "Forecast Condition":ForecastConditionSubRule(),
             "Forecast Temperature":ForecastTempSubRule()]
         
         let ruleKeys : [String]
+        var showTimeRule = true
         
         override init() {
             ruleKeys = ruleTypes.keys.array.sorted(<)
@@ -59,7 +60,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         
         // returns the # of rows in each component..
         func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-            return count(ruleKeys)
+            return showTimeRule ? count(ruleKeys) : count(ruleKeys) - 1
         }
     }
     let rulePickerDataSource = RulePickerDataSource()
@@ -90,8 +91,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     
     override func viewDidLoad() {
         setupPicker()
-        var insets = UIEdgeInsets(top: self.nav.navigationBar.bounds.height + UIApplication.sharedApplication().statusBarFrame.height, left: 0, bottom: toolbar.bounds.height, right: 0)
-        tableView.contentInset = insets
+        resetInsets()
     }
     
     @IBAction func save(sender: AnyObject?) {
@@ -129,8 +129,8 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     }
     
     func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
-        if proposedDestinationIndexPath.item < 2 {
-            return NSIndexPath(forItem: 2, inSection: 0)
+        if proposedDestinationIndexPath.item < 3 {
+            return NSIndexPath(forItem: 3, inSection: 0)
         }
         return proposedDestinationIndexPath
     }
@@ -140,7 +140,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     }
     
     func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        if indexPath.item < 2 {
+        if indexPath.item < 3 {
             return false
         }
         return true
@@ -156,27 +156,43 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
             reorderBtn.image = swapImg
         }
         
-        if tableView.frame.width <= 400 {
-            // animate the row size change for condition cells
-            tableView.beginUpdates()
-            tableView.endUpdates()
-        }
+        tableView.reloadData()
+//        if tableView.frame.width <= 400 {
+//            // animate the row size change for condition cells
+//            tableView.beginUpdates()
+//            tableView.endUpdates()
+//        }
     }
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func adjustInsetsToShowKeybaord() {
+        tableView.contentInset = getInsets(additionalBottom: 225)
+    }
+
+    func getInsets(additionalBottom: CGFloat = 0) -> UIEdgeInsets {
+        var insets = UIEdgeInsets(top: self.nav.navigationBar.bounds.height + UIApplication.sharedApplication().statusBarFrame.height, left: 0, bottom: toolbar.bounds.height + additionalBottom, right: 0)
+        return insets
+    }
+    
+    func resetInsets() {
+        tableView.contentInset = getInsets()
+    }
+
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.item < count(editRule.subrules) && tableView.frame.width <= 320 {
-            if editRule.subrules[indexPath.item] is ConditionSubRule && tableView.editing {
-                return 106
+        var size : CGFloat = 70
+
+        if indexPath.item < editRule.subrules.count {
+            let subrule = editRule.subrules[indexPath.item]
+            if let condition = subrule as? ConditionSubRule {
+                size = 116
             }
         }
-
-        if indexPath.item < count(editRule.subrules) && tableView.frame.width <= 400 {
-            if editRule.subrules[indexPath.item] is ForecastConditionSubRule && tableView.editing {
-                return 106
-            }
-        }
-
-        return 70
+        
+        return size
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -200,11 +216,21 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     func pickSubRule() {
         let ruleChosen = picker.selectedRowInComponent(0)
         let ds = rulePickerDataSource
-        editRule.subrules.append(rulePickerDataSource.getSubRule(ruleChosen))
+        let newSubrule = rulePickerDataSource.getSubRule(ruleChosen)
+        var index = 0
+        
+        // add time subrules so that they are always third
+        if newSubrule.isKindOfClass(TimeSubRule) {
+            editRule.subrules.insert(newSubrule, atIndex: 2)
+            index = 2
+        } else {
+            editRule.subrules.append(newSubrule)
+            index = count(editRule.subrules)-1
+        }
 
         // todo, animate the add
         tableView.beginUpdates()
-        tableView.insertRowsAtIndexPaths([NSIndexPath(forItem: count(editRule.subrules)-1, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
+        tableView.insertRowsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
         tableView.endUpdates()
         
         dismissPicker()
@@ -240,11 +266,4 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         return cell
     }
     
-    
-    
-
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        let newVal = (textField.text as NSString).stringByReplacingCharactersInRange(range, withString: string)
-        return newVal.match("^-?\\d*\\.?\\d*$")
-    }
 }

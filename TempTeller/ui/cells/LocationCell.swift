@@ -1,4 +1,4 @@
-//
+    //
 //  LocationCell.swift
 //  TempTeller
 //
@@ -12,7 +12,6 @@ class LocationCell : UITableViewCell, SubRuleDisplaying {
     @IBOutlet var location : UITextField!
     @IBOutlet var spinner : UIActivityIndicatorView!
     @IBOutlet var gpsButton : UIButton!
-    @IBOutlet var zipButton : UIButton!
     var subrule : LocationSubRule!
     var weatherService : WeatherService!
     
@@ -31,7 +30,6 @@ class LocationCell : UITableViewCell, SubRuleDisplaying {
         
         spinner.startAnimating()
         gpsButton.enabled = false
-        zipButton.enabled = false
         weatherLookup() { (name, locId, errMsg) -> () in
             dispatch_async(dispatch_get_main_queue()) {
                 if let searchText = name {
@@ -41,7 +39,6 @@ class LocationCell : UITableViewCell, SubRuleDisplaying {
                 }
                 
                 self.gpsButton.enabled = true
-                self.zipButton.enabled = true
                 self.spinner.stopAnimating()
                 
                 if let error = errMsg {

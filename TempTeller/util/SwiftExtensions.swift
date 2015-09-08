@@ -28,7 +28,11 @@ func =~<T: RegularExpressionMatchable> (left: T, right: String) -> Bool {
 extension String {
     func toDouble() -> Double {
         return (self as NSString).doubleValue
-    }    
+    }
+    
+    func trim() -> String {
+        return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+    }
 }
 
 extension Double {

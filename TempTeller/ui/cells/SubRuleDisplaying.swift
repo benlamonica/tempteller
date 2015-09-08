@@ -1,5 +1,5 @@
 //
-//  SubRuleCell.swift
+//  UITableViewCell.swift
 //  TempTeller
 //
 //  Created by Ben La Monica on 6/3/15.

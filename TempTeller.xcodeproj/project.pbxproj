@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B538D9C91B1369F600D0A883 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B538D9C81B1369F600D0A883 /* CoreLocation.framework */; };
+		B56610E11B91050200629B60 /* ResigningTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56610E01B91050200629B60 /* ResigningTextFieldDelegate.swift */; };
+		B56610E31B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56610E21B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift */; };
 		B577FF5B1B84BFA400CC9C6D /* ForecastConditionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B577FF5A1B84BFA400CC9C6D /* ForecastConditionCell.swift */; };
 		B577FF5D1B85490300CC9C6D /* TimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B577FF5C1B85490300CC9C6D /* TimeCell.swift */; };
 		B577FF5F1B8765E600CC9C6D /* TimeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B577FF5E1B8765E600CC9C6D /* TimeEditor.swift */; };
@@ -34,7 +36,6 @@
 		B5F1CF161B5986050047A376 /* RuleDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF131B5986050047A376 /* RuleDetailController.swift */; };
 		B5F1CF171B5986050047A376 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF141B5986050047A376 /* SettingsViewController.swift */; };
 		B5F1CF1A1B59860F0047A376 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF191B59860F0047A376 /* WeatherService.swift */; };
-		B5F1CF221B5D2C940047A376 /* AddSubRuleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF1C1B5D2C940047A376 /* AddSubRuleCell.swift */; };
 		B5F1CF231B5D2C940047A376 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF1D1B5D2C940047A376 /* LocationCell.swift */; };
 		B5F1CF241B5D2C940047A376 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF1E1B5D2C940047A376 /* MessageCell.swift */; };
 		B5F1CF251B5D2C940047A376 /* RuleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF1F1B5D2C940047A376 /* RuleCell.swift */; };
@@ -59,6 +60,8 @@
 /* Begin PBXFileReference section */
 		B538D9C81B1369F600D0A883 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B538D9CA1B137FEA00D0A883 /* TempTeller.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TempTeller.entitlements; sourceTree = "<group>"; };
+		B56610E01B91050200629B60 /* ResigningTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResigningTextFieldDelegate.swift; sourceTree = "<group>"; };
+		B56610E21B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumbersOnlyTextFieldDelegate.swift; sourceTree = "<group>"; };
 		B577FF5A1B84BFA400CC9C6D /* ForecastConditionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastConditionCell.swift; sourceTree = "<group>"; };
 		B577FF5C1B85490300CC9C6D /* TimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeCell.swift; sourceTree = "<group>"; };
 		B577FF5E1B8765E600CC9C6D /* TimeEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeEditor.swift; sourceTree = "<group>"; };
@@ -89,7 +92,6 @@
 		B5F1CF131B5986050047A376 /* RuleDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleDetailController.swift; sourceTree = "<group>"; };
 		B5F1CF141B5986050047A376 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B5F1CF191B59860F0047A376 /* WeatherService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
-		B5F1CF1C1B5D2C940047A376 /* AddSubRuleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSubRuleCell.swift; sourceTree = "<group>"; };
 		B5F1CF1D1B5D2C940047A376 /* LocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		B5F1CF1E1B5D2C940047A376 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		B5F1CF1F1B5D2C940047A376 /* RuleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleCell.swift; sourceTree = "<group>"; };
@@ -218,6 +220,8 @@
 				B5F1CF121B5986050047A376 /* RuleController.swift */,
 				B5F1CF131B5986050047A376 /* RuleDetailController.swift */,
 				B5F1CF141B5986050047A376 /* SettingsViewController.swift */,
+				B56610E01B91050200629B60 /* ResigningTextFieldDelegate.swift */,
+				B56610E21B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -233,7 +237,6 @@
 		B5F1CF1B1B5D2C940047A376 /* cells */ = {
 			isa = PBXGroup;
 			children = (
-				B5F1CF1C1B5D2C940047A376 /* AddSubRuleCell.swift */,
 				B5F1CF2E1B6855120047A376 /* ConditionCell.swift */,
 				B5F1CF281B5DAB710047A376 /* HumidityCell.swift */,
 				B5F1CF1D1B5D2C940047A376 /* LocationCell.swift */,
@@ -375,7 +378,6 @@
 				B5F1CF061B59811C0047A376 /* TimeSubRule.swift in Sources */,
 				B5F1CF271B5D2C940047A376 /* TemperatureCell.swift in Sources */,
 				B5F1CF2B1B5DAC440047A376 /* WindSpeedCell.swift in Sources */,
-				B5F1CF221B5D2C940047A376 /* AddSubRuleCell.swift in Sources */,
 				B5F1CF291B5DAB710047A376 /* HumidityCell.swift in Sources */,
 				B577FF5F1B8765E600CC9C6D /* TimeEditor.swift in Sources */,
 				B5F1CF001B5980C40047A376 /* TemperatureSubRule.swift in Sources */,
@@ -385,8 +387,10 @@
 				B5F1CF261B5D2C940047A376 /* SubRuleDisplaying.swift in Sources */,
 				B5F1CF151B5986050047A376 /* RuleController.swift in Sources */,
 				B5F1CF1A1B59860F0047A376 /* WeatherService.swift in Sources */,
+				B56610E31B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift in Sources */,
 				B5F1CF2F1B6855120047A376 /* ConditionCell.swift in Sources */,
 				B5F1CEE61B597DBC0047A376 /* SwiftyJSON.swift in Sources */,
+				B56610E11B91050200629B60 /* ResigningTextFieldDelegate.swift in Sources */,
 				B577FF5B1B84BFA400CC9C6D /* ForecastConditionCell.swift in Sources */,
 				B5F1CF161B5986050047A376 /* RuleDetailController.swift in Sources */,
 				B5F1CEF81B597E350047A376 /* Rule.swift in Sources */,

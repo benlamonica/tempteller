@@ -22,7 +22,7 @@ class ConditionCell : UITableViewCell, SubRuleDisplaying, UICollectionViewDataSo
         tagMap[tag] = condition
         conditionMap[condition] = tag
     }
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         addTag(1, condition: Condition.Sunny)
@@ -68,6 +68,7 @@ class ConditionCell : UITableViewCell, SubRuleDisplaying, UICollectionViewDataSo
     
     @IBAction func toggleCondition(button : UIButton) {
         if let condition = tagMap[button.tag] {
+            let lastConditionsNum = subrule.conditions.count
             let val : Bool = subrule.conditions[condition] ?? false
             showSelection(button, selected: !val)
             if (!val) {
@@ -77,8 +78,21 @@ class ConditionCell : UITableViewCell, SubRuleDisplaying, UICollectionViewDataSo
             }
             
             updateLabel()
+            
+            var view = superview
+            
+            while (view != nil && !view!.isKindOfClass(UITableView)) {
+                view = view!.superview
+            }
+
+            if let tableView = view as? UITableView {
+                if let path = tableView.indexPathForCell(self) {
+                    tableView.reloadData()
+//                    tableView.reloadRowsAtIndexPaths([path], withRowAnimation: UITableViewRowAnimation.None)
+                    
+                }
+            }
         }
-        
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -106,14 +120,10 @@ class ConditionCell : UITableViewCell, SubRuleDisplaying, UICollectionViewDataSo
 
     }
     
-    func getConditionType() -> String {
-        return "Current Condition"
-    }
-    
     func updateLabel() {
         let conditions = sorted(subrule.conditions.keys, {self.conditionMap[$0] < self.conditionMap[$1]}).map {$0.rawValue}
         let conditionStr = join(" or ", conditions)
-        label.text = "\(getConditionType()) \(subrule.op.rawValue) \(conditionStr)"
+        label.text = "and if the current condition \(subrule.op.rawValue) \(conditionStr)"
     }
 
 }
