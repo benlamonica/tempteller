@@ -462,7 +462,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="82k-hz-PMc" id="3BH-Gu-MGo">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6FE-9i-TE6">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6FE-9i-TE6">
                                                     <rect key="frame" x="156" y="30" width="62" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="62" id="Xif-49-MFC"/>
@@ -470,7 +470,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                     <connections>
-                                                        <action selector="saveRule" destination="82k-hz-PMc" eventType="valueChanged" id="71O-Ug-5iY"/>
+                                                        <action selector="saveRule" destination="82k-hz-PMc" eventType="editingDidEnd" id="8xp-vD-cJF"/>
                                                         <outlet property="delegate" destination="cU0-XE-fqu" id="Icw-2k-tgR"/>
                                                     </connections>
                                                 </textField>
@@ -487,7 +487,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
-                                                        <action selector="flipTempUnitsButton:" destination="TFd-vs-7ev" eventType="touchUpInside" id="RgT-W4-5Rv"/>
+                                                        <action selector="flipTempUnitsButton:" destination="82k-hz-PMc" eventType="touchUpInside" id="DVe-pf-LEp"/>
                                                     </connections>
                                                 </button>
                                                 <textField hidden="YES" opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IQm-XO-aUA" userLabel="PickerTarget">
@@ -525,6 +525,9 @@
                                                             <integer key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="pickOp" destination="82k-hz-PMc" eventType="touchUpInside" id="zv8-uB-jrl"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -547,6 +550,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="opButton" destination="e9Z-xp-15E" id="WXN-aK-xHa"/>
+                                            <outlet property="pickerTarget" destination="IQm-XO-aUA" id="jVp-V8-yWN"/>
                                             <outlet property="temperature" destination="6FE-9i-TE6" id="yCC-XL-k4d"/>
                                             <outlet property="unitButton" destination="Fko-r6-Yn7" id="0fM-bv-cRn"/>
                                         </connections>
@@ -597,7 +601,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                     <connections>
-                                                        <action selector="saveRule" destination="O7c-jE-HhM" eventType="valueChanged" id="2iN-Ry-A7i"/>
+                                                        <action selector="saveRule" destination="O7c-jE-HhM" eventType="editingDidEnd" id="eqd-tj-ZiM"/>
                                                         <outlet property="delegate" destination="cU0-XE-fqu" id="JJR-QJ-yX7"/>
                                                     </connections>
                                                 </textField>

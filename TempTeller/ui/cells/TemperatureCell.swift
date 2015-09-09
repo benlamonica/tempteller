@@ -12,34 +12,46 @@ class TemperatureCell : UITableViewCell, SubRuleDisplaying {
     @IBOutlet var temperature : UITextField!
     @IBOutlet var unitButton : UIButton!
     @IBOutlet var opButton : UIButton!
+    @IBOutlet var pickerTarget : UITextField!
+    var opEditor : OpEditor!
     
-    var subrule : TemperatureSubRule?
+    var subrule : TemperatureSubRule!
     
     @IBAction func flipTempUnitsButton(sender : UIButton) {
         if let label = sender.titleLabel {
             switch label.text! {
             case "˚F":
-                sender.setTitle("˚C", forState: UIControlState.Normal)
+                subrule.isFarenheit = false
+                subrule.value = (subrule.value - 32) * (5.0/9.0)
+                displayRule(subrule)
             default:
-                sender.setTitle("˚F", forState: UIControlState.Normal)
+                subrule.isFarenheit = true
+                subrule.value = (subrule.value * (9.0/5.0)) + 32
+                displayRule(subrule)
             }
+        }
+    }
+    
+    @IBAction func pickOp() {
+        if opEditor == nil {
+            opEditor = OpEditor(textfield: pickerTarget)
+        }
+        opEditor.showOp(subrule.op) { (op) -> () in
+            self.subrule.op = op
+            self.opButton.setTitle(op.rawValue, forState: UIControlState.Normal)
         }
     }
 
     func displayRule(subrule : SubRule) {
         if let rule = subrule as? TemperatureSubRule {
             self.subrule = rule
-            temperature.text = String("\(rule.value)")
+            temperature.text = NSString(format: "%.1f", rule.value) as String
             unitButton.setTitle(rule.isFarenheit ? "˚F" : "˚C", forState: UIControlState.Normal)
-            opButton.titleLabel?.text = rule.op.rawValue
+            opButton.setTitle(rule.op.rawValue, forState: UIControlState.Normal)
         }
     }
     
     @IBAction func saveRule() {
-        if let rule = subrule {
-            rule.value = temperature.text.toDouble()
-            rule.isFarenheit = unitButton.titleLabel!.text == "˚F"
-            rule.op = CompOp(rawValue: opButton.titleLabel!.text!)!
-        }
+        subrule.value = temperature.text.toDouble()
     }
 }

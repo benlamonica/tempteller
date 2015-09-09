@@ -18,8 +18,8 @@ class HumidityCell : UITableViewCell, SubRuleDisplaying {
     func displayRule(subrule : SubRule) {
         if let rule = subrule as? HumiditySubRule {
             self.subrule = rule
-            humidity.text = "\(rule.value)"
-            opButton.titleLabel?.text = rule.op.rawValue
+            humidity.text = NSString(format: "%.0f", rule.value) as String
+            opButton.setTitle(rule.op.rawValue, forState: UIControlState.Normal)
         }
     }
     
@@ -27,6 +27,7 @@ class HumidityCell : UITableViewCell, SubRuleDisplaying {
         if opEditor == nil {
             opEditor = OpEditor(textfield: pickerTarget)
         }
+        
         opEditor.showOp(subrule.op) { (op) -> () in
             self.subrule.op = op
             self.opButton.setTitle(op.rawValue, forState: UIControlState.Normal)

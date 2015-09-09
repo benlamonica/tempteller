@@ -28,6 +28,7 @@ class TimeCell : UITableViewCell, SubRuleDisplaying {
     @IBAction func editTime(sender: UIButton) {
         if timeEditor == nil {
             timeEditor = TimeEditor(textfield: textfield)
+            timeEditor.showFutureTimes = false
         }
         timeEditor.showPicker(sender.titleLabel!.text!) { (newTime) -> () in
             sender.titleLabel!.text! = newTime
