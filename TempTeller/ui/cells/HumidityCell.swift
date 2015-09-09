@@ -11,21 +11,32 @@ import UIKit
 class HumidityCell : UITableViewCell, SubRuleDisplaying {
     @IBOutlet var humidity : UITextField!
     @IBOutlet var opButton : UIButton!
-    
-    var subrule : HumiditySubRule?
+    @IBOutlet var pickerTarget : UITextField!
+    var opEditor : OpEditor!
+    var subrule : HumiditySubRule!
     
     func displayRule(subrule : SubRule) {
         if let rule = subrule as? HumiditySubRule {
             self.subrule = rule
-            humidity.text = String("\(rule.value)")
+            humidity.text = "\(rule.value)"
             opButton.titleLabel?.text = rule.op.rawValue
+        }
+    }
+    
+    @IBAction func pickOp() {
+        if opEditor == nil {
+            opEditor = OpEditor(textfield: pickerTarget)
+        }
+        opEditor.showOp(subrule.op) { (op) -> () in
+            self.subrule.op = op
+            self.opButton.setTitle(op.rawValue, forState: UIControlState.Normal)
         }
     }
     
     @IBAction func saveRule() {
         if let rule = subrule {
             rule.value = humidity.text.toDouble()
-            rule.op = CompOp(rawValue: opButton.titleLabel!.text!)!
+            displayRule(rule)
         }
     }
 }

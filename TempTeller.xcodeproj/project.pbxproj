@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B514C4E81B9F134D00DF8ADF /* OpEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B514C4E71B9F134D00DF8ADF /* OpEditor.swift */; };
 		B538D9C91B1369F600D0A883 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B538D9C81B1369F600D0A883 /* CoreLocation.framework */; };
 		B56610E11B91050200629B60 /* ResigningTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56610E01B91050200629B60 /* ResigningTextFieldDelegate.swift */; };
 		B56610E31B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56610E21B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift */; };
@@ -58,6 +59,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B514C4E71B9F134D00DF8ADF /* OpEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpEditor.swift; sourceTree = "<group>"; };
 		B538D9C81B1369F600D0A883 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B538D9CA1B137FEA00D0A883 /* TempTeller.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TempTeller.entitlements; sourceTree = "<group>"; };
 		B56610E01B91050200629B60 /* ResigningTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResigningTextFieldDelegate.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				B577FF5A1B84BFA400CC9C6D /* ForecastConditionCell.swift */,
 				B577FF5C1B85490300CC9C6D /* TimeCell.swift */,
 				B577FF5E1B8765E600CC9C6D /* TimeEditor.swift */,
+				B514C4E71B9F134D00DF8ADF /* OpEditor.swift */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				B5F1CF291B5DAB710047A376 /* HumidityCell.swift in Sources */,
 				B577FF5F1B8765E600CC9C6D /* TimeEditor.swift in Sources */,
 				B5F1CF001B5980C40047A376 /* TemperatureSubRule.swift in Sources */,
+				B514C4E81B9F134D00DF8ADF /* OpEditor.swift in Sources */,
 				B5F1CF081B5981410047A376 /* LocationSubRule.swift in Sources */,
 				B5F1CF041B5981030047A376 /* WindSpeedSubRule.swift in Sources */,
 				B577FF5D1B85490300CC9C6D /* TimeCell.swift in Sources */,
