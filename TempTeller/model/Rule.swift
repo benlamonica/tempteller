@@ -56,6 +56,7 @@ public class Rule : NSObject, NSCopying, ConvertableToDictionary {
         subrules = [
             MessageSubRule(),
             LocationSubRule(),
+            TimeSubRule()
         ]
         super.init()
     }

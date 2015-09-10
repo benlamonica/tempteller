@@ -12,6 +12,7 @@ class LocationCell : UITableViewCell, SubRuleDisplaying {
     @IBOutlet var location : UITextField!
     @IBOutlet var spinner : UIActivityIndicatorView!
     @IBOutlet var gpsButton : UIButton!
+    var priorLocation : String?
     var subrule : LocationSubRule!
     var weatherService : WeatherService!
     
@@ -19,11 +20,17 @@ class LocationCell : UITableViewCell, SubRuleDisplaying {
         lookupLocation(sender, weatherLookup: weatherService.getLocationWithGPS)
     }
     
+    @IBAction func beginEditing() {
+        priorLocation = location.text
+    }
+    
     @IBAction func lookupZip(sender : UIButton) {
-        func weatherLookup(callback: (name: String?, locId: String?, errMsg: String?) -> ()) -> () {
-            weatherService.getLocation(location.text, completionHandler: callback)
+        if priorLocation != location.text {
+            func weatherLookup(callback: (name: String?, locId: String?, errMsg: String?) -> ()) -> () {
+                weatherService.getLocation(location.text, completionHandler: callback)
+            }
+            lookupLocation(sender, weatherLookup: weatherLookup)
         }
-        lookupLocation(sender, weatherLookup: weatherLookup)
     }
 
     func lookupLocation(sender : UIButton, weatherLookup : ((name: String?, locId: String?, errMsg: String?) -> ()) -> ()) {

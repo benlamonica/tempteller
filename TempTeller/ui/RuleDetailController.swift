@@ -29,16 +29,15 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     
 
     class RulePickerDataSource : NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
-        let ruleTypes : [String:SubRule] = ["Time":TimeSubRule(),
-            "Location":LocationSubRule(),
+        let ruleTypes : [String:SubRule] = ["Location":LocationSubRule(),
             "Temperature":TemperatureSubRule(),
-            "Relative Humidity":HumiditySubRule(),
+            "Humidity":HumiditySubRule(),
+            "Wind":WindSpeedSubRule(),
             "Condition":ConditionSubRule(),
             "Forecast Condition":ForecastConditionSubRule(),
             "Forecast Temperature":ForecastTempSubRule()]
         
         let ruleKeys : [String]
-        var showTimeRule = true
         
         override init() {
             ruleKeys = ruleTypes.keys.array.sorted(<)
@@ -60,7 +59,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         
         // returns the # of rows in each component..
         func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-            return showTimeRule ? count(ruleKeys) : count(ruleKeys) - 1
+            return count(ruleKeys)
         }
     }
     let rulePickerDataSource = RulePickerDataSource()
@@ -157,11 +156,6 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         }
         
         tableView.reloadData()
-//        if tableView.frame.width <= 400 {
-//            // animate the row size change for condition cells
-//            tableView.beginUpdates()
-//            tableView.endUpdates()
-//        }
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -217,16 +211,9 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         let ruleChosen = picker.selectedRowInComponent(0)
         let ds = rulePickerDataSource
         let newSubrule = rulePickerDataSource.getSubRule(ruleChosen)
-        var index = 0
         
-        // add time subrules so that they are always third
-        if newSubrule.isKindOfClass(TimeSubRule) {
-            editRule.subrules.insert(newSubrule, atIndex: 2)
-            index = 2
-        } else {
-            editRule.subrules.append(newSubrule)
-            index = count(editRule.subrules)-1
-        }
+        editRule.subrules.append(newSubrule)
+        let index = count(editRule.subrules)-1
 
         // todo, animate the add
         tableView.beginUpdates()

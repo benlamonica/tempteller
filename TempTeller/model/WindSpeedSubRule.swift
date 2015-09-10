@@ -35,6 +35,10 @@ public class WindSpeedSubRule : SingleValSubRule, ConvertableToDictionary {
         self.init(value: copy.value, op: copy.op, units: copy.units)
     }
     
+    convenience init() {
+        self.init(value: 0, op: CompOp.EQ, units: SpeedUnits.MPH)
+    }
+    
     override public func copyWithZone(zone: NSZone) -> AnyObject {
         return WindSpeedSubRule(copy: self)
     }

@@ -17,10 +17,12 @@ class TimeEditorDataSource : NSObject, UIPickerViewDataSource, UIPickerViewDeleg
 
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         var comp = component
-        if showFutureTimes && comp == 0 {
-            return DAYS[row]
-        } else {
-            comp--
+        if showFutureTimes {
+            if comp == 0 {
+                return DAYS[row]
+            } else {
+                comp--
+            }
         }
         
         switch comp {
@@ -52,10 +54,14 @@ class TimeEditorDataSource : NSObject, UIPickerViewDataSource, UIPickerViewDeleg
     // returns the # of rows in each component..
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         var comp = component
-        if showFutureTimes && comp == 0 {
-            return 8
+        if showFutureTimes {
+            if component == 0 {
+                return count(DAYS)
+            } else {
+                comp--
+            }
         }
-        comp--
+
         switch comp {
         case 0: return 12
         case 1: return 1

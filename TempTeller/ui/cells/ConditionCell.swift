@@ -88,8 +88,6 @@ class ConditionCell : UITableViewCell, SubRuleDisplaying, UICollectionViewDataSo
             if let tableView = view as? UITableView {
                 if let path = tableView.indexPathForCell(self) {
                     tableView.reloadData()
-//                    tableView.reloadRowsAtIndexPaths([path], withRowAnimation: UITableViewRowAnimation.None)
-                    
                 }
             }
         }

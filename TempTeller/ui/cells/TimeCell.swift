@@ -15,6 +15,8 @@ class TimeCell : UITableViewCell, SubRuleDisplaying {
     @IBOutlet var andLabel : UILabel!
     @IBOutlet var timeOp : UIButton!
     @IBOutlet var textfield: UITextField!
+    @IBOutlet var widthConstraint : NSLayoutConstraint!
+    
     var pickerView : UIPickerView!
     var subrule : TimeSubRule!
     var timeEditor : TimeEditor!
@@ -41,15 +43,20 @@ class TimeCell : UITableViewCell, SubRuleDisplaying {
         subrule.op = subrule.op == TimeOp.AT ? TimeOp.BETWEEN : TimeOp.AT
         let isVisible = subrule.op == TimeOp.BETWEEN
 
-        UIView.animateWithDuration(0.25) {
-            self.toTime.alpha = isVisible ? 1.0 : 0.0
-            self.andLabel.alpha = self.toTime.alpha
-        }
-        
         if (subrule.op == TimeOp.AT) {
             subrule.timeRange.max = subrule.timeRange.min
         }
         timeOp.setTitle(subrule.op.rawValue, forState: UIControlState.Normal)
+        if subrule.op == TimeOp.AT {
+            widthConstraint.constant = 170
+        } else {
+            widthConstraint.constant = 300
+        }
+
+        UIView.animateWithDuration(0.25) {
+            self.toTime.alpha = isVisible ? 1.0 : 0.0
+            self.andLabel.alpha = self.toTime.alpha
+        }
     }
     
     func displayRule(subrule: SubRule) {
@@ -60,6 +67,14 @@ class TimeCell : UITableViewCell, SubRuleDisplaying {
             toTime.setTitle(rule.timeRange.max, forState: UIControlState.Normal)
             toTime.alpha = (rule.op == TimeOp.AT) ? 0.0 : 1.0
             andLabel.alpha = (rule.op == TimeOp.AT) ? 0.0 : 1.0
+            
+            if rule.op == TimeOp.AT {
+                widthConstraint.constant = 170
+            } else {
+                widthConstraint.constant = 300
+            }
+
+            layoutIfNeeded()
         }
     }
     
