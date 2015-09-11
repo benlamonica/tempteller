@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B514C4E81B9F134D00DF8ADF /* OpEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B514C4E71B9F134D00DF8ADF /* OpEditor.swift */; };
+		B514C4EA1BA3088100DF8ADF /* ForecastTemperatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B514C4E91BA3088100DF8ADF /* ForecastTemperatureCell.swift */; };
 		B538D9C91B1369F600D0A883 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B538D9C81B1369F600D0A883 /* CoreLocation.framework */; };
 		B56610E11B91050200629B60 /* ResigningTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56610E01B91050200629B60 /* ResigningTextFieldDelegate.swift */; };
 		B56610E31B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56610E21B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift */; };
@@ -60,6 +61,7 @@
 
 /* Begin PBXFileReference section */
 		B514C4E71B9F134D00DF8ADF /* OpEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpEditor.swift; sourceTree = "<group>"; };
+		B514C4E91BA3088100DF8ADF /* ForecastTemperatureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastTemperatureCell.swift; sourceTree = "<group>"; };
 		B538D9C81B1369F600D0A883 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B538D9CA1B137FEA00D0A883 /* TempTeller.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TempTeller.entitlements; sourceTree = "<group>"; };
 		B56610E01B91050200629B60 /* ResigningTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResigningTextFieldDelegate.swift; sourceTree = "<group>"; };
@@ -240,17 +242,18 @@
 			isa = PBXGroup;
 			children = (
 				B5F1CF2E1B6855120047A376 /* ConditionCell.swift */,
+				B577FF5A1B84BFA400CC9C6D /* ForecastConditionCell.swift */,
+				B514C4E91BA3088100DF8ADF /* ForecastTemperatureCell.swift */,
 				B5F1CF281B5DAB710047A376 /* HumidityCell.swift */,
 				B5F1CF1D1B5D2C940047A376 /* LocationCell.swift */,
 				B5F1CF1E1B5D2C940047A376 /* MessageCell.swift */,
+				B514C4E71B9F134D00DF8ADF /* OpEditor.swift */,
 				B5F1CF1F1B5D2C940047A376 /* RuleCell.swift */,
 				B5F1CF201B5D2C940047A376 /* SubRuleDisplaying.swift */,
 				B5F1CF211B5D2C940047A376 /* TemperatureCell.swift */,
-				B5F1CF2A1B5DAC440047A376 /* WindSpeedCell.swift */,
-				B577FF5A1B84BFA400CC9C6D /* ForecastConditionCell.swift */,
 				B577FF5C1B85490300CC9C6D /* TimeCell.swift */,
 				B577FF5E1B8765E600CC9C6D /* TimeEditor.swift */,
-				B514C4E71B9F134D00DF8ADF /* OpEditor.swift */,
+				B5F1CF2A1B5DAC440047A376 /* WindSpeedCell.swift */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 				B5F1CF161B5986050047A376 /* RuleDetailController.swift in Sources */,
 				B5F1CEF81B597E350047A376 /* Rule.swift in Sources */,
 				B5F1CEFE1B5980310047A376 /* MessageSubRule.swift in Sources */,
+				B514C4EA1BA3088100DF8ADF /* ForecastTemperatureCell.swift in Sources */,
 				B5D1356C1B0B731A00ADC9E5 /* AppDelegate.swift in Sources */,
 				B5F1CF171B5986050047A376 /* SettingsViewController.swift in Sources */,
 			);

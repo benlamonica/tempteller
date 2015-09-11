@@ -9,18 +9,18 @@
 import Foundation
 
 public class ForecastTempSubRule : TemperatureSubRule {
-    public var forecastTime : Int
+    public var forecastTime : String
     
     convenience init() {
-        self.init(value: 70, op: CompOp.EQ, isFarenheit: true, forecastTime:12)
+        self.init(value: 70, op: CompOp.EQ, isFarenheit: true, forecastTime:"Today @ 12:00 PM")
     }
     
     override init(json: JSON) {
-        forecastTime = json["forecastTime"].intValue
+        forecastTime = json["forecastTime"].string ?? "Today @ 12:00 PM"
         super.init(json: json)
     }
     
-    public init(value: Double, op: CompOp, isFarenheit: Bool, forecastTime: Int) {
+    public init(value: Double, op: CompOp, isFarenheit: Bool, forecastTime: String) {
         self.forecastTime = forecastTime
         super.init(value: value, op: op, isFarenheit: isFarenheit);
     }

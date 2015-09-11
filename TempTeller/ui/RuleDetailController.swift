@@ -217,8 +217,11 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
 
         // todo, animate the add
         tableView.beginUpdates()
-        tableView.insertRowsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
+        let indexPath = NSIndexPath(forItem: index, inSection: 0)
+        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
         tableView.endUpdates()
+
+        tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
         
         dismissPicker()
     }
