@@ -93,6 +93,14 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         resetInsets()
     }
     
+    @IBAction func save(sender: AnyObject?) {
+        if let ruleToSave = editRule {
+            rule.subrules = ruleToSave.subrules
+            rule.saved = true
+        }
+        nav.popViewControllerAnimated(true)
+    }
+    
     func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         // prevent the message and location
         if indexPath.item < 2 {

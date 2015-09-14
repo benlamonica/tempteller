@@ -931,7 +931,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ais-GL-r1V">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ais-GL-r1V">
                                                     <rect key="frame" x="156" y="30" width="62" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="62" id="FIC-p4-bwh"/>
@@ -939,6 +939,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                     <connections>
+                                                        <action selector="saveRule" destination="DZW-mN-G5r" eventType="editingDidEnd" id="rxY-zf-U2Y"/>
                                                         <outlet property="delegate" destination="cU0-XE-fqu" id="ErH-ap-Xb6"/>
                                                     </connections>
                                                 </textField>
@@ -958,7 +959,15 @@
                                                             <integer key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="flipSpeedUnitsButton:" destination="DZW-mN-G5r" eventType="touchUpInside" id="qrh-jr-6wo"/>
+                                                    </connections>
                                                 </button>
+                                                <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CKj-Bh-q3V">
+                                                    <rect key="frame" x="8" y="8" width="32" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQm-Td-YdF">
                                                     <rect key="frame" x="108" y="29" width="40" height="30"/>
                                                     <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
@@ -975,6 +984,9 @@
                                                             <integer key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="pickOp" destination="DZW-mN-G5r" eventType="touchUpInside" id="RbW-HW-yKr"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -997,6 +1009,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="opButton" destination="OQm-Td-YdF" id="xPj-v0-b9B"/>
+                                            <outlet property="pickerTarget" destination="CKj-Bh-q3V" id="hNm-Qv-lhL"/>
                                             <outlet property="unitButton" destination="rWB-kG-rmA" id="6rT-mh-Qm7"/>
                                             <outlet property="windSpeed" destination="ais-GL-r1V" id="eNc-Pf-Ymc"/>
                                         </connections>

@@ -12,19 +12,32 @@ class WindSpeedCell : UITableViewCell, SubRuleDisplaying {
     @IBOutlet var windSpeed : UITextField!
     @IBOutlet var opButton : UIButton!
     @IBOutlet var unitButton : UIButton!
+    @IBOutlet var pickerTarget : UITextField!
     
-    var subrule : WindSpeedSubRule?
+    var opEditor : OpEditor!
+    var subrule : WindSpeedSubRule!
+    
+    @IBAction func pickOp() {
+        if opEditor == nil {
+            opEditor = OpEditor(textfield: pickerTarget)
+        }
+        opEditor.showOp(subrule.op) { (op) -> () in
+            self.subrule.op = op
+            self.opButton.setTitle(op.rawValue, forState: UIControlState.Normal)
+        }
+    }
     
     @IBAction func flipSpeedUnitsButton(sender : UIButton) {
-        if let label = sender.titleLabel {
-            switch label.text! {
-            case SpeedUnits.MPH.rawValue:
-                label.text = SpeedUnits.KPH.rawValue
-            case SpeedUnits.KPH.rawValue:
-                label.text = SpeedUnits.MPH.rawValue
-            default:
-                label.text = SpeedUnits.MPH.rawValue
-            }
+        switch sender.titleLabel!.text! {
+        case SpeedUnits.MPH.rawValue:
+            sender.setTitle(SpeedUnits.KPH.rawValue, forState:UIControlState.Normal)
+            subrule.units = SpeedUnits.KPH
+        case SpeedUnits.KPH.rawValue:
+            sender.setTitle(SpeedUnits.MPH.rawValue, forState:UIControlState.Normal)
+            subrule.units = SpeedUnits.MPH
+        default:
+            sender.setTitle(SpeedUnits.MPH.rawValue, forState:UIControlState.Normal)
+            subrule.units = SpeedUnits.MPH
         }
     }
     
@@ -37,11 +50,10 @@ class WindSpeedCell : UITableViewCell, SubRuleDisplaying {
         }
     }
     
+    @IBAction
     func saveRule() {
         if let rule = subrule {
             rule.value = windSpeed.text.toDouble()
-            rule.op = CompOp(rawValue: opButton.titleLabel!.text!)!
-            rule.units = SpeedUnits(rawValue: unitButton.titleLabel!.text!)!
         }
     }
 }
