@@ -919,6 +919,88 @@
                                             <outlet property="opButton" destination="rQA-WZ-9bE" id="vAi-MD-1m7"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" showsReorderControl="YES" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="WindSpeedSubRule" id="DZW-mN-G5r" customClass="WindSpeedCell" customModule="TempTeller" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DZW-mN-G5r" id="tKW-am-fLm">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wind Speed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0dk-ct-XzY">
+                                                    <rect key="frame" x="8" y="8" width="359" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ais-GL-r1V">
+                                                    <rect key="frame" x="156" y="30" width="62" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="62" id="FIC-p4-bwh"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="cU0-XE-fqu" id="ErH-ap-Xb6"/>
+                                                    </connections>
+                                                </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rWB-kG-rmA">
+                                                    <rect key="frame" x="226" y="29" width="41" height="30"/>
+                                                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="BRt-k5-Jto"/>
+                                                    </constraints>
+                                                    <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                                                    <state key="normal" title="mph">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQm-Td-YdF">
+                                                    <rect key="frame" x="108" y="29" width="40" height="30"/>
+                                                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="bjy-Es-xJJ"/>
+                                                    </constraints>
+                                                    <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                                    <state key="normal" title="&gt;">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ais-GL-r1V" firstAttribute="leading" secondItem="OQm-Td-YdF" secondAttribute="trailing" constant="8" id="5VT-Nb-ebm"/>
+                                                <constraint firstItem="0dk-ct-XzY" firstAttribute="leading" secondItem="ais-GL-r1V" secondAttribute="trailing" constant="-115" id="7FJ-7f-tQX"/>
+                                                <constraint firstItem="ais-GL-r1V" firstAttribute="top" secondItem="0dk-ct-XzY" secondAttribute="bottom" constant="8" id="CSR-4j-QGb"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="0dk-ct-XzY" secondAttribute="trailing" id="HfH-yl-7ft"/>
+                                                <constraint firstItem="rWB-kG-rmA" firstAttribute="leading" secondItem="ais-GL-r1V" secondAttribute="trailing" constant="8" id="Mm5-o5-pdj"/>
+                                                <constraint firstItem="0dk-ct-XzY" firstAttribute="top" secondItem="tKW-am-fLm" secondAttribute="topMargin" id="Nvi-9N-n6s"/>
+                                                <constraint firstItem="rWB-kG-rmA" firstAttribute="baseline" secondItem="ais-GL-r1V" secondAttribute="baseline" id="SvD-Hf-EwX"/>
+                                                <constraint firstAttribute="centerX" secondItem="ais-GL-r1V" secondAttribute="centerX" id="cOX-82-Ike"/>
+                                                <constraint firstItem="0dk-ct-XzY" firstAttribute="leading" secondItem="tKW-am-fLm" secondAttribute="leadingMargin" id="h7P-Ve-0EK"/>
+                                                <constraint firstItem="OQm-Td-YdF" firstAttribute="baseline" secondItem="ais-GL-r1V" secondAttribute="baseline" id="kpJ-nS-8AZ"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="7FJ-7f-tQX"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="opButton" destination="OQm-Td-YdF" id="xPj-v0-b9B"/>
+                                            <outlet property="unitButton" destination="rWB-kG-rmA" id="6rT-mh-Qm7"/>
+                                            <outlet property="windSpeed" destination="ais-GL-r1V" id="eNc-Pf-Ymc"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" selectionStyle="default" showsReorderControl="YES" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="ForecastConditionSubRule" rowHeight="116" id="9eU-fp-P48" customClass="ForecastConditionCell" customModule="TempTeller" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -1364,60 +1446,6 @@
                                             <outlet property="temperature" destination="nBc-BI-ox4" id="Ug8-yo-Fnd"/>
                                             <outlet property="textfield" destination="yco-qr-hUF" id="FRw-Vv-qfQ"/>
                                             <outlet property="unitButton" destination="45y-SA-MXc" id="Gkc-r9-1bc"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" showsReorderControl="YES" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="WindSpeedSubRule" id="DZW-mN-G5r" customClass="WindSpeedCell" customModule="TempTeller" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DZW-mN-G5r" id="tKW-am-fLm">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wind Speed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0dk-ct-XzY">
-                                                    <rect key="frame" x="8" y="0.0" width="68" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ais-GL-r1V">
-                                                    <rect key="frame" x="61" y="24" width="62" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="cU0-XE-fqu" id="ErH-ap-Xb6"/>
-                                                    </connections>
-                                                </textField>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQm-Td-YdF">
-                                                    <rect key="frame" x="8" y="24" width="40" height="30"/>
-                                                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <state key="normal" title="&gt;">
-                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rWB-kG-rmA">
-                                                    <rect key="frame" x="138" y="24" width="44" height="30"/>
-                                                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <state key="normal" title="mph">
-                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </button>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="opButton" destination="OQm-Td-YdF" id="xPj-v0-b9B"/>
-                                            <outlet property="unitButton" destination="rWB-kG-rmA" id="6rT-mh-Qm7"/>
-                                            <outlet property="windSpeed" destination="ais-GL-r1V" id="eNc-Pf-Ymc"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

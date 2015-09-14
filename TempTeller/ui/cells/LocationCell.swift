@@ -26,22 +26,23 @@ class LocationCell : UITableViewCell, SubRuleDisplaying {
     
     @IBAction func lookupZip(sender : UIButton) {
         if priorLocation != location.text {
-            func weatherLookup(callback: (name: String?, locId: String?, errMsg: String?) -> ()) -> () {
+            func weatherLookup(callback: (name: String?, lng: String?, lat: String?, errMsg: String?) -> ()) -> () {
                 weatherService.getLocation(location.text, completionHandler: callback)
             }
             lookupLocation(sender, weatherLookup: weatherLookup)
         }
     }
 
-    func lookupLocation(sender : UIButton, weatherLookup : ((name: String?, locId: String?, errMsg: String?) -> ()) -> ()) {
+    func lookupLocation(sender : UIButton, weatherLookup : ((name: String?, lng: String?, lat: String?, errMsg: String?) -> ()) -> ()) {
         
         spinner.startAnimating()
         gpsButton.enabled = false
-        weatherLookup() { (name, locId, errMsg) -> () in
+        weatherLookup() { (name, lng, lat, errMsg) -> () in
             dispatch_async(dispatch_get_main_queue()) {
                 if let searchText = name {
                     self.subrule.name = searchText
-                    self.subrule.locId = locId!
+                    self.subrule.lng = lng!
+                    self.subrule.lat = lat!
                     self.location.text = searchText
                 }
                 

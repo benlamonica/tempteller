@@ -20,7 +20,7 @@ class TempTellerTests: XCTestCase {
         super.tearDown()
     }
     
-    let jsonResult = "{\"uuid\":\"blah\",\"enabled\":true,\"version\":\"1.0\",\"subrules\":[{\"message\":\"This is a message\",\"type\":\"MessageSubRule\"},{\"name\":\"Aurora, IL\",\"locId\":\"123456\",\"type\":\"LocationSubRule\"},{\"isFarenheit\":true,\"value\":70,\"op\":\">\",\"type\":\"TemperatureSubRule\"},{\"isFarenheit\":true,\"value\":30,\"forecastTime\":3,\"op\":\"<\",\"type\":\"ForecastTempSubRule\"},{\"conditions\":[\"snowy\"],\"type\":\"ConditionSubRule\",\"op\":\"is\"},{\"forecastTime\":5,\"conditions\":[\"lightning\"],\"type\":\"ForecastConditionSubRule\",\"op\":\"is not\"},{\"value\":20,\"units\":\"MPH\",\"op\":\">=\",\"type\":\"WindSpeedSubRule\"},{\"value\":50,\"op\":\"<\",\"type\":\"HumiditySubRule\"},{\"timeRange\":{\"min\":830,\"max\":1400},\"op\":\"between\",\"type\":\"TimeSubRule\"}]}"
+    let jsonResult = "{\"enabled\":true,\"subrules\":[{\"type\":\"MessageSubRule\",\"message\":\"This is a message\"},{\"lat\":\"37.477141\",\"lng\":\"-122.299083\",\"type\":\"LocationSubRule\",\"name\":\"Aurora, IL\"},{\"op\":\"at\",\"type\":\"TimeSubRule\",\"timeRange\":{\"max\":\"12:00 PM\",\"min\":\"12:00 PM\"}},{\"op\":\">\",\"isFarenheit\":true,\"type\":\"TemperatureSubRule\",\"value\":70},{\"op\":\"<\",\"isFarenheit\":true,\"forecastTime\":\"Today @ 3:00 AM\",\"type\":\"ForecastTempSubRule\",\"value\":30},{\"op\":\"is\",\"type\":\"ConditionSubRule\",\"conditions\":[\"snowy\"]},{\"op\":\"is not\",\"forecastTime\":\"5:00 AM\",\"type\":\"ForecastConditionSubRule\",\"conditions\":[\"lightning\"]},{\"op\":\">=\",\"units\":\"MPH\",\"type\":\"WindSpeedSubRule\",\"value\":20},{\"op\":\"<\",\"type\":\"HumiditySubRule\",\"value\":50},{\"op\":\"between\",\"type\":\"TimeSubRule\",\"timeRange\":{\"max\":\"2:00 PM\",\"min\":\"8:30 AM\"}}],\"version\":\"1.0\",\"uuid\":\"blah\"}"
 
     func testJsonSerialization() {
         var rule : Rule = Rule()
@@ -30,7 +30,8 @@ class TempTellerTests: XCTestCase {
             msg.message = "This is a message"
         }
         if var loc = rule.subrules[1] as? LocationSubRule {
-            loc.locId = "123456"
+            loc.lng = "-122.299083"
+            loc.lat = "37.477141"
             loc.name = "Aurora, IL"
         }
         // now add the other subrules, to test serialization
