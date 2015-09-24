@@ -39,8 +39,8 @@ class ForecastConditionCell : ConditionCell {
     }
     
     override func updateLabel() {
-        let conditions = sorted(subrule.conditions.keys, {self.conditionMap[$0] < self.conditionMap[$1]}).map {$0.rawValue}
-        let conditionStr = join(" or ", conditions)
+        let conditions = subrule.conditions.keys.sort({self.conditionMap[$0] < self.conditionMap[$1]}).map {$0.rawValue}
+        let conditionStr = conditions.joinWithSeparator(" or ")
         label.text = "and if \(forecastSubrule.forecastTime) the condition \(subrule.op.rawValue) \(conditionStr)"
     }
 }

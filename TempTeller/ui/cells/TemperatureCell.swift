@@ -52,6 +52,6 @@ class TemperatureCell : UITableViewCell, SubRuleDisplaying {
     }
     
     @IBAction func saveRule() {
-        subrule.value = temperature.text.toDouble()
+        subrule.value = temperature.text!.toDouble()
     }
 }

@@ -27,7 +27,7 @@ class LocationCell : UITableViewCell, SubRuleDisplaying {
     @IBAction func lookupZip(sender : UIButton) {
         if priorLocation != location.text {
             func weatherLookup(callback: (name: String?, lng: String?, lat: String?, errMsg: String?) -> ()) -> () {
-                weatherService.getLocation(location.text, completionHandler: callback)
+                weatherService.getLocation(location.text!, completionHandler: callback)
             }
             lookupLocation(sender, weatherLookup: weatherLookup)
         }

@@ -85,7 +85,7 @@ public class Rule : NSObject, NSCopying, ConvertableToDictionary {
     public func json(prettyPrint:Bool = false) -> String {
         let model = toDict()
         
-        if let json = NSJSONSerialization.dataWithJSONObject(model, options: prettyPrint ? NSJSONWritingOptions.PrettyPrinted : nil, error: nil) {
+        if let json = try? NSJSONSerialization.dataWithJSONObject(model, options: prettyPrint ? [NSJSONWritingOptions.PrettyPrinted] : []) {
             if let jsonString =  NSString(data: json, encoding: NSUTF8StringEncoding) as? String {
                 return jsonString
             }

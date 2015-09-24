@@ -8,13 +8,13 @@
 
 import UIKit
 
-class RuleController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
+class RuleController: UITableViewController {
 
     var data : [Rule] = []
     let settings = NSUserDefaults.standardUserDefaults()
 
     func stylizeTableViewHeader() {
-        var nav = self.navigationController?.navigationBar
+        let nav = self.navigationController?.navigationBar
         nav?.barStyle = UIBarStyle.Black
         nav?.tintColor = UIColor.whiteColor()
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
@@ -39,12 +39,14 @@ class RuleController: UITableViewController, UITableViewDataSource, UITableViewD
     
     func saveRules() {
         let model = data.map({$0.toDict()})
-        var err = NSErrorPointer()
-        if let json = NSJSONSerialization.dataWithJSONObject(model, options: nil, error: err) {
+        let err = NSErrorPointer()
+        do {
+            let json = try NSJSONSerialization.dataWithJSONObject(model, options: [])
             let jsonString = NSString(data: json, encoding: NSUTF8StringEncoding) as! String
             NSLog(jsonString)
             settings.setValue(jsonString, forKey: "rules")
-        } else {
+        } catch let error as NSError {
+            err.memory = error
             NSLog("Failed to serialize to JSON: \(err)")
         }
         
@@ -59,11 +61,11 @@ class RuleController: UITableViewController, UITableViewDataSource, UITableViewD
 
     func registerForNotications() {
         // only register if we have rules, otherwise, register after the first rule is created
-        if count(data) > 0 {
+        if data.count > 0 {
             // see https://thatthinginswift.com/remote-notifications/
             let app = UIApplication.sharedApplication()
-            let settings = app.currentUserNotificationSettings()
-            let alertsEnabled = (settings.types & UIUserNotificationType.Alert) != nil
+            let settings = app.currentUserNotificationSettings()!
+            let alertsEnabled = (settings.types.intersect(UIUserNotificationType.Alert)) != []
             
             if (!alertsEnabled) {
                 let settings = UIUserNotificationSettings(forTypes: .Alert, categories: nil)
@@ -96,7 +98,7 @@ class RuleController: UITableViewController, UITableViewDataSource, UITableViewD
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("RuleCell", forIndexPath: indexPath) as! RuleCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("RuleCell", forIndexPath: indexPath) as! RuleCell
         cell.rule = data[indexPath.item]
         return cell
     }

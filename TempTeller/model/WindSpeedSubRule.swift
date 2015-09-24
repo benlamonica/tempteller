@@ -12,7 +12,7 @@ public enum SpeedUnits : String {
     case KPH = "KPH", MPH = "MPH"
 }
 
-public class WindSpeedSubRule : SingleValSubRule, ConvertableToDictionary {
+public class WindSpeedSubRule : SingleValSubRule {
 
     var units : SpeedUnits
     

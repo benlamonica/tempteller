@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class MessageSubRule : SubRule, NSCopying {
+public class MessageSubRule : SubRule {
     public var message : String;
     public init(msg : String) {
         message = msg

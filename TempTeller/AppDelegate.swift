@@ -26,22 +26,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func scheduleHeartbeatLocalNotification(userInfo: [NSObject : AnyObject]) {
         if userInfo["type"] as? String == "heartbeat" {
-            let prevNotifications = UIApplication.sharedApplication().scheduledLocalNotifications.filter {
-                if let notif = $0 as? UILocalNotification {
-                    return notif.alertTitle == "Missed Heartbeat"
-                } else {
-                    return false
+            let prevNotifications = UIApplication.sharedApplication().scheduledLocalNotifications!.filter {
+                    return $0.alertBody! =~ "Haven't heard a heartbeat since"
                 }
-            }
         
             for notification in prevNotifications {
-                if let localNotif = notification as? UILocalNotification {
-                    UIApplication.sharedApplication().cancelLocalNotification(localNotif)
-                }
+                UIApplication.sharedApplication().cancelLocalNotification(notification)
             }
             
             let hbNotifier = UILocalNotification()
-            hbNotifier.alertTitle = "Missed Heartbeat"
+            if #available(iOS 8.2, *) {
+                hbNotifier.alertTitle = "Missed Heartbeat"
+            } else {
+                // Fallback on earlier versions
+            }
             hbNotifier.alertBody = "Haven't heard a heartbeat since \(NSDate())"
             hbNotifier.fireDate = NSDate(timeIntervalSinceNow: 15.0 * 60)
             hbNotifier.userInfo = userInfo
@@ -54,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        let token = deviceToken.base64EncodedStringWithOptions(nil)
+        let token = deviceToken.base64EncodedStringWithOptions([])
         NSLog("registered for remote notifications: \(token)")
         
         let settings = NSUserDefaults.standardUserDefaults()

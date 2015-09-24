@@ -21,7 +21,7 @@ class MessageCell : UITableViewCell, SubRuleDisplaying {
     
     @IBAction func saveRule() {
         if let rule = subrule {
-            rule.message = message.text
+            rule.message = message.text!
         }
     }
 }

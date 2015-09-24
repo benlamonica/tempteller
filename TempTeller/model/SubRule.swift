@@ -22,19 +22,17 @@ public enum BoolOp : String {
 }
 
 
-func createModelFrom(mirror: MirrorType, #superclassName: String, inout #model: Dictionary<String,AnyObject>) {
-    
-    for var i = 0; i < mirror.count; i++ {
-        let mirrorSuperClass = mirror[i].1.summary
-        if mirror[i].0 == "super" && mirrorSuperClass != superclassName {
-            createModelFrom(mirror[i].1, superclassName: superclassName, model: &model)
-            continue
-        }
-        
-        if let convertable = mirror[i].1.value as? ConvertableToDictionary {
-            model[mirror[i].0] = convertable.toDict()
+func createModelFrom(mirror: Mirror, inout model: Dictionary<String,AnyObject>) {
+
+    if let superMirror = mirror.superclassMirror() {
+        createModelFrom(superMirror, model: &model)
+    }
+
+    for child in mirror.children {
+        if let convertable = child.value as? ConvertableToDictionary {
+            model[child.label!] = convertable.toDict()
         } else {
-            model[mirror[i].0] = mirror[i].1.value as? AnyObject
+            model[child.label!] = child.value as? AnyObject
         }
     }
     
@@ -49,14 +47,14 @@ public class SubRule : NSObject, NSCopying, ConvertableToDictionary {
     
     func toDict() -> Dictionary<String, AnyObject> {
         let className = self.classForCoder.description()
-        let cellType = className.substringFromIndex(find(className,".")!.successor())
+        let cellType = className.substringFromIndex(className.characters.indexOf(".")!.successor())
         var model : [String:AnyObject] = ["type":cellType]
-        createModelFrom(reflect(self), superclassName: cellType, model: &model)
+        createModelFrom(Mirror(reflecting:self), model: &model)
         return model
     }
 }
 
-public class SingleValSubRule : SubRule, NSCopying, ConvertableToDictionary {
+public class SingleValSubRule : SubRule {
     public var value : Double
     public var op : CompOp
     

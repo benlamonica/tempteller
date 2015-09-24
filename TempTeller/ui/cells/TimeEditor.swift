@@ -15,7 +15,7 @@ class TimeEditorDataSource : NSObject, UIPickerViewDataSource, UIPickerViewDeleg
     
     var showFutureTimes = true
 
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         var comp = component
         if showFutureTimes {
             if comp == 0 {
@@ -56,7 +56,7 @@ class TimeEditorDataSource : NSObject, UIPickerViewDataSource, UIPickerViewDeleg
         var comp = component
         if showFutureTimes {
             if component == 0 {
-                return count(DAYS)
+                return DAYS.count
             } else {
                 comp--
             }
@@ -112,17 +112,17 @@ class TimeEditor : NSObject {
         if time =~ "\\d+:\\d+ (AM|PM)" {
             let daySplit = time.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: "@"))
             var timeMinusDays = daySplit[0]
-            if count(daySplit) > 1 {
+            if daySplit.count > 1 {
                 timeMinusDays = daySplit[1].trim()
             }
             let timeSplit = timeMinusDays.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ": "))
-            let hours = timeSplit[0].toInt() ?? 0
-            let minutes = (timeSplit[1].toInt() ?? 0) / 5
+            let hours = Int(timeSplit[0]) ?? 0
+            let minutes = (Int(timeSplit[1]) ?? 0) / 5
             let ampm = timeSplit[2] == "PM" ? 1 : 0
             var idx = 0
             if showFutureTimes {
-                if count(daySplit) > 1 {
-                    picker.selectRow(find(DAYS, daySplit[0].trim()  ) ?? 0, inComponent: 0, animated: false)
+                if daySplit.count > 1 {
+                    picker.selectRow(DAYS.indexOf(daySplit[0].trim()  ) ?? 0, inComponent: 0, animated: false)
                 } else {
                     picker.selectRow(0, inComponent: 0, animated: false)
                 }
@@ -146,7 +146,7 @@ class TimeEditor : NSObject {
         // create a UIPicker view as a custom keyboard view
         picker = UIPickerView()
         picker.sizeToFit()
-        picker.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        picker.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         picker.delegate = ds
         picker.dataSource = ds
         picker.showsSelectionIndicator = true

@@ -36,7 +36,7 @@ class HumidityCell : UITableViewCell, SubRuleDisplaying {
     
     @IBAction func saveRule() {
         if let rule = subrule {
-            rule.value = humidity.text.toDouble()
+            rule.value = humidity.text!.toDouble()
             displayRule(rule)
         }
     }

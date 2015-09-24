@@ -53,7 +53,7 @@ class WindSpeedCell : UITableViewCell, SubRuleDisplaying {
     @IBAction
     func saveRule() {
         if let rule = subrule {
-            rule.value = windSpeed.text.toDouble()
+            rule.value = windSpeed.text!.toDouble()
         }
     }
 }

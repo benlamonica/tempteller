@@ -22,7 +22,7 @@ public enum BooleanOp : String {
     case IS_NOT = "is not"
 }
 
-public class ConditionSubRule : SubRule, ConvertableToDictionary {
+public class ConditionSubRule : SubRule {
     var conditions : [Condition:Bool];
     var op : BooleanOp
     
@@ -60,7 +60,7 @@ public class ConditionSubRule : SubRule, ConvertableToDictionary {
         var model = super.toDict()
         let filtered = conditions.keys.filter {self.conditions[$0] != nil && self.conditions[$0]!}
         let filteredConditions = filtered.map {$0.rawValue}
-        model["conditions"] = filteredConditions.array
+        model["conditions"] = Array(filteredConditions)
         model["op"] = op.rawValue
         return model
     }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class LocationSubRule : SubRule, NSCopying {
+public class LocationSubRule : SubRule {
     public var name : String
     public var lng: String
     public var lat: String

@@ -28,16 +28,16 @@ class WeatherService : NSObject, CLLocationManagerDelegate {
         let nsurl : NSURL! = NSURL(string: url!)
 
 //        NSURLSession.sharedSession().
-        NSURLConnection.sendAsynchronousRequest(NSURLRequest(URL: nsurl), queue: queue) { (response : NSURLResponse!, data : NSData!, error: NSError!) -> Void in
+        NSURLConnection.sendAsynchronousRequest(NSURLRequest(URL: nsurl), queue: queue) { (response : NSURLResponse?, data : NSData?, error: NSError?) -> Void in
             if error != nil {
                 if let handler = completionHandler {
                     handler(name: nil, lng: nil, lat: nil, errMsg: "Error - Network Problem")
                 }
             } else {
-                let jsonString = NSString(data: data, encoding: NSUTF8StringEncoding)
+                let jsonString = NSString(data: data!, encoding: NSUTF8StringEncoding)
                 NSLog("Received \(jsonString)")
 
-                let json = JSON(data: data, options: nil)
+                let json = JSON(data: data!, options: [])
                 
                 if json["query"] != JSON.nullJSON && json["query"]["results"] != JSON.nullJSON {
                     let locName = json["query"]["results"]["Result"]["line2"].string ?? "Unknown Location"
@@ -62,11 +62,9 @@ class WeatherService : NSObject, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
-        if let location = newLocation {
-            locationManager.stopUpdatingLocation()
-            let search = String(format: "%.8f,%.8f", location.coordinate.latitude, location.coordinate.longitude)
-            getLocation(search, completionHandler: callback)
-        }
+    func locationManager(manager: CLLocationManager, didUpdateToLocation location: CLLocation, fromLocation oldLocation: CLLocation) {
+        locationManager.stopUpdatingLocation()
+        let search = String(format: "%.8f,%.8f", location.coordinate.latitude, location.coordinate.longitude)
+        getLocation(search, completionHandler: callback)
     }
 }
