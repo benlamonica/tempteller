@@ -39,14 +39,14 @@ class RuleController: UITableViewController {
     
     func saveRules() {
         let model = data.map({$0.toDict()})
-        let err = NSErrorPointer()
         do {
             let json = try NSJSONSerialization.dataWithJSONObject(model, options: [])
             let jsonString = NSString(data: json, encoding: NSUTF8StringEncoding) as! String
             NSLog(jsonString)
             settings.setValue(jsonString, forKey: "rules")
+            settings.synchronize()
         } catch let error as NSError {
-            err.memory = error
+            let err = error
             NSLog("Failed to serialize to JSON: \(err)")
         }
         
@@ -56,7 +56,6 @@ class RuleController: UITableViewController {
         super.viewDidLoad()
         stylizeTableViewHeader()
         loadRules()
-        registerForNotications()
     }
 
     func registerForNotications() {
@@ -86,6 +85,7 @@ class RuleController: UITableViewController {
         data = data.filter({$0.saved == true})
         tableView.reloadData()
         saveRules()
+        registerForNotications()
     }
     
     override func didReceiveMemoryWarning() {

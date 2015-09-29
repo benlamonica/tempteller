@@ -10,6 +10,8 @@
 		B514C4E81B9F134D00DF8ADF /* OpEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B514C4E71B9F134D00DF8ADF /* OpEditor.swift */; };
 		B514C4EA1BA3088100DF8ADF /* ForecastTemperatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B514C4E91BA3088100DF8ADF /* ForecastTemperatureCell.swift */; };
 		B538D9C91B1369F600D0A883 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B538D9C81B1369F600D0A883 /* CoreLocation.framework */; };
+		B54B9F361BB5FC8800471959 /* SKProductExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B9F351BB5FC8800471959 /* SKProductExtensions.swift */; settings = {ASSET_TAGS = (); }; };
+		B54B9F381BB5FE2500471959 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B9F371BB5FE2500471959 /* SubscriptionManager.swift */; settings = {ASSET_TAGS = (); }; };
 		B56610E11B91050200629B60 /* ResigningTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56610E01B91050200629B60 /* ResigningTextFieldDelegate.swift */; };
 		B56610E31B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56610E21B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift */; };
 		B577FF5B1B84BFA400CC9C6D /* ForecastConditionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B577FF5A1B84BFA400CC9C6D /* ForecastConditionCell.swift */; };
@@ -64,6 +66,8 @@
 		B514C4E91BA3088100DF8ADF /* ForecastTemperatureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastTemperatureCell.swift; sourceTree = "<group>"; };
 		B538D9C81B1369F600D0A883 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B538D9CA1B137FEA00D0A883 /* TempTeller.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TempTeller.entitlements; sourceTree = "<group>"; };
+		B54B9F351BB5FC8800471959 /* SKProductExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKProductExtensions.swift; sourceTree = "<group>"; };
+		B54B9F371BB5FE2500471959 /* SubscriptionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
 		B56610E01B91050200629B60 /* ResigningTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResigningTextFieldDelegate.swift; sourceTree = "<group>"; };
 		B56610E21B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumbersOnlyTextFieldDelegate.swift; sourceTree = "<group>"; };
 		B577FF5A1B84BFA400CC9C6D /* ForecastConditionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastConditionCell.swift; sourceTree = "<group>"; };
@@ -193,6 +197,8 @@
 			children = (
 				B5F1CEE31B597DBC0047A376 /* SwiftExtensions.swift */,
 				B5F1CEE41B597DBC0047A376 /* SwiftyJSON.swift */,
+				B54B9F351BB5FC8800471959 /* SKProductExtensions.swift */,
+				B54B9F371BB5FE2500471959 /* SubscriptionManager.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -317,6 +323,9 @@
 							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 							com.apple.iCloud = {
 								enabled = 0;
 							};
@@ -379,6 +388,7 @@
 				B5F1CF021B5980E50047A376 /* HumiditySubRule.swift in Sources */,
 				B5F1CEFC1B5980140047A376 /* SubRule.swift in Sources */,
 				B5F1CF0A1B5982490047A376 /* ConditionSubRule.swift in Sources */,
+				B54B9F361BB5FC8800471959 /* SKProductExtensions.swift in Sources */,
 				B5F1CF241B5D2C940047A376 /* MessageCell.swift in Sources */,
 				B5F1CF231B5D2C940047A376 /* LocationCell.swift in Sources */,
 				B5F1CF101B59853B0047A376 /* ConvertableToDictionary.swift in Sources */,
@@ -404,6 +414,7 @@
 				B5F1CF161B5986050047A376 /* RuleDetailController.swift in Sources */,
 				B5F1CEF81B597E350047A376 /* Rule.swift in Sources */,
 				B5F1CEFE1B5980310047A376 /* MessageSubRule.swift in Sources */,
+				B54B9F381BB5FE2500471959 /* SubscriptionManager.swift in Sources */,
 				B514C4EA1BA3088100DF8ADF /* ForecastTemperatureCell.swift in Sources */,
 				B5D1356C1B0B731A00ADC9E5 /* AppDelegate.swift in Sources */,
 				B5F1CF171B5986050047A376 /* SettingsViewController.swift in Sources */,

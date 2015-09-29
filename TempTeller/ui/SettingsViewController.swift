@@ -33,11 +33,10 @@ class SettingsViewController : UIViewController {
         let windows = UIApplication.sharedApplication().windows
         let width = windows[0].frame.width
         widthConstraint.constant = width
-        contentView.frame = CGRect(x: 0, y: 0, width: width, height: contentView.frame.height)
     }
     
     override func viewDidLayoutSubviews() {
-        scrollView.contentSize = CGSize(width: contentView.frame.width, height: contentView.frame.height)
+        scrollView.contentSize = CGSize(width: contentView.frame.width, height: contentView.frame.height + 20)
     }
     
     override func viewDidLoad() {

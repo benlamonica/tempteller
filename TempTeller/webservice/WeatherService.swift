@@ -23,15 +23,13 @@ class WeatherService : NSObject, CLLocationManagerDelegate {
     func getLocation(search : String, completionHandler : ((name: String?, lng: String?, lat: String?,  errMsg: String?) -> ())?) {
         let url = NSString(string: "https://query.yahooapis.com/v1/public/yql?format=json&q=select * from geo.placefinder where text=\"\(search)\" and gflags=\"R\"").stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
         
-        NSLog("Retrieving\n\(url)")
-
         let nsurl : NSURL! = NSURL(string: url!)
 
-//        NSURLSession.sharedSession().
         NSURLConnection.sendAsynchronousRequest(NSURLRequest(URL: nsurl), queue: queue) { (response : NSURLResponse?, data : NSData?, error: NSError?) -> Void in
             if error != nil {
                 if let handler = completionHandler {
-                    handler(name: nil, lng: nil, lat: nil, errMsg: "Error - Network Problem")
+                    let msg = error?.localizedDescription ?? ""
+                    handler(name: nil, lng: nil, lat: nil, errMsg: msg)
                 }
             } else {
                 let jsonString = NSString(data: data!, encoding: NSUTF8StringEncoding)
