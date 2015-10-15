@@ -15,6 +15,12 @@ extension SKProduct {
         nf.formatterBehavior = NSNumberFormatterBehavior.Behavior10_4
         nf.numberStyle = NSNumberFormatterStyle.CurrencyStyle
         nf.locale = self.priceLocale
-        return nf.stringFromNumber(self.price) ?? "$2.99 USD"
+        return nf.stringFromNumber(self.price) ?? "..."
     }    
+}
+
+extension SKPaymentTransaction {
+    func toString() -> String {
+        return "SKPaymentTxn: \(self.payment.productIdentifier) Date: \(self.transactionDate) State: \(self.transactionState.rawValue) Id: \(self.transactionIdentifier)"
+    }
 }

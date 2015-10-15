@@ -8,38 +8,97 @@
 
 import Foundation
 import UIKit
+import StoreKit
 
-class SettingsViewController : UIViewController {
+class SettingsViewController : UITableViewController {
     var nav : UINavigationController!
     @IBOutlet var serverUrl : UITextField!
     @IBOutlet var deviceToken : UITextField!
-    @IBOutlet var scrollView : UIScrollView!
-    @IBOutlet var contentView : UIView!
-    @IBOutlet var widthConstraint : NSLayoutConstraint!
+    @IBOutlet var oneMonthPrice : UILabel!
+    @IBOutlet var sixMonthPrice : UILabel!
+    @IBOutlet var oneYearPrice : UILabel!
+    @IBOutlet var subEnd : UITableViewCell!
     
+    let subMgr = SubscriptionManager()
+    var email : EmailUtil!
+    let txns : [SKPaymentTransaction] = []
+    var subEndDate : NSDate?
     let settings = NSUserDefaults.standardUserDefaults()
     
-    @IBAction
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        switch segue.identifier ?? "DoNothing" {
+        case "ShowWhy" :
+            break
+        default:
+            break
+        }
+    }
+    
+    let SHOW_FORECAST_IO = NSIndexPath(forItem: 0, inSection: 0)
+    let SHOW_YAHOO = NSIndexPath(forItem: 1, inSection: 0)
+    let WHY_SUBSCRIBE = NSIndexPath(forItem: 0, inSection: 2)
+    let SUBSCRIBE_1M = NSIndexPath(forItem: 0, inSection: 3)
+    let SUBSCRIBE_6M = NSIndexPath(forItem: 1, inSection: 3)
+    let SUBSCRIBE_1Y = NSIndexPath(forItem: 2, inSection: 3)
+    let RESTORE_SUBS = NSIndexPath(forItem: 0, inSection: 4)
+    let REQUEST_SUPPORT = NSIndexPath(forItem: 0, inSection: 5)
+    
+    func getSubHandler() -> ((txn: [SKPaymentTransaction]) -> ()) {
+        return { (receipts: [SKPaymentTransaction]) in
+            for receipt in receipts {
+                NSLog("Purchased: \(receipt.payment.productIdentifier) - \(receipt.transactionDate)")
+            }
+        }
+    }
+        
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+
+        switch indexPath {
+        case SHOW_FORECAST_IO:
+            openForecastIO()
+        case SHOW_YAHOO:
+            openYahoo()
+        case SUBSCRIBE_1M:
+            subMgr.subscribe("1_Month", onCompletion: getSubHandler())
+        case SUBSCRIBE_6M:
+            subMgr.subscribe("6_Month", onCompletion: getSubHandler())
+        case SUBSCRIBE_1Y:
+            subMgr.subscribe("12_Month", onCompletion: getSubHandler())
+        case RESTORE_SUBS:
+            subMgr.restoreSubs(getSubHandler())
+        case REQUEST_SUPPORT:
+            requestSupport()
+        default: break
+            // do nothing
+        }
+    }
+    
+    override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return super.tableView(tableView, titleForFooterInSection: section)
+    }
+    
+   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return super.tableView(tableView, titleForHeaderInSection: section)
+    }
+
+    func requestSupport() {
+        
+        email.sendEmailWithSubject("TempTeller Support", body: "Please enter your support question here.\n\nDeviceToken: \(deviceToken.text!)", attachments:nil)
+    }
+    
     func openForecastIO() {
         UIApplication.sharedApplication().openURL(NSURL(string:"https://forecast.io")!)
     }
     
-    @IBAction
     func openYahoo() {
         UIApplication.sharedApplication().openURL(NSURL(string:"https://yahoo.com")!)
     }
     
-    override func viewWillLayoutSubviews() {
-        let windows = UIApplication.sharedApplication().windows
-        let width = windows[0].frame.width
-        widthConstraint.constant = width
-    }
-    
-    override func viewDidLayoutSubviews() {
-        scrollView.contentSize = CGSize(width: contentView.frame.width, height: contentView.frame.height + 20)
-    }
-    
     override func viewDidLoad() {
+        super.viewDidLoad()
         if let url = settings.valueForKey("serverUrl") as? String {
             serverUrl.text = url
         }
@@ -48,6 +107,8 @@ class SettingsViewController : UIViewController {
         } else {
             deviceToken.text = "Not Subscribed"
         }
+        
+        email = EmailUtil(parentController: self)
     }
     
     @IBAction func save(sender: AnyObject?) {
