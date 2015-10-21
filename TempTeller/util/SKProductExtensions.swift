@@ -19,8 +19,22 @@ extension SKProduct {
     }    
 }
 
-extension SKPaymentTransaction {
-    func toString() -> String {
-        return "SKPaymentTxn: \(self.payment.productIdentifier) Date: \(self.transactionDate) State: \(self.transactionState.rawValue) Id: \(self.transactionIdentifier)"
+extension SKPaymentTransactionState : CustomStringConvertible {
+    public var description : String {
+        switch self {
+            // Use Internationalization, as appropriate.
+        case .Failed: return "Failed"
+        case .Restored: return "Restored"
+        case .Purchased: return "Purchased"
+        case .Deferred: return "Deferred"
+        case .Purchasing: return "Purchasing"
+        }
     }
 }
+
+extension SKPaymentTransaction {
+    func toString() -> String {
+        return "SKPaymentTxn: \(self.payment.productIdentifier) Date: \(self.transactionDate) State: \(self.transactionState) Id: \(self.transactionIdentifier)"
+    }
+}
+

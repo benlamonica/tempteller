@@ -8,6 +8,7 @@
 
 import Foundation
 import StoreKit
+import UIKit
 
 class SubscriptionManager : NSObject {
     var products : [String:SKProduct] = [:]
@@ -22,8 +23,6 @@ class SubscriptionManager : NSObject {
             }
             NSLog("Received product \(product.productIdentifier), with price \(product.localizedPrice())")
         }
-        
-        
     }
 
     func addObserver(observer: NSObject) {
@@ -58,8 +57,11 @@ class SubscriptionManager : NSObject {
 
     func restoreSubs(onCompletion : (receipts: [SKPaymentTransaction]) -> ()) {
         NSLog("restore subscriptions")
-        let observer = TxnObserver(parent: self, processReceipt: onCompletion)
+        let refreshReq = SKReceiptRefreshRequest()
+        let observer = ReceiptReqDelegate(parent: self, processReceipts: onCompletion)
         addObserver(observer)
+        refreshReq.delegate = observer
+
         SKPaymentQueue.defaultQueue().addTransactionObserver(observer)
         SKPaymentQueue.defaultQueue().restoreCompletedTransactions()
     }
@@ -110,6 +112,7 @@ class SubscriptionManager : NSObject {
                     switch txn.transactionState {
                     case .Restored:
                         removeObserver = true
+                        NSLog("Restored Txn: \(txn)")
                         receipts.append(txn.originalTransaction!)
                         queue.finishTransaction(txn)
                     case .Purchased:
@@ -135,6 +138,21 @@ class SubscriptionManager : NSObject {
                 processReceipt(receipts: receipts)
             }
         }
+        
+        // Sent when an error is encountered while adding transactions from the user's purchase history back to the queue.
+        func paymentQueue(queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: NSError) {
+            NSLog("Error while requesting restore: %@", error)
+            queue.removeTransactionObserver(self)
+            parent.removeObserver(self)
+        }
+        
+        // Sent when all transactions from the user's purchase history have successfully been added back to the queue.
+        func paymentQueueRestoreCompletedTransactionsFinished(queue: SKPaymentQueue) {
+            NSLog("Finished restoring purcahses")
+            queue.removeTransactionObserver(self)
+            parent.removeObserver(self)
+        }
+
     }
     
     class ProductObserver : NSObject, SKProductsRequestDelegate {
@@ -156,4 +174,29 @@ class SubscriptionManager : NSObject {
             parent.removeObserver(self)
         }
     }
+
+    class ReceiptReqDelegate : NSObject, SKRequestDelegate {
+        unowned let parent : SubscriptionManager
+        let txnObserver : TxnObserver
+        init(parent: SubscriptionManager, processReceipts: (receipts: [SKPaymentTransaction]) -> ()) {
+            self.parent = parent
+            txnObserver = TxnObserver(parent: parent, processReceipt: processReceipts)
+            
+        }
+        func requestDidFinish(request: SKRequest) {
+            parent.removeObserver(self)
+            guard let receiptUrl = NSBundle().appStoreReceiptURL else {
+                let av = UIAlertView(title: "Problem", message: "Unable to restore subscriptions. Make sure you are connected to the internet.", delegate: nil, cancelButtonTitle: "Dismiss")
+                av.show()
+                return
+            }
+            
+            guard let receiptPKS7 = NSData(contentsOfURL: receiptUrl) else {
+                NSLog("Can't read pkcs#7 receipt data from: \(receiptUrl)")
+            }
+            
+            
+        }
+    }
+
 }
