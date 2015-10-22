@@ -62,8 +62,8 @@ class SubscriptionManager : NSObject {
         addObserver(observer)
         refreshReq.delegate = observer
 
-        SKPaymentQueue.defaultQueue().addTransactionObserver(observer)
-        SKPaymentQueue.defaultQueue().restoreCompletedTransactions()
+//        SKPaymentQueue.defaultQueue().addTransactionObserver(observer)
+//        SKPaymentQueue.defaultQueue().restoreCompletedTransactions()
     }
     
     func requestSubscriptionInfo(productIds: Set<String>, onCompletion : (product : SKProduct) -> ()) {
@@ -185,15 +185,18 @@ class SubscriptionManager : NSObject {
         }
         func requestDidFinish(request: SKRequest) {
             parent.removeObserver(self)
-            guard let receiptUrl = NSBundle().appStoreReceiptURL else {
-                let av = UIAlertView(title: "Problem", message: "Unable to restore subscriptions. Make sure you are connected to the internet.", delegate: nil, cancelButtonTitle: "Dismiss")
-                av.show()
-                return
-            }
+//            guard let receiptUrl = NSBundle().appStoreReceiptURL else {
+//                let av = UIAlertView(title: "Problem", message: "Unable to restore subscriptions. Make sure you are connected to the internet.", delegate: nil, cancelButtonTitle: "Dismiss")
+//                av.show()
+//                return
+//            }
             
-            guard let receiptPKS7 = NSData(contentsOfURL: receiptUrl) else {
-                NSLog("Can't read pkcs#7 receipt data from: \(receiptUrl)")
-            }
+//            guard let receiptPKCS7 = NSData(contentsOfURL: receiptUrl) else {
+//                NSLog("Can't read pkcs#7 receipt data from: \(receiptUrl)")
+//            }
+//            OPENSSL_add_all_algorithms_noconf()
+//            
+//            BIO_new_mem_buf(receiptPKCS7.bytes, receiptPKCS7.length)
             
             
         }

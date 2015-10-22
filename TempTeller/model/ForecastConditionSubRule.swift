@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 public class ForecastConditionSubRule : ConditionSubRule {
     public var forecastTime : String

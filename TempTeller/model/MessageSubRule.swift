@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 public class MessageSubRule : SubRule {
     public var message : String;

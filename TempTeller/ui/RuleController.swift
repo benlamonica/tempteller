@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class RuleController: UITableViewController {
 
@@ -30,7 +31,7 @@ class RuleController: UITableViewController {
     
     func loadRules() {
         if let rulesJson = settings.valueForKey("rules") as? String {
-            let json = JSON(data: rulesJson)
+            let json = JSON(data: rulesJson.dataUsingEncoding(NSUTF8StringEncoding)!)
             for rule in json.arrayValue {
                 data.append(Rule(json: rule))
             }

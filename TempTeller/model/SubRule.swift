@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 public enum CompOp : String {
     case LT = "<"

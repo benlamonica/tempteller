@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import SwiftyJSON
 
 class WeatherService : NSObject, CLLocationManagerDelegate {
     
@@ -37,7 +38,7 @@ class WeatherService : NSObject, CLLocationManagerDelegate {
 
                 let json = JSON(data: data!, options: [])
                 
-                if json["query"] != JSON.nullJSON && json["query"]["results"] != JSON.nullJSON {
+                if json["query"] != JSON.null && json["query"]["results"] != JSON.null {
                     let locName = json["query"]["results"]["Result"]["line2"].string ?? "Unknown Location"
                     let lng = json["query"]["results"]["Result"]["longitude"].string ?? ""
                     let lat = json["query"]["results"]["Result"]["latitude"].stringValue ?? ""

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 public class Rule : NSObject, NSCopying, ConvertableToDictionary {
     public var enabled : Bool;

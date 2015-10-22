@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 public enum SpeedUnits : String {
     case KPH = "KPH", MPH = "MPH"

@@ -1,0 +1,13 @@
+PODS:
+  - OpenSSL (1.0.204.1)
+  - SwiftyJSON (2.3.0)
+
+DEPENDENCIES:
+  - OpenSSL (~> 1.0)
+  - SwiftyJSON (~> 2.3)
+
+SPEC CHECKSUMS:
+  OpenSSL: 7f853fcada78e5162c2183b4d90ebbd0aa02f5ac
+  SwiftyJSON: 8d6b61a70277ef2a5d710d372e06e7e2d87fb9e4
+
+COCOAPODS: 0.39.0

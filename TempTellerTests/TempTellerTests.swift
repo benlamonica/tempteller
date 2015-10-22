@@ -9,6 +9,7 @@
 import UIKit
 import XCTest
 import TempTeller
+import SwiftyJSON
 
 class TempTellerTests: XCTestCase {
     
@@ -48,7 +49,7 @@ class TempTellerTests: XCTestCase {
     
     func testJsonDeserialization() {
         // first de-serialize
-        let rule = Rule(json:JSON(data: jsonResult))
+        let rule = Rule(json:JSON(data: jsonResult.dataUsingEncoding(NSUTF8StringEncoding)!))
         // then serialze again and compare..they should match
         XCTAssertEqual(String(rule.json().characters.sort()), String(jsonResult.characters.sort()), "not equal \n expects:\n" + jsonResult + "\nbut was:\n" + rule.json(true))
     }

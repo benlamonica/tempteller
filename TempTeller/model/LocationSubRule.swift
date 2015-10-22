@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 public class LocationSubRule : SubRule {
     public var name : String
