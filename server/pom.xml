@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<groupId>us.pojo</groupId>
-	<artifactId>weather-notifier</artifactId>
+	<artifactId>tempteller-server</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 

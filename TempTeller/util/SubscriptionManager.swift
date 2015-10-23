@@ -185,20 +185,44 @@ class SubscriptionManager : NSObject {
         }
         func requestDidFinish(request: SKRequest) {
             parent.removeObserver(self)
-//            guard let receiptUrl = NSBundle().appStoreReceiptURL else {
-//                let av = UIAlertView(title: "Problem", message: "Unable to restore subscriptions. Make sure you are connected to the internet.", delegate: nil, cancelButtonTitle: "Dismiss")
-//                av.show()
-//                return
-//            }
+            guard let receiptUrl = NSBundle().appStoreReceiptURL else {
+                let av = UIAlertView(title: "Problem", message: "Unable to restore subscriptions. Make sure you are connected to the internet.", delegate: nil, cancelButtonTitle: "Dismiss")
+                av.show()
+                return
+            }
             
-//            guard let receiptPKCS7 = NSData(contentsOfURL: receiptUrl) else {
-//                NSLog("Can't read pkcs#7 receipt data from: \(receiptUrl)")
-//            }
-//            OPENSSL_add_all_algorithms_noconf()
-//            
-//            BIO_new_mem_buf(receiptPKCS7.bytes, receiptPKCS7.length)
+            guard let receiptPKCS7 = NSMutableData(contentsOfURL: receiptUrl) else {
+                NSLog("Can't read pkcs#7 receipt data from: \(receiptUrl)")
+                return
+            }
+
+            OPENSSL_add_all_algorithms_noconf()
             
+            let appleRootX509 = NSMutableData(base64EncodedString: "apple root cert", options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
             
+            let receiptBuf = BIO_new_mem_buf(receiptPKCS7.mutableBytes, Int32(receiptPKCS7.length))
+            defer { BIO_free(receiptBuf) }
+            
+            let appleRootCertBuf = BIO_new_mem_buf(appleRootX509.mutableBytes, Int32(appleRootX509.length))
+            defer { BIO_free(appleRootCertBuf) }
+            
+            let receipt = d2i_PKCS7_bio(receiptBuf, nil)
+            defer { PKCS7_free(receipt) }
+            
+            let rootCert = d2i_X509_bio(appleRootCertBuf, nil)
+            defer { X509_free(rootCert) }
+            
+            let certStore = X509_STORE_new()
+            defer { X509_STORE_free(certStore) }
+            
+            X509_STORE_add_cert(certStore, rootCert)
+            
+            let receiptPayload = BIO_new(BIO_s_mem())
+            defer { BIO_free(receiptPayload) }
+            
+            let isReceiptValid = PKCS7_verify(receipt, nil, certStore, nil, receiptPayload, 0) == 1
+            
+            NSLog("Receipt is %@", isReceiptValid ? "valid" : "invalid")
         }
     }
 
