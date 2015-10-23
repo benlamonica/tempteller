@@ -21,7 +21,7 @@ class TempTellerTests: XCTestCase {
         super.tearDown()
     }
     
-    let jsonResult = "{\"enabled\":true,\"subrules\":[{\"type\":\"MessageSubRule\",\"message\":\"This is a message\"},{\"lat\":\"37.477141\",\"lng\":\"-122.299083\",\"type\":\"LocationSubRule\",\"name\":\"Aurora, IL\"},{\"op\":\"at\",\"type\":\"TimeSubRule\",\"timeRange\":{\"max\":\"12:00 PM\",\"min\":\"12:00 PM\"}},{\"op\":\">\",\"isFarenheit\":true,\"type\":\"TemperatureSubRule\",\"value\":70},{\"op\":\"<\",\"isFarenheit\":true,\"forecastTime\":\"Today @ 3:00 AM\",\"type\":\"ForecastTempSubRule\",\"value\":30},{\"op\":\"is\",\"type\":\"ConditionSubRule\",\"conditions\":[\"snowy\"]},{\"op\":\"is not\",\"forecastTime\":\"5:00 AM\",\"type\":\"ForecastConditionSubRule\",\"conditions\":[\"lightning\"]},{\"op\":\">=\",\"units\":\"MPH\",\"type\":\"WindSpeedSubRule\",\"value\":20},{\"op\":\"<\",\"type\":\"HumiditySubRule\",\"value\":50},{\"op\":\"between\",\"type\":\"TimeSubRule\",\"timeRange\":{\"max\":\"2:00 PM\",\"min\":\"8:30 AM\"}}],\"version\":\"1.0\",\"uuid\":\"blah\"}"
+    let jsonResult = "{\"enabled\":true,\"subrules\":[{\"type\":\"MessageSubRule\",\"message\":\"This is a message\"},{\"locId\":\"11_12784194\",\"lat\":\"37.477141\",\"lng\":\"-122.299083\",\"type\":\"LocationSubRule\",\"name\":\"Aurora, IL\"},{\"op\":\"at\",\"type\":\"TimeSubRule\",\"timeRange\":{\"max\":\"12:00 PM\",\"min\":\"12:00 PM\"}},{\"op\":\">\",\"isFarenheit\":true,\"type\":\"TemperatureSubRule\",\"value\":70},{\"op\":\"<\",\"isFarenheit\":true,\"forecastTime\":\"Today @ 3:00 AM\",\"type\":\"ForecastTempSubRule\",\"value\":30},{\"op\":\"is\",\"type\":\"ConditionSubRule\",\"conditions\":[\"snowy\"]},{\"op\":\"is not\",\"forecastTime\":\"5:00 AM\",\"type\":\"ForecastConditionSubRule\",\"conditions\":[\"lightning\"]},{\"op\":\">=\",\"units\":\"MPH\",\"type\":\"WindSpeedSubRule\",\"value\":20},{\"op\":\"<\",\"type\":\"HumiditySubRule\",\"value\":50},{\"op\":\"between\",\"type\":\"TimeSubRule\",\"timeRange\":{\"max\":\"2:00 PM\",\"min\":\"8:30 AM\"}}],\"version\":\"1.0\",\"uuid\":\"blah\"}"
 
     func testJsonSerialization() {
         let rule : Rule = Rule()
@@ -32,6 +32,7 @@ class TempTellerTests: XCTestCase {
         }
         if let loc = rule.subrules[1] as? LocationSubRule {
             loc.lng = "-122.299083"
+            loc.locId = "11_12784194"
             loc.lat = "37.477141"
             loc.name = "Aurora, IL"
         }

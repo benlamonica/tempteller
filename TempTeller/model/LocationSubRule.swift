@@ -11,26 +11,28 @@ import SwiftyJSON
 
 public class LocationSubRule : SubRule {
     public var name : String
+    public var locId: String
     public var lng: String
     public var lat: String
     
     override convenience init() {
-        self.init(name: "", lng: "", lat: "")
+        self.init(locId: "", name: "", lng: "", lat: "")
     }
     
     convenience init(json: JSON) {
-        self.init(name: json["name"].stringValue, lng: json["lng"].string ?? "", lat: json["lat"].string ?? "" )
+        self.init(locId: json["locId"].string ?? "", name: json["name"].string ?? "", lng: json["lng"].string ?? "", lat: json["lat"].string ?? "" )
     }
     
-    public init(name: String, lng: String, lat: String) {
+    public init(locId: String, name: String, lng: String, lat: String) {
         self.name = name
         self.lng = lng
         self.lat = lat
+        self.locId = locId
         super.init()
     }
     
     convenience init(copy: LocationSubRule) {
-        self.init(name: copy.name, lng: copy.lng, lat: copy.lat)
+        self.init(locId: copy.locId, name: copy.name, lng: copy.lng, lat: copy.lat)
     }
     
     override public func copyWithZone(zone: NSZone) -> AnyObject {

@@ -2,8 +2,8 @@ package us.pojo.tempteller.model;
 
 public class TimeSubRule extends SubRule {
 	public static class TimeRange {
-		public Integer min;
-		public Integer max;
+		public String min;
+		public String max;
 		@Override
 		public String toString() {
 			return "TimeRange [min=" + min + ", max=" + max + "]";

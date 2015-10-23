@@ -1,13 +1,13 @@
 package us.pojo.tempteller.model;
 
 public class ForecastTempSubRule extends TemperatureSubRule {
-	private Integer forecastTime;
+	private String forecastTime;
 
-	public Integer getForecastTime() {
+	public String getForecastTime() {
 		return forecastTime;
 	}
 
-	public void setForecastTime(Integer forecastTime) {
+	public void setForecastTime(String forecastTime) {
 		this.forecastTime = forecastTime;
 	}
 

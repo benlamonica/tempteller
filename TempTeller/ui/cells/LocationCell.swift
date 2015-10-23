@@ -26,32 +26,31 @@ class LocationCell : UITableViewCell, SubRuleDisplaying {
     
     @IBAction func lookupZip(sender : UIButton) {
         if priorLocation != location.text {
-            func weatherLookup(callback: (name: String?, lng: String?, lat: String?, errMsg: String?) -> ()) -> () {
+            func weatherLookup(callback: (locId: String, name: String, lng: String, lat: String, errMsg: String?) -> ()) -> () {
                 weatherService.getLocation(location.text!, completionHandler: callback)
             }
             lookupLocation(sender, weatherLookup: weatherLookup)
         }
     }
 
-    func lookupLocation(sender : UIButton, weatherLookup : ((name: String?, lng: String?, lat: String?, errMsg: String?) -> ()) -> ()) {
+    func lookupLocation(sender : UIButton, weatherLookup : ((locId: String, name: String, lng: String, lat: String, errMsg: String?) -> ()) -> ()) {
         
         spinner.startAnimating()
         gpsButton.enabled = false
-        weatherLookup() { (name, lng, lat, errMsg) -> () in
+        weatherLookup() { (locId, name, lng, lat, errMsg) -> () in
             dispatch_async(dispatch_get_main_queue()) {
-                if let searchText = name {
-                    self.subrule.name = searchText
-                    self.subrule.lng = lng!
-                    self.subrule.lat = lat!
-                    self.location.text = searchText
-                }
-                
                 self.gpsButton.enabled = true
                 self.spinner.stopAnimating()
                 
                 if let error = errMsg {
                     let av = UIAlertView(title: "Unable to lookup location", message: error, delegate: nil, cancelButtonTitle: nil, otherButtonTitles: "Dismiss")
                     av.show()
+                } else {
+                    self.subrule.name = name
+                    self.subrule.lng = lng
+                    self.subrule.lat = lat
+                    self.subrule.locId = locId
+                    self.location.text = name
                 }
             }
         }
