@@ -5,10 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
-@ImportResource("weather-notifier-spring.xml")
-public class WeatherNotifierApplication {
+@ImportResource("temp-teller-spring.xml")
+public class TempTellerServer {
 
     public static void main(String[] args) {
-        SpringApplication.run(WeatherNotifierApplication.class, args);
+        SpringApplication.run(TempTellerServer.class, args);
     }
 }

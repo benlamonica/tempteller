@@ -1,4 +1,4 @@
-package us.pojo.tempteller.model;
+package us.pojo.tempteller.model.weather;
 
 public class LocationSubRule extends SubRule {
 	private String locId;

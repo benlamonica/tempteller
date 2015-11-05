@@ -1,6 +1,6 @@
 package us.pojo.tempteller.service.weather;
 
-import us.pojo.tempteller.model.WeatherData;
+import us.pojo.tempteller.model.weather.WeatherData;
 
 public class OfflineWeatherService implements WeatherService {
 

@@ -1,4 +1,4 @@
-package us.pojo.tempteller.model;
+package us.pojo.tempteller.model.weather;
 
 public class MessageSubRule extends SubRule {
 	private String message;

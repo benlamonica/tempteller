@@ -1,4 +1,4 @@
-package us.pojo.tempteller.model;
+package us.pojo.tempteller.model.weather;
 
 public class WindSpeedSubRule extends SingleValueSubRule {
 	private String units;

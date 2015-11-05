@@ -3,8 +3,8 @@ package us.pojo.tempteller.dao;
 import java.util.List;
 import java.util.Set;
 
-import us.pojo.tempteller.model.SubRequest;
-import us.pojo.tempteller.model.WeatherData;
+import us.pojo.tempteller.model.weather.SubRequest;
+import us.pojo.tempteller.model.weather.WeatherData;
 
 public interface SubDAO {
 	public boolean save(SubRequest req);

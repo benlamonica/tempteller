@@ -8,8 +8,8 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<bean id="TestKeyStore" class="us.pojo.weathernotifier.util.KeystoreUtil" factory-method="getKeystore">
-		<constructor-arg value="/TempNotify.Push.Sandbox.p12"/>
+	<bean id="TestKeyStore" class="us.pojo.tempteller.util.KeystoreUtil" factory-method="getKeystore">
+		<constructor-arg value="/TempTeller.Push.Sandbox.p12"/>
 	</bean>
 	
 	<bean id="PushQueue" class="javapns.Push" factory-method="queue">
@@ -20,26 +20,26 @@
 	</bean>
 	
 	<bean class="org.springframework.web.client.RestTemplate"/>
-	<bean class="us.pojo.weathernotifier.dao.SubDAOImpl"/>
-	<bean class="us.pojo.weathernotifier.transformer.JSONToWOEIDTransformer"/>
-	<bean class="us.pojo.weathernotifier.transformer.RSStoWeatherDataTransformer"/>
-	<bean class="us.pojo.weathernotifier.service.SubManagerImpl"/>
+	<bean class="us.pojo.tempteller.dao.SubDAOImpl"/>
+	<bean class="us.pojo.tempteller.transformer.JSONToWOEIDTransformer"/>
+	<bean class="us.pojo.tempteller.transformer.RSStoWeatherDataTransformer"/>
+	<bean class="us.pojo.tempteller.service.SubManagerImpl"/>
 	
-	<bean id="FeedbackService" class="us.pojo.weathernotifier.service.feedback.JavaPNSFeedbackService">
+	<bean id="FeedbackService" class="us.pojo.tempteller.service.feedback.JavaPNSFeedbackService">
 		<constructor-arg index="0" ref="TestKeyStore"/>
 		<constructor-arg index="1" value="tuber5-Yukon"/>
 		<constructor-arg index="2" value="false"/>
 	</bean>
-	<bean id="PushService" class="us.pojo.weathernotifier.service.push.JavaPNSPushService">
+	<bean id="PushService" class="us.pojo.tempteller.service.push.JavaPNSPushService">
 		<constructor-arg ref="PushQueue"/>
 		<constructor-arg ref="FeedbackService"/>
 	</bean>
-	<bean id="WeatherService" class="us.pojo.weathernotifier.service.weather.YahooWeatherService"/>
+	<bean id="WeatherService" class="us.pojo.tempteller.service.weather.YahooWeatherService"/>
 	
 	<beans profile="offline">
-		<bean id="FeedbackService" class="us.pojo.weathernotifier.service.feedback.OfflineFeedbackService"/>
-		<bean id="PushService" class="us.pojo.weathernotifier.service.push.OfflinePushService"/>
-		<bean id="WeatherService" class="us.pojo.weathernotifier.service.weather.OfflineWeatherService"/>
+		<bean id="FeedbackService" class="us.pojo.tempteller.service.feedback.OfflineFeedbackService"/>
+		<bean id="PushService" class="us.pojo.tempteller.service.push.OfflinePushService"/>
+		<bean id="WeatherService" class="us.pojo.tempteller.service.weather.OfflineWeatherService"/>
 	</beans>
 
 </beans>

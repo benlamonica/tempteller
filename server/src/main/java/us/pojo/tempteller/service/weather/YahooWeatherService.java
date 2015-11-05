@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
-import us.pojo.tempteller.model.WeatherData;
+import us.pojo.tempteller.model.weather.WeatherData;
 import us.pojo.tempteller.transformer.JSONToWOEIDTransformer;
 import us.pojo.tempteller.transformer.RSStoWeatherDataTransformer;
 

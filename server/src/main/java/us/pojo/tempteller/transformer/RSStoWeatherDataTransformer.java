@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
-import us.pojo.tempteller.model.WeatherData;
+import us.pojo.tempteller.model.weather.WeatherData;
 
 public class RSStoWeatherDataTransformer {
 

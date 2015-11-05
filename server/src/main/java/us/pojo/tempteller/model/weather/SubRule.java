@@ -1,4 +1,4 @@
-package us.pojo.tempteller.model;
+package us.pojo.tempteller.model.weather;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;

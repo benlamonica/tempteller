@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import org.junit.Test;
 import org.springframework.util.FileCopyUtils;
 
-import us.pojo.tempteller.model.WeatherData;
+import us.pojo.tempteller.model.weather.WeatherData;
 import us.pojo.tempteller.transformer.RSStoWeatherDataTransformer;
 
 public class RSSToWeatherDataTransformerTest {

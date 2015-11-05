@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import us.pojo.tempteller.model.LocationSubRule;
-import us.pojo.tempteller.model.Rule;
-import us.pojo.tempteller.model.SubRequest;
-import us.pojo.tempteller.model.SubRule;
-import us.pojo.tempteller.model.UserId;
-import us.pojo.tempteller.model.WeatherData;
+import us.pojo.tempteller.model.weather.LocationSubRule;
+import us.pojo.tempteller.model.weather.Rule;
+import us.pojo.tempteller.model.weather.SubRequest;
+import us.pojo.tempteller.model.weather.SubRule;
+import us.pojo.tempteller.model.weather.UserId;
+import us.pojo.tempteller.model.weather.WeatherData;
 
 public class SubDAOImpl implements SubDAO {
 

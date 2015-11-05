@@ -1,4 +1,4 @@
-package us.pojo.tempteller.model;
+package us.pojo.tempteller.model.weather;
 
 public class TimeSubRule extends SubRule {
 	public static class TimeRange {

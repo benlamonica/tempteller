@@ -1,6 +1,6 @@
 package us.pojo.tempteller.service;
 
-import us.pojo.tempteller.model.SubRequest;
+import us.pojo.tempteller.model.weather.SubRequest;
 
 public interface SubManager {
 

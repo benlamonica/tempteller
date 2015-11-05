@@ -5,8 +5,8 @@ import java.util.Set;
 
 import org.hsqldb.jdbc.JDBCPool;
 
-import us.pojo.tempteller.model.SubRequest;
-import us.pojo.tempteller.model.WeatherData;
+import us.pojo.tempteller.model.weather.SubRequest;
+import us.pojo.tempteller.model.weather.WeatherData;
 
 public class HsqldbSubDAO implements SubDAO {
 

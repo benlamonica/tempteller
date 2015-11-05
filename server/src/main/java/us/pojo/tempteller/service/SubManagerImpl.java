@@ -16,8 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import us.pojo.tempteller.dao.SubDAO;
-import us.pojo.tempteller.model.SubRequest;
-import us.pojo.tempteller.model.WeatherData;
+import us.pojo.tempteller.model.weather.SubRequest;
+import us.pojo.tempteller.model.weather.WeatherData;
 import us.pojo.tempteller.service.push.PushService;
 import us.pojo.tempteller.service.weather.WeatherService;
 
