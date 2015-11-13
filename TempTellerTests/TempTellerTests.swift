@@ -39,8 +39,8 @@ class TempTellerTests: XCTestCase {
         // now add the other subrules, to test serialization
         rule.subrules.append(TemperatureSubRule(value: 70.0, op: CompOp.GT, isFarenheit: true))
         rule.subrules.append(ForecastTempSubRule(value: 30.0, op: CompOp.LT, isFarenheit: true, forecastTime: "Today @ 3:00 AM"))
-        rule.subrules.append(ConditionSubRule(conditions: [Condition.Snow:true], op: BooleanOp.IS))
-        rule.subrules.append(ForecastConditionSubRule(conditions: [Condition.Lightning:true], op: BooleanOp.IS_NOT, forecastTime: "5:00 AM"))
+        rule.subrules.append(ConditionSubRule(conditions: [Condition.Snowy:true], op: BooleanOp.IS))
+        rule.subrules.append(ForecastConditionSubRule(conditions: [Condition.Foggy:true], op: BooleanOp.IS_NOT, forecastTime: "5:00 AM"))
         rule.subrules.append(WindSpeedSubRule(value: 20, op: CompOp.GTE, units: SpeedUnits.MPH))
         rule.subrules.append(HumiditySubRule(value: 50, op: CompOp.LT))
         rule.subrules.append(TimeSubRule(timeRange: ("8:30 AM","2:00 PM"), op: TimeOp.BETWEEN))

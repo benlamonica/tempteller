@@ -12,8 +12,8 @@
 		B514C4E81B9F134D00DF8ADF /* OpEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B514C4E71B9F134D00DF8ADF /* OpEditor.swift */; };
 		B514C4EA1BA3088100DF8ADF /* ForecastTemperatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B514C4E91BA3088100DF8ADF /* ForecastTemperatureCell.swift */; };
 		B538D9C91B1369F600D0A883 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B538D9C81B1369F600D0A883 /* CoreLocation.framework */; };
-		B54B9F361BB5FC8800471959 /* SKProductExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B9F351BB5FC8800471959 /* SKProductExtensions.swift */; settings = {ASSET_TAGS = (); }; };
-		B54B9F381BB5FE2500471959 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B9F371BB5FE2500471959 /* SubscriptionManager.swift */; settings = {ASSET_TAGS = (); }; };
+		B54B9F361BB5FC8800471959 /* SKProductExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B9F351BB5FC8800471959 /* SKProductExtensions.swift */; };
+		B54B9F381BB5FE2500471959 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B9F371BB5FE2500471959 /* SubscriptionManager.swift */; };
 		B56610E11B91050200629B60 /* ResigningTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56610E01B91050200629B60 /* ResigningTextFieldDelegate.swift */; };
 		B56610E31B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56610E21B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift */; };
 		B577FF5B1B84BFA400CC9C6D /* ForecastConditionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B577FF5A1B84BFA400CC9C6D /* ForecastConditionCell.swift */; };
@@ -21,7 +21,7 @@
 		B577FF5F1B8765E600CC9C6D /* TimeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B577FF5E1B8765E600CC9C6D /* TimeEditor.swift */; };
 		B5889B351B4F758300539E97 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5889B341B4F758300539E97 /* StoreKit.framework */; };
 		B597D2F41BD8535C00C01728 /* Pods_TempTeller.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B597D2F31BD8535C00C01728 /* Pods_TempTeller.framework */; };
-		B599D2661BCD430E00A61021 /* EmailUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B599D2651BCD430E00A61021 /* EmailUtil.swift */; settings = {ASSET_TAGS = (); }; };
+		B599D2661BCD430E00A61021 /* EmailUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B599D2651BCD430E00A61021 /* EmailUtil.swift */; };
 		B599D2681BCD434A00A61021 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B599D2671BCD434A00A61021 /* MessageUI.framework */; };
 		B5D1356C1B0B731A00ADC9E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1356B1B0B731A00ADC9E5 /* AppDelegate.swift */; };
 		B5D135711B0B731A00ADC9E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5D1356F1B0B731A00ADC9E5 /* Main.storyboard */; };
@@ -699,6 +699,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = TempTeller/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "${inherited}";
@@ -718,6 +719,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = TempTeller/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "${inherited}";

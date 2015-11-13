@@ -9,4 +9,9 @@ public class AuthResult {
 		this.subEndDate = subEndDate;
 		this.msg = msg;
 	}
+	
+	@Override
+	public String toString() {
+		return "AuthResult [uid=" + uid + ", msg=" + msg + ", subEndDate=" + subEndDate + "]";
+	}
 }

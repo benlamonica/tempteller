@@ -1,6 +1,6 @@
 package us.pojo.tempteller.service.weather;
 
-import us.pojo.tempteller.model.weather.WeatherData;
+import us.pojo.tempteller.model.rule.WeatherData;
 
 public interface WeatherService {
 

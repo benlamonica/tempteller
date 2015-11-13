@@ -13,9 +13,9 @@ public enum Condition : String {
     case Sunny = "sunny"
     case Cloudy = "cloudy"
     case Rainy = "rainy"
-    case Lightning = "lightning"
-    case Snow = "snowy"
-    case Wind = "windy"
+    case Foggy = "foggy"
+    case Snowy = "snowy"
+    case Windy = "windy"
 }
 
 public enum BooleanOp : String {
@@ -44,7 +44,7 @@ public class ConditionSubRule : SubRule {
     class func getConditionsFromJson(json: JSON) -> [Condition:Bool] {
         var conditions : [Condition:Bool] = [:]
         for condition in json["conditions"].arrayValue {
-            conditions[Condition(rawValue: condition.string ?? "sunny")!] = true
+            conditions[Condition(rawValue: condition.string ?? "sunny") ?? Condition.Sunny] = true
         }
         return conditions
     }

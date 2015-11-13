@@ -33,6 +33,10 @@ extension String {
     func trim() -> String {
         return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
     }
+    
+    func split(delim:String) -> [String] {
+        return self.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: delim))
+    }
 }
 
 extension Double {
