@@ -9,9 +9,12 @@ import java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+
 import us.pojo.tempteller.model.rule.NotifiableRule;
 import us.pojo.tempteller.model.rule.Rule;
 
+@Service(value="RuleService")
 public class OfflineRuleService implements RuleService {
 
 	private ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
@@ -19,6 +22,7 @@ public class OfflineRuleService implements RuleService {
 	private WriteLock writeLock = lock.writeLock();
 	private TreeMap<String, NotifiableRule> rules = new TreeMap<>();
 
+	@Override
 	public void updateTz(String uid, String pushToken, TimeZone tz) {
 		readLock.lock();
 		try {
@@ -89,6 +93,18 @@ public class OfflineRuleService implements RuleService {
 				.collect(Collectors.toList());
 		} finally {
 			readLock.unlock();
+		}
+	}
+
+	@Override
+	public void updatePushToken(String uid, String priorPushToken, String pushToken) {
+		writeLock.lock();
+		try {
+			getRules(uid).stream()
+				.filter(r -> r.pushToken.equals(priorPushToken))
+				.forEach(r -> r.pushToken = pushToken);
+		} finally {
+			writeLock.unlock();
 		}
 	}
 

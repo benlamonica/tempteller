@@ -20,10 +20,6 @@
 	</bean>
 	
 	<bean class="org.springframework.web.client.RestTemplate"/>
-	<bean class="us.pojo.tempteller.dao.SubDAOImpl"/>
-	<bean class="us.pojo.tempteller.transformer.JSONToWOEIDTransformer"/>
-	<bean class="us.pojo.tempteller.transformer.RSStoWeatherDataTransformer"/>
-	<bean class="us.pojo.tempteller.service.SubManagerImpl"/>
 	
 	<bean id="FeedbackService" class="us.pojo.tempteller.service.feedback.JavaPNSFeedbackService">
 		<constructor-arg index="0" ref="TestKeyStore"/>
@@ -34,12 +30,10 @@
 		<constructor-arg ref="PushQueue"/>
 		<constructor-arg ref="FeedbackService"/>
 	</bean>
-	<bean id="WeatherService" class="us.pojo.tempteller.service.weather.YahooWeatherService"/>
 	
 	<beans profile="offline">
 		<bean id="FeedbackService" class="us.pojo.tempteller.service.feedback.OfflineFeedbackService"/>
 		<bean id="PushService" class="us.pojo.tempteller.service.push.OfflinePushService"/>
-		<bean id="WeatherService" class="us.pojo.tempteller.service.weather.OfflineWeatherService"/>
 	</beans>
 
 </beans>

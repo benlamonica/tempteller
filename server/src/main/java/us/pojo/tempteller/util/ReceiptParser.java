@@ -6,11 +6,12 @@ import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.Security;
-import java.util.Base64;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -294,6 +295,7 @@ public class ReceiptParser {
 	 * subscription-exp-date -> ,
 	 * product-id -> 1_month_subscription,
 	 * org-purchase-date -> 2014-02-18T16:18:09Z)
+	 * @param deviceId  - used for receipt validation
 	 *
 	 *
 	 * @param receiptUrl the url of the receipt
@@ -301,10 +303,12 @@ public class ReceiptParser {
 	 * @throws CMSException 
 	 * @throws IOException 
 	 */
-	 public List<Map<String,String>> parsePurchases(byte[] data) throws CMSException, IOException {
-		 log.info("Received receipt:\n" + Base64.getEncoder().encodeToString(data));
+	 public List<Map<String,String>> parsePurchases(byte[] data, String deviceId) throws CMSException, IOException {
 		 CMSSignedData signedData = new CMSSignedData(data);
 		 List<DLSequence> content = getContentIterator(signedData);
-		 return content.stream().filter(o -> isPurchase(o)).map(p -> parsePurchase(p)).collect(Collectors.toList());
+		 return content.stream()
+				 .filter(o -> isPurchase(o))
+				 .map(p -> parsePurchase(p))
+				 .collect(Collectors.toList());
 	 }
 }

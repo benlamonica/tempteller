@@ -4,15 +4,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
 import javapns.Push;
 import javapns.devices.Device;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+//@Service(value="FeedbackService")
 public class JavaPNSFeedbackService implements FeedbackService {
 	
 	private final Logger log = LoggerFactory.getLogger(JavaPNSFeedbackService.class);
+	
 	private byte[] keystore;
 	private String password;
 	private boolean isProd;
