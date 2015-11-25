@@ -84,8 +84,12 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-TempTellerTests/KeychainSwift.framework"
+  install_framework "Pods-TempTellerTests/SwiftHTTP.framework"
   install_framework "Pods-TempTellerTests/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-TempTellerTests/KeychainSwift.framework"
+  install_framework "Pods-TempTellerTests/SwiftHTTP.framework"
   install_framework "Pods-TempTellerTests/SwiftyJSON.framework"
 fi

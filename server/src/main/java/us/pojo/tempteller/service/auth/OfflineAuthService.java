@@ -85,6 +85,7 @@ public class OfflineAuthService implements AuthService {
 			 }
 
 			 List<Map<String,String>> parsed = receiptParser.parsePurchases(rbytes, deviceId);
+			 log.info("Parsed Receipt: {}", parsed);
 			 Receipt receipt = new Receipt(parsed);
 			 receipt.getTxnIds().stream().forEach(txnId -> txns.putIfAbsent(txnId, user));
 			 user.subEndDate = receipt.getSubEndDate();
@@ -115,5 +116,4 @@ public class OfflineAuthService implements AuthService {
 			 return new AuthResult("-1", "Not Subscribed", "{RECEIPT_READ_ERROR}");
 		 }
 	}
-
 }

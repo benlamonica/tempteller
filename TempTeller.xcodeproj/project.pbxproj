@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		49D1BB393D6B13C9E304F42C /* Pods_TempTeller.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0388CBBF38D4249C72207E01 /* Pods_TempTeller.framework */; };
 		5C581D32C6A095E6F2B8F2A6 /* Pods_TempTellerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8DEF63246FB2EDC59BB75DD /* Pods_TempTellerTests.framework */; };
+		B505840B1BFE904300832A03 /* TempTellerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B505840A1BFE904300832A03 /* TempTellerService.swift */; };
 		B514C4E81B9F134D00DF8ADF /* OpEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B514C4E71B9F134D00DF8ADF /* OpEditor.swift */; };
 		B514C4EA1BA3088100DF8ADF /* ForecastTemperatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B514C4E91BA3088100DF8ADF /* ForecastTemperatureCell.swift */; };
 		B538D9C91B1369F600D0A883 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B538D9C81B1369F600D0A883 /* CoreLocation.framework */; };
@@ -23,7 +24,8 @@
 		B597D2F41BD8535C00C01728 /* Pods_TempTeller.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B597D2F31BD8535C00C01728 /* Pods_TempTeller.framework */; };
 		B599D2661BCD430E00A61021 /* EmailUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B599D2651BCD430E00A61021 /* EmailUtil.swift */; };
 		B599D2681BCD434A00A61021 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B599D2671BCD434A00A61021 /* MessageUI.framework */; };
-		B5D1356C1B0B731A00ADC9E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1356B1B0B731A00ADC9E5 /* AppDelegate.swift */; };
+		B5B465BA1BFA258C004D43F0 /* TTConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B465B91BFA258C004D43F0 /* TTConfig.swift */; };
+		B5D1356C1B0B731A00ADC9E5 /* TempTeller.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1356B1B0B731A00ADC9E5 /* TempTeller.swift */; };
 		B5D135711B0B731A00ADC9E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5D1356F1B0B731A00ADC9E5 /* Main.storyboard */; };
 		B5D135761B0B731A00ADC9E5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D135741B0B731A00ADC9E5 /* LaunchScreen.xib */; };
 		B5D135821B0B731A00ADC9E5 /* TempTellerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D135811B0B731A00ADC9E5 /* TempTellerTests.swift */; };
@@ -43,7 +45,7 @@
 		B5F1CF151B5986050047A376 /* RuleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF121B5986050047A376 /* RuleController.swift */; };
 		B5F1CF161B5986050047A376 /* RuleDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF131B5986050047A376 /* RuleDetailController.swift */; };
 		B5F1CF171B5986050047A376 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF141B5986050047A376 /* SettingsViewController.swift */; };
-		B5F1CF1A1B59860F0047A376 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF191B59860F0047A376 /* WeatherService.swift */; };
+		B5F1CF1A1B59860F0047A376 /* GeoLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF191B59860F0047A376 /* GeoLocationService.swift */; };
 		B5F1CF231B5D2C940047A376 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF1D1B5D2C940047A376 /* LocationCell.swift */; };
 		B5F1CF241B5D2C940047A376 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF1E1B5D2C940047A376 /* MessageCell.swift */; };
 		B5F1CF251B5D2C940047A376 /* RuleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF1F1B5D2C940047A376 /* RuleCell.swift */; };
@@ -69,6 +71,7 @@
 		0388CBBF38D4249C72207E01 /* Pods_TempTeller.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TempTeller.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C2DF392D90DE03EDC7AB24C /* Pods-TempTellerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TempTellerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TempTellerTests/Pods-TempTellerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		956E011FE49F105E17031F29 /* Pods-TempTeller.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TempTeller.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TempTeller/Pods-TempTeller.debug.xcconfig"; sourceTree = "<group>"; };
+		B505840A1BFE904300832A03 /* TempTellerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempTellerService.swift; sourceTree = "<group>"; };
 		B514C4E71B9F134D00DF8ADF /* OpEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpEditor.swift; sourceTree = "<group>"; };
 		B514C4E91BA3088100DF8ADF /* ForecastTemperatureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastTemperatureCell.swift; sourceTree = "<group>"; };
 		B538D9C81B1369F600D0A883 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -87,9 +90,10 @@
 		B597D2F31BD8535C00C01728 /* Pods_TempTeller.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_TempTeller.framework; path = "Pods/../build/Debug-iphoneos/Pods_TempTeller.framework"; sourceTree = "<group>"; };
 		B599D2651BCD430E00A61021 /* EmailUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailUtil.swift; sourceTree = "<group>"; };
 		B599D2671BCD434A00A61021 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		B5B465B91BFA258C004D43F0 /* TTConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TTConfig.swift; path = ../model/TTConfig.swift; sourceTree = "<group>"; };
 		B5D135661B0B731A00ADC9E5 /* TempTeller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TempTeller.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5D1356A1B0B731A00ADC9E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B5D1356B1B0B731A00ADC9E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B5D1356B1B0B731A00ADC9E5 /* TempTeller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempTeller.swift; sourceTree = "<group>"; };
 		B5D135701B0B731A00ADC9E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B5D135751B0B731A00ADC9E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		B5D1357B1B0B731A00ADC9E5 /* TempTellerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TempTellerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,7 +115,7 @@
 		B5F1CF121B5986050047A376 /* RuleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleController.swift; sourceTree = "<group>"; };
 		B5F1CF131B5986050047A376 /* RuleDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleDetailController.swift; sourceTree = "<group>"; };
 		B5F1CF141B5986050047A376 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		B5F1CF191B59860F0047A376 /* WeatherService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		B5F1CF191B59860F0047A376 /* GeoLocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoLocationService.swift; sourceTree = "<group>"; };
 		B5F1CF1D1B5D2C940047A376 /* LocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		B5F1CF1E1B5D2C940047A376 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		B5F1CF1F1B5D2C940047A376 /* RuleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleCell.swift; sourceTree = "<group>"; };
@@ -213,7 +217,7 @@
 			children = (
 				B597D2EC1BD851DD00C01728 /* TempTeller-Bridging-Header.h */,
 				B5F1CF2C1B67B9F40047A376 /* Images.xcassets */,
-				B5D1356B1B0B731A00ADC9E5 /* AppDelegate.swift */,
+				B5D1356B1B0B731A00ADC9E5 /* TempTeller.swift */,
 				B5D1356A1B0B731A00ADC9E5 /* Info.plist */,
 				B5D135741B0B731A00ADC9E5 /* LaunchScreen.xib */,
 				B538D9CA1B137FEA00D0A883 /* TempTeller.entitlements */,
@@ -241,6 +245,7 @@
 		B5F1CEE21B597DBC0047A376 /* util */ = {
 			isa = PBXGroup;
 			children = (
+				B5B465B91BFA258C004D43F0 /* TTConfig.swift */,
 				B5F1CEE31B597DBC0047A376 /* SwiftExtensions.swift */,
 				B54B9F351BB5FC8800471959 /* SKProductExtensions.swift */,
 				B54B9F371BB5FE2500471959 /* SubscriptionManager.swift */,
@@ -285,7 +290,8 @@
 		B5F1CF181B59860F0047A376 /* webservice */ = {
 			isa = PBXGroup;
 			children = (
-				B5F1CF191B59860F0047A376 /* WeatherService.swift */,
+				B5F1CF191B59860F0047A376 /* GeoLocationService.swift */,
+				B505840A1BFE904300832A03 /* TempTellerService.swift */,
 			);
 			path = webservice;
 			sourceTree = "<group>";
@@ -548,10 +554,12 @@
 				B5F1CF081B5981410047A376 /* LocationSubRule.swift in Sources */,
 				B5F1CF041B5981030047A376 /* WindSpeedSubRule.swift in Sources */,
 				B577FF5D1B85490300CC9C6D /* TimeCell.swift in Sources */,
+				B505840B1BFE904300832A03 /* TempTellerService.swift in Sources */,
 				B5F1CF261B5D2C940047A376 /* SubRuleDisplaying.swift in Sources */,
 				B5F1CF151B5986050047A376 /* RuleController.swift in Sources */,
 				B599D2661BCD430E00A61021 /* EmailUtil.swift in Sources */,
-				B5F1CF1A1B59860F0047A376 /* WeatherService.swift in Sources */,
+				B5F1CF1A1B59860F0047A376 /* GeoLocationService.swift in Sources */,
+				B5B465BA1BFA258C004D43F0 /* TTConfig.swift in Sources */,
 				B56610E31B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift in Sources */,
 				B5F1CF2F1B6855120047A376 /* ConditionCell.swift in Sources */,
 				B56610E11B91050200629B60 /* ResigningTextFieldDelegate.swift in Sources */,
@@ -561,7 +569,7 @@
 				B5F1CEFE1B5980310047A376 /* MessageSubRule.swift in Sources */,
 				B54B9F381BB5FE2500471959 /* SubscriptionManager.swift in Sources */,
 				B514C4EA1BA3088100DF8ADF /* ForecastTemperatureCell.swift in Sources */,
-				B5D1356C1B0B731A00ADC9E5 /* AppDelegate.swift in Sources */,
+				B5D1356C1B0B731A00ADC9E5 /* TempTeller.swift in Sources */,
 				B5F1CF171B5986050047A376 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -643,7 +651,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "efc5bf29-b156-4568-a160-b3aefb02df65";
@@ -683,7 +691,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "efc5bf29-b156-4568-a160-b3aefb02df65";
 				SDKROOT = iphoneos;

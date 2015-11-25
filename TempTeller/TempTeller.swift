@@ -7,14 +7,17 @@
 //
 
 import UIKit
+import KeychainSwift
+import SwiftHTTP
+import SwiftyJSON
 
-let DEVICE_TOKEN_KEY = "deviceToken"
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class TempTeller: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var config = TTConfig.shared
+    let tt = TempTellerService()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -35,11 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             let hbNotifier = UILocalNotification()
-            if #available(iOS 8.2, *) {
-                hbNotifier.alertTitle = "Missed Heartbeat"
-            } else {
-                // Fallback on earlier versions
-            }
+            hbNotifier.alertTitle = "Missed Heartbeat"
             hbNotifier.alertBody = "Haven't heard a heartbeat since \(NSDate())"
             hbNotifier.fireDate = NSDate(timeIntervalSinceNow: 15.0 * 60)
             hbNotifier.userInfo = userInfo
@@ -54,34 +53,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         let token = deviceToken.base64EncodedStringWithOptions([])
         NSLog("registered for remote notifications: \(token)")
-        
-        let settings = NSUserDefaults.standardUserDefaults()
-        if let existingDeviceToken = settings.valueForKey(DEVICE_TOKEN_KEY) as? String {
-            if token != existingDeviceToken {
-                NSLog("device token differs from what we've registered in the past, notify server")
-                register(token, replaces: existingDeviceToken)
-            }
-        } else {
-            NSLog("first time this device has been registered")
-            register(token)
-        }
+        tt.registerPushToken(token)
     }
-    
-    func register(deviceToken: String, replaces: String? = nil) {
-        // TODO - notify the server
-        // then run the below commands in a callback after successfully notifying the server
-        // POST https://host/register-device?token=ABCD&replaces=EFGHI
-        func callback() {
-            let settings = NSUserDefaults.standardUserDefaults()
-            settings.setValue(deviceToken, forKey:DEVICE_TOKEN_KEY)
-            settings.synchronize()
-        }
-        callback()
-    }
-    
+
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         NSLog("failed to register for notifications \(error)")
-        // TODO? when will this happen? When network is down? When push notifications have been denied? Find out if we need to notify the user that the app is basically useless without push notifications
+        tt.registerPushToken("FailedPushToken")
+        // TODO when will this happen? When network is down? When push notifications have been denied? Find out if we need to notify the user that the app is basically useless without push notifications
     }
 }
 

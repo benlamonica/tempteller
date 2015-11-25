@@ -1,5 +1,6 @@
 package us.pojo.tempteller.service;
 
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -7,6 +8,8 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.StreamUtils;
 
 import us.pojo.tempteller.model.auth.AuthResult;
 import us.pojo.tempteller.model.auth.UserInfo;
@@ -65,12 +68,26 @@ public class AuthServiceTest {
 	//		f. return original userId and sub end date
 	//		g. unregister the device under the old user
 	@Test
-	public void wipedAppAndKeychainInstall() {
-		AuthResult result = target.restoreSubscription("devId", "asdfbalskdfadasdfasfad");
+	public void wipedAppAndKeychainInstall() throws Exception {
+		AuthResult loginResult = loginNewUser();
+		String receipt = StreamUtils.copyToString(new ClassPathResource("receipt.txt").getInputStream(), Charset.forName("utf8"));
+		AuthResult subResult = target.addSubscription(loginResult.uid, "599099EC-1DB4-4B30-92B3-F22FEEB57949", receipt);
+		assertEquals("2018-10-21", subResult.subEndDate);
+		AuthResult restoreResult = target.restoreSubscription("599099EC-1DB4-4B30-92B3-F22FEEB57949", receipt);
+		assertEquals(loginResult.uid, restoreResult.uid);
+		assertEquals("2018-10-21", restoreResult.subEndDate);
 	}
 	// 4: User purchases a subscription
 	//		a. verify receipt
 	//		b. verify that receipt isn't in use on more than 20 active devices
 	//		c. return new sub end date
+
+	@Test
+	public void userPurchasedSub() throws Exception {
+		AuthResult loginResult = loginNewUser();
+		String receipt = StreamUtils.copyToString(new ClassPathResource("receipt.txt").getInputStream(), Charset.forName("utf8"));
+		AuthResult result = target.addSubscription(loginResult.uid, "599099EC-1DB4-4B30-92B3-F22FEEB57949", receipt);
+		assertEquals("2018-10-21", result.subEndDate);
+	}
 
 }

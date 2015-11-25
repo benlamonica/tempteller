@@ -4,12 +4,22 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>KeychainSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-TempTeller.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods-TempTellerTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftHTTP.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -22,17 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>54A835F6AE1B9E8AB2AE8349C79A7925</key>
+		<key>4C698C648EE4D43C6B8BE0BE1FE91737</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>90089E89DC5921D5A6343549EB6E5EDE</key>
+		<key>5C29BA5DBC452D2843281CD27B4113DC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DC47FC89B70872FC9E18D33511C0C7B3</key>
+		<key>B91154D67F293B58842E3D808ECE2331</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D58EDF8A9FC003A0D6B009CD75901B92</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E7794845E5453747CD98EBE12A763C5E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

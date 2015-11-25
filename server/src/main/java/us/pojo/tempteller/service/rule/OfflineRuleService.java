@@ -108,4 +108,16 @@ public class OfflineRuleService implements RuleService {
 		}
 	}
 
+	@Override
+	public void transferPushTokenToNewUid(String uid, String uid2, String pushToken) {
+		writeLock.lock();
+		try {
+			getRules(uid).stream()
+				.filter(r -> r.pushToken.equals(pushToken))
+				.forEach(r -> r.pushToken = pushToken);
+		} finally {
+			writeLock.unlock();
+		}
+	}
+
 }

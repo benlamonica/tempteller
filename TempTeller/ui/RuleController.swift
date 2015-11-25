@@ -12,8 +12,8 @@ import SwiftyJSON
 class RuleController: UITableViewController {
 
     var data : [Rule] = []
-    let settings = NSUserDefaults.standardUserDefaults()
-
+    var config = TTConfig.shared
+    
     func stylizeTableViewHeader() {
         let nav = self.navigationController?.navigationBar
         nav?.barStyle = UIBarStyle.Black
@@ -30,11 +30,9 @@ class RuleController: UITableViewController {
     }
     
     func loadRules() {
-        if let rulesJson = settings.valueForKey("rules") as? String {
-            let json = JSON(data: rulesJson.dataUsingEncoding(NSUTF8StringEncoding)!)
-            for rule in json.arrayValue {
-                data.append(Rule(json: rule))
-            }
+        let json = JSON(data: config.rules.dataUsingEncoding(NSUTF8StringEncoding)!)
+        for rule in json.arrayValue {
+            data.append(Rule(json: rule))
         }
     }
     
@@ -44,8 +42,7 @@ class RuleController: UITableViewController {
             let json = try NSJSONSerialization.dataWithJSONObject(model, options: [])
             let jsonString = NSString(data: json, encoding: NSUTF8StringEncoding) as! String
             NSLog(jsonString)
-            settings.setValue(jsonString, forKey: "rules")
-            settings.synchronize()
+            config.rules = jsonString
         } catch let error as NSError {
             let err = error
             NSLog("Failed to serialize to JSON: \(err)")

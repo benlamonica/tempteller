@@ -9,10 +9,10 @@
 import Foundation
 import CoreLocation
 import SwiftyJSON
+import SwiftHTTP
 
-class WeatherService : NSObject, CLLocationManagerDelegate {
+class GeoLocationService : NSObject, CLLocationManagerDelegate {
     
-    let queue = NSOperationQueue()
     let locationManager = CLLocationManager()
     var callback : ((locId: String, name: String, lng: String, lat: String, errMsg: String?) -> ())!
     
@@ -21,22 +21,22 @@ class WeatherService : NSObject, CLLocationManagerDelegate {
         locationManager.delegate = self
     }
     
-    func getLocation(search : String, completionHandler : ((locId: String, name: String, lng: String, lat: String,  errMsg: String?) -> ())?) {
-        let url = NSString(string: "https://query.yahooapis.com/v1/public/yql?format=json&q=select * from geo.placefinder where text=\"\(search)\" and gflags=\"R\"").stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+    func getLocation(search : String, handler : ((locId: String, name: String, lng: String, lat: String,  errMsg: String?) -> ())) {
+        let url = NSString(string: "https://query.yahooapis.com/v1/public/yql?format=json&q=select * from geo.placefinder where text=\"\(search)\" and gflags=\"R\"").stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
         
-        let nsurl : NSURL! = NSURL(string: url!)
-
-        NSURLConnection.sendAsynchronousRequest(NSURLRequest(URL: nsurl), queue: queue) { (response : NSURLResponse?, data : NSData?, error: NSError?) -> Void in
-            if error != nil {
-                if let handler = completionHandler {
-                    let msg = error?.localizedDescription ?? ""
+        do {
+            let req = try HTTP.GET(url)
+            req.start { response in
+                if response.error != nil {
+                    let msg = response.error!.localizedDescription ?? ""
                     handler(locId: "", name: "", lng: "", lat: "", errMsg: msg)
+                    return
                 }
-            } else {
-                let jsonString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                
+                let jsonString = NSString(data: response.data, encoding: NSUTF8StringEncoding)
                 NSLog("Received \(jsonString)")
-
-                let json = JSON(data: data!, options: [])
+                
+                let json = JSON(data: response.data, options: [])
                 
                 if json["query"] != JSON.null && json["query"]["results"] != JSON.null {
                     let locName = json["query"]["results"]["Result"]["line2"].string ?? "Unknown Location"
@@ -46,15 +46,14 @@ class WeatherService : NSObject, CLLocationManagerDelegate {
                     let woeType = json["query"]["results"]["Result"]["woetype"].string ?? ""
                     let locId = "\(woeType)_\(woeId)"
                     NSLog("Found \(locId) - \(locName) at (\(lng),\(lat))")
-                    if let handler = completionHandler {
-                        handler(locId: locId, name: locName, lng: lng, lat: lat, errMsg: nil)
-                    }
+                    handler(locId: locId, name: locName, lng: lng, lat: lat, errMsg: nil)
                 } else {
-                    if let handler = completionHandler {
-                        handler(locId: "", name: "", lng: "", lat: "", errMsg: "Could not find location")
-                    }
+                    handler(locId: "", name: "", lng: "", lat: "", errMsg: "Could not find location")
                 }
             }
+        } catch let error {
+            NSLog("got an error creating request \(error)")
+            handler(locId: "", name: "", lng: "", lat: "", errMsg: "\(error)")
         }
     }
     
@@ -67,6 +66,6 @@ class WeatherService : NSObject, CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didUpdateToLocation location: CLLocation, fromLocation oldLocation: CLLocation) {
         locationManager.stopUpdatingLocation()
         let search = String(format: "%.8f,%.8f", location.coordinate.latitude, location.coordinate.longitude)
-        getLocation(search, completionHandler: callback)
+        getLocation(search, handler: callback)
     }
 }

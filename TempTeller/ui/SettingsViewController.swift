@@ -19,11 +19,11 @@ class SettingsViewController : UITableViewController {
     @IBOutlet var oneYearPrice : UILabel!
     @IBOutlet var subEnd : UITableViewCell!
     
+    var config = TTConfig.shared
     let subMgr = SubscriptionManager()
     var email : EmailUtil!
     let txns : [SKPaymentTransaction] = []
     var subEndDate : NSDate?
-    let settings = NSUserDefaults.standardUserDefaults()
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -99,21 +99,14 @@ class SettingsViewController : UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let url = settings.valueForKey("serverUrl") as? String {
-            serverUrl.text = url
-        }
-        if let token = settings.valueForKey("deviceToken") as? String {
-            deviceToken.text = token
-        } else {
-            deviceToken.text = "Not Subscribed"
-        }
+        serverUrl.text = config.serverUrl
+        deviceToken.text = config.pushToken
         
         email = EmailUtil(parentController: self)
     }
     
     @IBAction func save(sender: AnyObject?) {
-        settings.setValue(serverUrl.text, forKey: "serverUrl")
-        settings.synchronize()
+        config.serverUrl = serverUrl.text!
         nav.popToRootViewControllerAnimated(true)
     }
 }

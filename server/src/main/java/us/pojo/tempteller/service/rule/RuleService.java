@@ -12,6 +12,8 @@ public interface RuleService {
 	
 	void updatePushToken(String uid, String priorPushToken, String pushToken);
 	
+	void transferPushTokenToNewUid(String uid, String uid2, String pushToken);
+	
 	void saveRule(String uid, String pushToken, Rule rule, TimeZone tz);
 
 	void delete(String uid, String pushToken, String ruleId);

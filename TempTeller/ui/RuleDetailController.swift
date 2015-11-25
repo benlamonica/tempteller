@@ -22,7 +22,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     }
     var editRule : Rule!
     var actionSheet : UIActionSheet?
-    let weatherService = WeatherService()
+    let geoLoc = GeoLocationService()
     var picker : UIPickerView!
     var activeTextField : UITextField?
     var pickerToolbar : UIToolbar!
@@ -245,7 +245,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
 
         // inject the weather service into the location cell so that it can do location lookup
         if let locCell = cell as? LocationCell {
-            locCell.weatherService = weatherService
+            locCell.geoLoc = geoLoc
         }
         
         if let subCell = cell as? SubRuleDisplaying {

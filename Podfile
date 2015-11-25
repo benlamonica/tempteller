@@ -6,12 +6,14 @@ use_frameworks!
 target 'TempTeller' do
     pod 'OpenSSL', '~> 1.0'
     pod 'SwiftyJSON', '~> 2.3'
-    pod 'AlamoFire', '~> 3.0.2'
+    pod 'SwiftHTTP', '~> 1.0.0'
+    pod 'KeychainSwift', '~> 3.0'
 end
 
 target 'TempTellerTests' do
     pod 'OpenSSL', '~> 1.0'
     pod 'SwiftyJSON', '~> 2.3'
-    pod 'AlamoFire', '~> 3.0.2'
+    pod 'SwiftHTTP', '~> 1.0.0'
+    pod 'KeychainSwift', '~> 3.0'
 end
 
