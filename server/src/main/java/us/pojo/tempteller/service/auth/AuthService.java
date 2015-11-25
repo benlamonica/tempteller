@@ -9,5 +9,5 @@ public interface AuthService {
 
 	AuthResult addSubscription(String uid, String deviceId, String receipt);
 
-	AuthResult restoreSubscription(String deviceId, String receipt);
+	AuthResult restoreSubscription(String uid, String deviceId, String receipt);
 }

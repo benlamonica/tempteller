@@ -18,9 +18,10 @@ class SettingsViewController : UITableViewController {
     @IBOutlet var sixMonthPrice : UILabel!
     @IBOutlet var oneYearPrice : UILabel!
     @IBOutlet var subEnd : UITableViewCell!
+    var statusView : StatusViewController!
     
     var config = TTConfig.shared
-    let subMgr = SubscriptionManager()
+    var subMgr : SubscriptionManager!
     var email : EmailUtil!
     let txns : [SKPaymentTransaction] = []
     var subEndDate : NSDate?
@@ -49,6 +50,7 @@ class SettingsViewController : UITableViewController {
             for receipt in receipts {
                 NSLog("Purchased: \(receipt.payment.productIdentifier) - \(receipt.transactionDate)")
             }
+            self.hideStatus()
         }
     }
         
@@ -62,12 +64,16 @@ class SettingsViewController : UITableViewController {
         case SHOW_YAHOO:
             openYahoo()
         case SUBSCRIBE_1M:
+            showStatus()
             subMgr.subscribe("1_Month", onCompletion: getSubHandler())
         case SUBSCRIBE_6M:
+            showStatus()
             subMgr.subscribe("6_Month", onCompletion: getSubHandler())
         case SUBSCRIBE_1Y:
+            showStatus()
             subMgr.subscribe("12_Month", onCompletion: getSubHandler())
         case RESTORE_SUBS:
+            showStatus()
             subMgr.restoreSubs(getSubHandler())
         case REQUEST_SUPPORT:
             requestSupport()
@@ -99,10 +105,28 @@ class SettingsViewController : UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        email = EmailUtil(parentController: self)
+        statusView = self.storyboard?.instantiateViewControllerWithIdentifier("StatusView") as? StatusViewController
+        subMgr = SubscriptionManager(status: statusView)
+    }
+    
+    func showStatus() {
+        addChildViewController(statusView)
+        statusView.view.frame = CGRect(x: 20, y: 20, width: 150, height: 150)
+        statusView.view.alpha = 0.0
+        UIView.animateWithDuration(0.25, animations: {self.statusView.view.alpha=1.0})
+    }
+    
+    func hideStatus() {
+        UIView.animateWithDuration(0.25, animations: {self.statusView.view.alpha=0.0}) { didFinish in
+            self.statusView.removeFromParentViewController()
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         serverUrl.text = config.serverUrl
         deviceToken.text = config.pushToken
-        
-        email = EmailUtil(parentController: self)
     }
     
     @IBAction func save(sender: AnyObject?) {

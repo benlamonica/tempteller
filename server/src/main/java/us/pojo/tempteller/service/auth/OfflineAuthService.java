@@ -97,7 +97,7 @@ public class OfflineAuthService implements AuthService {
 	}
 
 	@Override
-	public AuthResult restoreSubscription(String deviceId, String pkcs7receipt) {
+	public AuthResult restoreSubscription(String uid, String deviceId, String pkcs7receipt) {
 		log.info("restoring subscription with receipt: '{}", pkcs7receipt);
 		 byte[] rbytes = Base64.getDecoder().decode(pkcs7receipt);
 		 try {
@@ -109,7 +109,11 @@ public class OfflineAuthService implements AuthService {
 				 user.subEndDate = receipt.getSubEndDate();
 				 return getAuthResult(user, "");
 			 } else {
-				 return new AuthResult("-1", "Not Subscribed", "{COULD_NOT_FIND_USER}");
+				 User user = new User();
+				 user.uid = uid;
+				 user.subEndDate = receipt.getSubEndDate();
+				 users.put(user.uid, user);
+				 return getAuthResult(user,"");
 			 }
 		 } catch (Exception e) {
 			 log.error("Failed to parse receipt {}" + pkcs7receipt, e);

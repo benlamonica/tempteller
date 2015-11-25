@@ -73,7 +73,7 @@ public class AuthServiceTest {
 		String receipt = StreamUtils.copyToString(new ClassPathResource("receipt.txt").getInputStream(), Charset.forName("utf8"));
 		AuthResult subResult = target.addSubscription(loginResult.uid, "599099EC-1DB4-4B30-92B3-F22FEEB57949", receipt);
 		assertEquals("2018-10-21", subResult.subEndDate);
-		AuthResult restoreResult = target.restoreSubscription("599099EC-1DB4-4B30-92B3-F22FEEB57949", receipt);
+		AuthResult restoreResult = target.restoreSubscription("-1", "599099EC-1DB4-4B30-92B3-F22FEEB57949", receipt);
 		assertEquals(loginResult.uid, restoreResult.uid);
 		assertEquals("2018-10-21", restoreResult.subEndDate);
 	}

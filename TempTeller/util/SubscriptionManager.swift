@@ -10,13 +10,20 @@ import Foundation
 import StoreKit
 import UIKit
 
+protocol StatusNotifier {
+    func setStatus(status : String)
+    func fail(msg: String)
+}
+
 class SubscriptionManager : NSObject {
     var products : [String:SKProduct] = [:]
     var observers : [AnyObject] = []
     var config = TTConfig.shared
     var tt = TempTellerService()
+    let status : StatusNotifier
     
-    override init() {
+    init(status: StatusNotifier) {
+        self.status = status
         super.init()
         requestSubscriptionInfo(["1_Month","6_Month","12_Month"]) { (product : SKProduct) in
             do {
@@ -47,6 +54,7 @@ class SubscriptionManager : NSObject {
     func subscribe(productKey : String, onCompletion : (receipts: [SKPaymentTransaction]) -> ()) {
         NSLog("subscribe to \(productKey)")
         requestSubscriptionInfo([productKey]) { (product : SKProduct) in
+            self.status.setStatus("Subscribing for \(product.localizedTitle)")
             let purchase = SKPayment(product: product)
             let observer = TxnObserver(parent: self, processReceipt: onCompletion, payment: purchase)
             
@@ -60,6 +68,7 @@ class SubscriptionManager : NSObject {
 
     func restoreSubs(onCompletion : (receipts: [SKPaymentTransaction]) -> ()) {
         NSLog("restore subscriptions")
+        status.setStatus("Restoring Subscriptions")
         let refreshReq = SKReceiptRefreshRequest()
         let observer = ReceiptReqDelegate(parent: self, processReceipts: onCompletion)
         addObserver(observer)
@@ -178,9 +187,9 @@ class SubscriptionManager : NSObject {
     }
 
     func validateReceipt(isRestore : Bool = false) {
+        status.setStatus("Verifying Purchase")
         guard let receiptUrl = NSBundle.mainBundle().appStoreReceiptURL else {
-            let av = UIAlertView(title: "Problem", message: "Unable to restore subscriptions. Make sure you are connected to the internet.", delegate: nil, cancelButtonTitle: "Dismiss")
-            av.show()
+            status.fail("Unable to restore subscriptions. Make sure you are connected to the internet.")
             return
         }
         
@@ -220,6 +229,7 @@ class SubscriptionManager : NSObject {
                 NSLog("Unable to get the UUID from the device.")
                 return
             }
+            status.setStatus("Recording Purchase")
             if isRestore {
                 tt.restoreSubscriptionForDevice(deviceId.UUIDString, pushToken: config.pushToken, receipt: receiptPKCS7.base64EncodedStringWithOptions([]))
             } else {
@@ -239,7 +249,7 @@ class SubscriptionManager : NSObject {
         }
         func requestDidFinish(request: SKRequest) {
             parent.removeObserver(self)
-            parent.validateReceipt()
+            parent.validateReceipt(true)
         }
     }
 

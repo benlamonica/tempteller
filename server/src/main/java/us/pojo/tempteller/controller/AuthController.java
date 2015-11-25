@@ -47,7 +47,7 @@ public class AuthController {
 	@RequestMapping(value="{uid}/restore", method=RequestMethod.POST)
 	public @ResponseBody AuthResult restoreSubscription(@RequestParam("receipt") String receipt, @PathVariable("uid") String uid, @RequestParam("deviceId") String deviceId, @RequestParam("pushToken") String pushToken) {
 		log.info("restore subs: uid '{}' device '{}' receipt: {}", uid, deviceId, receipt);
-		AuthResult result = auth.restoreSubscription(deviceId, receipt);
+		AuthResult result = auth.restoreSubscription(uid, deviceId, receipt);
 		if (!result.uid.equals(uid)) {
 			rules.transferPushTokenToNewUid(uid, result.uid, pushToken);
 		}
@@ -55,20 +55,11 @@ public class AuthController {
 		return result;
 	}
 
-	private String decode(String s) {
-		try {
-			s = URLDecoder.decode(s, "utf8");
-		} catch (Exception e) {
-			log.warn("Unable to remove url-encoding from '{}'", s);
-		}
-		return s;
-	}
-	
 	// deviceId is used in computing the validity of the receipt
 	@RequestMapping(value="{uid}/subscribe", method=RequestMethod.POST)
 	public @ResponseBody AuthResult subscribe(@RequestParam("receipt") String receipt, @PathVariable("uid") String uid, @RequestParam("deviceId") String deviceId) {
 		log.info("sub: uid '{}' device '{}' receipt: {}", uid, deviceId, receipt);
-		AuthResult result = auth.addSubscription(uid, deviceId, decode(receipt));
+		AuthResult result = auth.addSubscription(uid, deviceId, receipt);
 		log.info("sub: uid '{}' - {}", uid, result);
 		return result;
 	}
