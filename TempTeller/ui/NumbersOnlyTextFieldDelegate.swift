@@ -12,7 +12,7 @@ import UIKit
 class NumbersOnlyTextFieldDelegate : ResigningTextFieldDelegate {
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        let newVal = (textField.text as NSString).stringByReplacingCharactersInRange(range, withString: string)
+        let newVal = (textField.text! as NSString).stringByReplacingCharactersInRange(range, withString: string)
         return newVal.match("^-?\\d*\\.?\\d*$")
     }
 }

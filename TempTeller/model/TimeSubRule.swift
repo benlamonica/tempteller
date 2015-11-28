@@ -7,13 +7,14 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 public enum TimeOp : String {
     case AT = "at"
     case BETWEEN = "between"
 }
 
-public class TimeSubRule : SubRule, NSCopying, ConvertableToDictionary {
+public class TimeSubRule : SubRule {
     public var timeRange : (min:String, max:String)
     public var op : TimeOp
     override convenience init() {

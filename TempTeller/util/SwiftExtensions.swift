@@ -14,15 +14,15 @@ protocol RegularExpressionMatchable {
 }
 
 extension String: RegularExpressionMatchable {
-    func match(pattern: String, options: NSRegularExpressionOptions = nil) -> Bool {
-        let regex = NSRegularExpression(pattern: pattern, options: options, error: nil)
-        return regex!.numberOfMatchesInString(self, options: nil, range: NSMakeRange(0, count(self))) != 0
+    func match(pattern: String, options: NSRegularExpressionOptions = []) -> Bool {
+        let regex = try? NSRegularExpression(pattern: pattern, options: options)
+        return regex!.numberOfMatchesInString(self, options: [], range: NSMakeRange(0, self.characters.count)) != 0
     }
 }
 
 infix operator =~ { associativity left precedence 130 }
 func =~<T: RegularExpressionMatchable> (left: T, right: String) -> Bool {
-    return left.match(right, options: nil)
+    return left.match(right, options: [])
 }
 
 extension String {
@@ -32,6 +32,10 @@ extension String {
     
     func trim() -> String {
         return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+    }
+    
+    func split(delim:String) -> [String] {
+        return self.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: delim))
     }
 }
 

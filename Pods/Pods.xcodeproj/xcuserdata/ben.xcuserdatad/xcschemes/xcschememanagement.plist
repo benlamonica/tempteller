@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>KeychainSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-TempTeller.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-TempTellerTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftHTTP.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftyJSON.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>4C698C648EE4D43C6B8BE0BE1FE91737</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5C29BA5DBC452D2843281CD27B4113DC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B91154D67F293B58842E3D808ECE2331</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D58EDF8A9FC003A0D6B009CD75901B92</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E7794845E5453747CD98EBE12A763C5E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

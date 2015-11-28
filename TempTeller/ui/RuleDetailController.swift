@@ -22,7 +22,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     }
     var editRule : Rule!
     var actionSheet : UIActionSheet?
-    let weatherService = WeatherService()
+    let geoLoc = GeoLocationService()
     var picker : UIPickerView!
     var activeTextField : UITextField?
     var pickerToolbar : UIToolbar!
@@ -40,7 +40,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         let ruleKeys : [String]
         
         override init() {
-            ruleKeys = ruleTypes.keys.array.sorted(<)
+            ruleKeys = ruleTypes.keys.sort(<)
         }
 
         func getSubRule(subruleIdx: Int) -> SubRule {
@@ -48,7 +48,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
             return subrule.copy() as! SubRule
         }
         
-        func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+        func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
             return ruleKeys[row]
         }
         
@@ -59,7 +59,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         
         // returns the # of rows in each component..
         func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-            return count(ruleKeys)
+            return ruleKeys.count
         }
     }
     let rulePickerDataSource = RulePickerDataSource()
@@ -68,7 +68,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         // create a UIPicker view as a custom keyboard view
         picker = UIPickerView()
         picker.sizeToFit()
-        picker.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        picker.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         picker.delegate = rulePickerDataSource
         picker.dataSource = rulePickerDataSource
         picker.showsSelectionIndicator = true
@@ -114,7 +114,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     }
     
     func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-        var movingRule = editRule.subrules[sourceIndexPath.item]
+        let movingRule = editRule.subrules[sourceIndexPath.item]
 
         if sourceIndexPath.item > destinationIndexPath.item {
             editRule.subrules.removeAtIndex(sourceIndexPath.item)
@@ -164,11 +164,11 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     }
     
     func adjustInsetsToShowKeybaord() {
-        tableView.contentInset = getInsets(additionalBottom: 225)
+        tableView.contentInset = getInsets(225)
     }
 
     func getInsets(additionalBottom: CGFloat = 0) -> UIEdgeInsets {
-        var insets = UIEdgeInsets(top: self.nav.navigationBar.bounds.height + UIApplication.sharedApplication().statusBarFrame.height, left: 0, bottom: toolbar.bounds.height + additionalBottom, right: 0)
+        let insets = UIEdgeInsets(top: self.nav.navigationBar.bounds.height + UIApplication.sharedApplication().statusBarFrame.height, left: 0, bottom: toolbar.bounds.height + additionalBottom, right: 0)
         return insets
     }
     
@@ -181,7 +181,7 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
 
         if indexPath.item < editRule.subrules.count {
             let subrule = editRule.subrules[indexPath.item]
-            if let condition = subrule as? ConditionSubRule {
+            if subrule.isKindOfClass(ConditionSubRule) {
                 size = 116
             }
         }
@@ -209,11 +209,10 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
 
     func pickSubRule() {
         let ruleChosen = picker.selectedRowInComponent(0)
-        let ds = rulePickerDataSource
         let newSubrule = rulePickerDataSource.getSubRule(ruleChosen)
         
         editRule.subrules.append(newSubrule)
-        let index = count(editRule.subrules)-1
+        let index = editRule.subrules.count-1
 
         // todo, animate the add
         tableView.beginUpdates()
@@ -235,18 +234,18 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
     
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return count(editRule.subrules)
+        return editRule.subrules.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let subRule = editRule.subrules[indexPath.item]
         let className = subRule.classForCoder.description()
-        let cellType = className.substringFromIndex(find(className,".")!.successor())
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellType, forIndexPath: indexPath) as! UITableViewCell
+        let cellType = className.substringFromIndex(className.characters.indexOf(".")!.successor())
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellType, forIndexPath: indexPath) 
 
         // inject the weather service into the location cell so that it can do location lookup
         if let locCell = cell as? LocationCell {
-            locCell.weatherService = weatherService
+            locCell.geoLoc = geoLoc
         }
         
         if let subCell = cell as? SubRuleDisplaying {

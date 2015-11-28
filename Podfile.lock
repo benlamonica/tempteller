@@ -1,0 +1,19 @@
+PODS:
+  - KeychainSwift (3.0.10)
+  - OpenSSL (1.0.204.1)
+  - SwiftHTTP (1.0.2)
+  - SwiftyJSON (2.3.0)
+
+DEPENDENCIES:
+  - KeychainSwift (~> 3.0)
+  - OpenSSL (~> 1.0)
+  - SwiftHTTP (~> 1.0.0)
+  - SwiftyJSON (~> 2.3)
+
+SPEC CHECKSUMS:
+  KeychainSwift: b3fcc33bd6e12778be79d9be27e0f2e369b8cc4e
+  OpenSSL: 7f853fcada78e5162c2183b4d90ebbd0aa02f5ac
+  SwiftHTTP: 6d8ca031a9ce613a01e8f18b497503887b0b50c0
+  SwiftyJSON: 8d6b61a70277ef2a5d710d372e06e7e2d87fb9e4
+
+COCOAPODS: 0.39.0

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 public class ForecastTempSubRule : TemperatureSubRule {
     public var forecastTime : String

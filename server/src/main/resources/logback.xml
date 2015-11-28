@@ -10,7 +10,7 @@
     <appender-ref ref="STDOUT" />
   </root>
   
-  <logger name="us.pojo" level="DEBUG">
+  <logger name="us.pojo" level="DEBUG" additivity="false">
     <appender-ref ref="STDOUT" />
   </logger>
   

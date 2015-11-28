@@ -7,14 +7,15 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 public enum Condition : String {
     case Sunny = "sunny"
     case Cloudy = "cloudy"
     case Rainy = "rainy"
-    case Lightning = "lightning"
-    case Snow = "snowy"
-    case Wind = "windy"
+    case Foggy = "foggy"
+    case Snowy = "snowy"
+    case Windy = "windy"
 }
 
 public enum BooleanOp : String {
@@ -22,7 +23,7 @@ public enum BooleanOp : String {
     case IS_NOT = "is not"
 }
 
-public class ConditionSubRule : SubRule, ConvertableToDictionary {
+public class ConditionSubRule : SubRule {
     var conditions : [Condition:Bool];
     var op : BooleanOp
     
@@ -43,7 +44,7 @@ public class ConditionSubRule : SubRule, ConvertableToDictionary {
     class func getConditionsFromJson(json: JSON) -> [Condition:Bool] {
         var conditions : [Condition:Bool] = [:]
         for condition in json["conditions"].arrayValue {
-            conditions[Condition(rawValue: condition.string ?? "sunny")!] = true
+            conditions[Condition(rawValue: condition.string ?? "sunny") ?? Condition.Sunny] = true
         }
         return conditions
     }
@@ -60,7 +61,7 @@ public class ConditionSubRule : SubRule, ConvertableToDictionary {
         var model = super.toDict()
         let filtered = conditions.keys.filter {self.conditions[$0] != nil && self.conditions[$0]!}
         let filteredConditions = filtered.map {$0.rawValue}
-        model["conditions"] = filteredConditions.array
+        model["conditions"] = Array(filteredConditions)
         model["op"] = op.rawValue
         return model
     }

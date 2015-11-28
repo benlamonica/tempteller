@@ -25,7 +25,7 @@ class RuleCell : UITableViewCell {
         rule.enabled = isEnabled.on
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         rule = Rule()
         super.init(coder: aDecoder)
     }

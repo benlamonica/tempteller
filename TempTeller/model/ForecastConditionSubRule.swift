@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 public class ForecastConditionSubRule : ConditionSubRule {
     public var forecastTime : String
@@ -17,11 +18,11 @@ public class ForecastConditionSubRule : ConditionSubRule {
     }
     
     convenience init(json: JSON) {
-        self.init(conditions: ConditionSubRule.getConditionsFromJson(json), op: BooleanOp(rawValue: json["op"].stringValue)!,forecastTime: json["forecastTime"].string ?? "12:00 PM")
+        self.init(conditions: ConditionSubRule.getConditionsFromJson(json), op: BooleanOp(rawValue: json["op"].stringValue ?? "IS") ?? BooleanOp.IS,forecastTime: json["forecastTime"].string ?? "Today @ 12:00 PM")
     }
     
     convenience init() {
-        self.init(conditions: [:], op: BooleanOp.IS, forecastTime: "12:00 PM")
+        self.init(conditions: [:], op: BooleanOp.IS, forecastTime: "Today @ 12:00 PM")
     }
     
     // have to name this something different than the super init(copy:) because swift won't let me override and change types

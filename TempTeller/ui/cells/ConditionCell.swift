@@ -28,9 +28,9 @@ class ConditionCell : UITableViewCell, SubRuleDisplaying, UICollectionViewDataSo
         addTag(1, condition: Condition.Sunny)
         addTag(2, condition: Condition.Cloudy)
         addTag(3, condition: Condition.Rainy)
-        addTag(4, condition: Condition.Lightning)
-        addTag(5, condition: Condition.Snow)
-        addTag(6, condition: Condition.Wind)
+        addTag(4, condition: Condition.Foggy)
+        addTag(5, condition: Condition.Snowy)
+        addTag(6, condition: Condition.Windy)
     }
     
     func showSelection(weatherButton : UIButton?, selected: Bool) {
@@ -68,7 +68,6 @@ class ConditionCell : UITableViewCell, SubRuleDisplaying, UICollectionViewDataSo
     
     @IBAction func toggleCondition(button : UIButton) {
         if let condition = tagMap[button.tag] {
-            let lastConditionsNum = subrule.conditions.count
             let val : Bool = subrule.conditions[condition] ?? false
             showSelection(button, selected: !val)
             if (!val) {
@@ -86,9 +85,7 @@ class ConditionCell : UITableViewCell, SubRuleDisplaying, UICollectionViewDataSo
             }
 
             if let tableView = view as? UITableView {
-                if let path = tableView.indexPathForCell(self) {
-                    tableView.reloadData()
-                }
+                tableView.reloadData()
             }
         }
     }
@@ -102,10 +99,10 @@ class ConditionCell : UITableViewCell, SubRuleDisplaying, UICollectionViewDataSo
         var cell : UICollectionViewCell
         var condition = Condition.Sunny
         if let c = tagMap[tag]  { // add 1 to the indexPath, because our tags start with 1, not 0
-            cell = collectionView.dequeueReusableCellWithReuseIdentifier(c.rawValue, forIndexPath: indexPath) as! UICollectionViewCell
+            cell = collectionView.dequeueReusableCellWithReuseIdentifier(c.rawValue, forIndexPath: indexPath) 
             condition = c
         } else {
-            cell = collectionView.dequeueReusableCellWithReuseIdentifier(Condition.Sunny.rawValue, forIndexPath: indexPath) as! UICollectionViewCell
+            cell = collectionView.dequeueReusableCellWithReuseIdentifier(Condition.Sunny.rawValue, forIndexPath: indexPath) 
         }
         
         if subrule != nil {
@@ -118,10 +115,23 @@ class ConditionCell : UITableViewCell, SubRuleDisplaying, UICollectionViewDataSo
 
     }
     
+    func conditionText() -> String {
+        let conditions = subrule.conditions.keys.sort({self.conditionMap[$0] < self.conditionMap[$1]}).map {$0.rawValue}
+        var condition = ""
+        
+        switch conditions.count {
+        case 0: condition = ""
+        case 1: condition = conditions[0]
+        case 2: condition = conditions.joinWithSeparator(" or ")
+        default: condition = "\(conditions[0..<conditions.count-1].joinWithSeparator(", ")) or \(conditions[conditions.count-1])"
+        }
+        
+        return condition
+    }
+    
     func updateLabel() {
-        let conditions = sorted(subrule.conditions.keys, {self.conditionMap[$0] < self.conditionMap[$1]}).map {$0.rawValue}
-        let conditionStr = join(" or ", conditions)
-        label.text = "and if the current condition \(subrule.op.rawValue) \(conditionStr)"
+        
+        label.text = "and if the current condition \(subrule.op.rawValue) \(conditionText())"
     }
 
 }

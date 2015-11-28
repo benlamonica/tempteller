@@ -29,6 +29,8 @@ class ForecastConditionCell : ConditionCell {
     @IBAction func editTime(sender: UIButton) {
         if timeEditor == nil {
             timeEditor = TimeEditor(textfield: textfield)
+            timeEditor.showMinutes = false
+            timeEditor.showFutureTimes = true
         }
         timeEditor.showPicker(sender.titleLabel!.text!) { (newTime) -> () in
             sender.titleLabel!.text! = newTime
@@ -39,8 +41,6 @@ class ForecastConditionCell : ConditionCell {
     }
     
     override func updateLabel() {
-        let conditions = sorted(subrule.conditions.keys, {self.conditionMap[$0] < self.conditionMap[$1]}).map {$0.rawValue}
-        let conditionStr = join(" or ", conditions)
-        label.text = "and if \(forecastSubrule.forecastTime) the condition \(subrule.op.rawValue) \(conditionStr)"
+        label.text = "and if the condition at \(forecastSubrule.forecastTime) \(subrule.op.rawValue) \(conditionText())"
     }
 }

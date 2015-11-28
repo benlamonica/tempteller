@@ -23,10 +23,10 @@ class OpEditor : NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return count(ops)
+        return ops.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return ops[row].rawValue
     }
     
@@ -45,7 +45,7 @@ class OpEditor : NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
 
     func showOp(op: CompOp, callback: ((CompOp) -> ())) {
         self.callback = callback
-        picker.selectRow(find(ops, op) ?? 0, inComponent: 0, animated: false)
+        picker.selectRow(ops.indexOf(op) ?? 0, inComponent: 0, animated: false)
         textfield.becomeFirstResponder()
     }
     
@@ -53,7 +53,7 @@ class OpEditor : NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
         // create a UIPicker view as a custom keyboard view
         picker = UIPickerView()
         picker.sizeToFit()
-        picker.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        picker.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         picker.showsSelectionIndicator = true
         
         // add a done button

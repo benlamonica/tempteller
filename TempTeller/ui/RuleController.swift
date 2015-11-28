@@ -7,14 +7,15 @@
 //
 
 import UIKit
+import SwiftyJSON
 
-class RuleController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
+class RuleController: UITableViewController {
 
     var data : [Rule] = []
-    let settings = NSUserDefaults.standardUserDefaults()
-
+    var config = TTConfig.shared
+    
     func stylizeTableViewHeader() {
-        var nav = self.navigationController?.navigationBar
+        let nav = self.navigationController?.navigationBar
         nav?.barStyle = UIBarStyle.Black
         nav?.tintColor = UIColor.whiteColor()
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
@@ -29,22 +30,21 @@ class RuleController: UITableViewController, UITableViewDataSource, UITableViewD
     }
     
     func loadRules() {
-        if let rulesJson = settings.valueForKey("rules") as? String {
-            let json = JSON(data: rulesJson)
-            for rule in json.arrayValue {
-                data.append(Rule(json: rule))
-            }
+        let json = JSON(data: config.rules.dataUsingEncoding(NSUTF8StringEncoding)!)
+        for rule in json.arrayValue {
+            data.append(Rule(json: rule))
         }
     }
     
     func saveRules() {
         let model = data.map({$0.toDict()})
-        var err = NSErrorPointer()
-        if let json = NSJSONSerialization.dataWithJSONObject(model, options: nil, error: err) {
+        do {
+            let json = try NSJSONSerialization.dataWithJSONObject(model, options: [])
             let jsonString = NSString(data: json, encoding: NSUTF8StringEncoding) as! String
             NSLog(jsonString)
-            settings.setValue(jsonString, forKey: "rules")
-        } else {
+            config.rules = jsonString
+        } catch let error as NSError {
+            let err = error
             NSLog("Failed to serialize to JSON: \(err)")
         }
         
@@ -54,16 +54,15 @@ class RuleController: UITableViewController, UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         stylizeTableViewHeader()
         loadRules()
-        registerForNotications()
     }
 
     func registerForNotications() {
         // only register if we have rules, otherwise, register after the first rule is created
-        if count(data) > 0 {
+        if data.count > 0 {
             // see https://thatthinginswift.com/remote-notifications/
             let app = UIApplication.sharedApplication()
-            let settings = app.currentUserNotificationSettings()
-            let alertsEnabled = (settings.types & UIUserNotificationType.Alert) != nil
+            let settings = app.currentUserNotificationSettings()!
+            let alertsEnabled = (settings.types.intersect(UIUserNotificationType.Alert)) != []
             
             if (!alertsEnabled) {
                 let settings = UIUserNotificationSettings(forTypes: .Alert, categories: nil)
@@ -84,6 +83,7 @@ class RuleController: UITableViewController, UITableViewDataSource, UITableViewD
         data = data.filter({$0.saved == true})
         tableView.reloadData()
         saveRules()
+        registerForNotications()
     }
     
     override func didReceiveMemoryWarning() {
@@ -96,7 +96,7 @@ class RuleController: UITableViewController, UITableViewDataSource, UITableViewD
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("RuleCell", forIndexPath: indexPath) as! RuleCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("RuleCell", forIndexPath: indexPath) as! RuleCell
         cell.rule = data[indexPath.item]
         return cell
     }

@@ -7,21 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49D1BB393D6B13C9E304F42C /* Pods_TempTeller.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0388CBBF38D4249C72207E01 /* Pods_TempTeller.framework */; };
+		5C581D32C6A095E6F2B8F2A6 /* Pods_TempTellerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8DEF63246FB2EDC59BB75DD /* Pods_TempTellerTests.framework */; };
+		B505840B1BFE904300832A03 /* TempTellerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B505840A1BFE904300832A03 /* TempTellerService.swift */; };
+		B505840D1C05372300832A03 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B505840C1C05372300832A03 /* StatusViewController.swift */; };
 		B514C4E81B9F134D00DF8ADF /* OpEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B514C4E71B9F134D00DF8ADF /* OpEditor.swift */; };
 		B514C4EA1BA3088100DF8ADF /* ForecastTemperatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B514C4E91BA3088100DF8ADF /* ForecastTemperatureCell.swift */; };
 		B538D9C91B1369F600D0A883 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B538D9C81B1369F600D0A883 /* CoreLocation.framework */; };
+		B54B9F361BB5FC8800471959 /* SKProductExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B9F351BB5FC8800471959 /* SKProductExtensions.swift */; };
+		B54B9F381BB5FE2500471959 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B9F371BB5FE2500471959 /* SubscriptionManager.swift */; };
 		B56610E11B91050200629B60 /* ResigningTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56610E01B91050200629B60 /* ResigningTextFieldDelegate.swift */; };
 		B56610E31B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56610E21B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift */; };
 		B577FF5B1B84BFA400CC9C6D /* ForecastConditionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B577FF5A1B84BFA400CC9C6D /* ForecastConditionCell.swift */; };
 		B577FF5D1B85490300CC9C6D /* TimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B577FF5C1B85490300CC9C6D /* TimeCell.swift */; };
 		B577FF5F1B8765E600CC9C6D /* TimeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B577FF5E1B8765E600CC9C6D /* TimeEditor.swift */; };
 		B5889B351B4F758300539E97 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5889B341B4F758300539E97 /* StoreKit.framework */; };
-		B5D1356C1B0B731A00ADC9E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1356B1B0B731A00ADC9E5 /* AppDelegate.swift */; };
+		B597D2F41BD8535C00C01728 /* Pods_TempTeller.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B597D2F31BD8535C00C01728 /* Pods_TempTeller.framework */; };
+		B599D2661BCD430E00A61021 /* EmailUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B599D2651BCD430E00A61021 /* EmailUtil.swift */; };
+		B599D2681BCD434A00A61021 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B599D2671BCD434A00A61021 /* MessageUI.framework */; };
+		B5B465BA1BFA258C004D43F0 /* TTConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B465B91BFA258C004D43F0 /* TTConfig.swift */; };
+		B5D1356C1B0B731A00ADC9E5 /* TempTeller.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1356B1B0B731A00ADC9E5 /* TempTeller.swift */; };
 		B5D135711B0B731A00ADC9E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5D1356F1B0B731A00ADC9E5 /* Main.storyboard */; };
 		B5D135761B0B731A00ADC9E5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D135741B0B731A00ADC9E5 /* LaunchScreen.xib */; };
 		B5D135821B0B731A00ADC9E5 /* TempTellerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D135811B0B731A00ADC9E5 /* TempTellerTests.swift */; };
 		B5F1CEE51B597DBC0047A376 /* SwiftExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEE31B597DBC0047A376 /* SwiftExtensions.swift */; };
-		B5F1CEE61B597DBC0047A376 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEE41B597DBC0047A376 /* SwiftyJSON.swift */; };
 		B5F1CEF81B597E350047A376 /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEF71B597E350047A376 /* Rule.swift */; };
 		B5F1CEFC1B5980140047A376 /* SubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEFB1B5980140047A376 /* SubRule.swift */; };
 		B5F1CEFE1B5980310047A376 /* MessageSubRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CEFD1B5980310047A376 /* MessageSubRule.swift */; };
@@ -37,7 +46,7 @@
 		B5F1CF151B5986050047A376 /* RuleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF121B5986050047A376 /* RuleController.swift */; };
 		B5F1CF161B5986050047A376 /* RuleDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF131B5986050047A376 /* RuleDetailController.swift */; };
 		B5F1CF171B5986050047A376 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF141B5986050047A376 /* SettingsViewController.swift */; };
-		B5F1CF1A1B59860F0047A376 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF191B59860F0047A376 /* WeatherService.swift */; };
+		B5F1CF1A1B59860F0047A376 /* GeoLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF191B59860F0047A376 /* GeoLocationService.swift */; };
 		B5F1CF231B5D2C940047A376 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF1D1B5D2C940047A376 /* LocationCell.swift */; };
 		B5F1CF241B5D2C940047A376 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF1E1B5D2C940047A376 /* MessageCell.swift */; };
 		B5F1CF251B5D2C940047A376 /* RuleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1CF1F1B5D2C940047A376 /* RuleCell.swift */; };
@@ -60,26 +69,39 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0388CBBF38D4249C72207E01 /* Pods_TempTeller.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TempTeller.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C2DF392D90DE03EDC7AB24C /* Pods-TempTellerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TempTellerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TempTellerTests/Pods-TempTellerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		956E011FE49F105E17031F29 /* Pods-TempTeller.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TempTeller.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TempTeller/Pods-TempTeller.debug.xcconfig"; sourceTree = "<group>"; };
+		B505840A1BFE904300832A03 /* TempTellerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempTellerService.swift; sourceTree = "<group>"; };
+		B505840C1C05372300832A03 /* StatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
 		B514C4E71B9F134D00DF8ADF /* OpEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpEditor.swift; sourceTree = "<group>"; };
 		B514C4E91BA3088100DF8ADF /* ForecastTemperatureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastTemperatureCell.swift; sourceTree = "<group>"; };
 		B538D9C81B1369F600D0A883 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B538D9CA1B137FEA00D0A883 /* TempTeller.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TempTeller.entitlements; sourceTree = "<group>"; };
+		B54B9F351BB5FC8800471959 /* SKProductExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKProductExtensions.swift; sourceTree = "<group>"; };
+		B54B9F371BB5FE2500471959 /* SubscriptionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
 		B56610E01B91050200629B60 /* ResigningTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResigningTextFieldDelegate.swift; sourceTree = "<group>"; };
 		B56610E21B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumbersOnlyTextFieldDelegate.swift; sourceTree = "<group>"; };
 		B577FF5A1B84BFA400CC9C6D /* ForecastConditionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastConditionCell.swift; sourceTree = "<group>"; };
 		B577FF5C1B85490300CC9C6D /* TimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeCell.swift; sourceTree = "<group>"; };
 		B577FF5E1B8765E600CC9C6D /* TimeEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeEditor.swift; sourceTree = "<group>"; };
 		B5889B341B4F758300539E97 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		B597D2EC1BD851DD00C01728 /* TempTeller-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TempTeller-Bridging-Header.h"; sourceTree = "<group>"; };
+		B597D2EF1BD8531B00C01728 /* Pods_TempTeller.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_TempTeller.framework; path = "Pods/../build/Debug-iphoneos/Pods_TempTeller.framework"; sourceTree = "<group>"; };
+		B597D2F01BD8531B00C01728 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "Pods/../build/Debug-iphoneos/SwiftyJSON.framework"; sourceTree = "<group>"; };
+		B597D2F31BD8535C00C01728 /* Pods_TempTeller.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_TempTeller.framework; path = "Pods/../build/Debug-iphoneos/Pods_TempTeller.framework"; sourceTree = "<group>"; };
+		B599D2651BCD430E00A61021 /* EmailUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailUtil.swift; sourceTree = "<group>"; };
+		B599D2671BCD434A00A61021 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		B5B465B91BFA258C004D43F0 /* TTConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TTConfig.swift; path = ../model/TTConfig.swift; sourceTree = "<group>"; };
 		B5D135661B0B731A00ADC9E5 /* TempTeller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TempTeller.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5D1356A1B0B731A00ADC9E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B5D1356B1B0B731A00ADC9E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B5D1356B1B0B731A00ADC9E5 /* TempTeller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempTeller.swift; sourceTree = "<group>"; };
 		B5D135701B0B731A00ADC9E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B5D135751B0B731A00ADC9E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		B5D1357B1B0B731A00ADC9E5 /* TempTellerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TempTellerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5D135801B0B731A00ADC9E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5D135811B0B731A00ADC9E5 /* TempTellerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempTellerTests.swift; sourceTree = "<group>"; };
 		B5F1CEE31B597DBC0047A376 /* SwiftExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtensions.swift; sourceTree = "<group>"; };
-		B5F1CEE41B597DBC0047A376 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		B5F1CEF71B597E350047A376 /* Rule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
 		B5F1CEFB1B5980140047A376 /* SubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubRule.swift; sourceTree = "<group>"; };
 		B5F1CEFD1B5980310047A376 /* MessageSubRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageSubRule.swift; sourceTree = "<group>"; };
@@ -95,7 +117,7 @@
 		B5F1CF121B5986050047A376 /* RuleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleController.swift; sourceTree = "<group>"; };
 		B5F1CF131B5986050047A376 /* RuleDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleDetailController.swift; sourceTree = "<group>"; };
 		B5F1CF141B5986050047A376 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		B5F1CF191B59860F0047A376 /* WeatherService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		B5F1CF191B59860F0047A376 /* GeoLocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoLocationService.swift; sourceTree = "<group>"; };
 		B5F1CF1D1B5D2C940047A376 /* LocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		B5F1CF1E1B5D2C940047A376 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		B5F1CF1F1B5D2C940047A376 /* RuleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleCell.swift; sourceTree = "<group>"; };
@@ -105,6 +127,9 @@
 		B5F1CF2A1B5DAC440047A376 /* WindSpeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindSpeedCell.swift; sourceTree = "<group>"; };
 		B5F1CF2C1B67B9F40047A376 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B5F1CF2E1B6855120047A376 /* ConditionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConditionCell.swift; sourceTree = "<group>"; };
+		B8DEF63246FB2EDC59BB75DD /* Pods_TempTellerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TempTellerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D98C327C8CCDE6F8E2BE1E20 /* Pods-TempTeller.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TempTeller.release.xcconfig"; path = "Pods/Target Support Files/Pods-TempTeller/Pods-TempTeller.release.xcconfig"; sourceTree = "<group>"; };
+		F5C16FC92F6C93B8B33D7CA2 /* Pods-TempTellerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TempTellerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TempTellerTests/Pods-TempTellerTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,8 +137,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B599D2681BCD434A00A61021 /* MessageUI.framework in Frameworks */,
 				B538D9C91B1369F600D0A883 /* CoreLocation.framework in Frameworks */,
 				B5889B351B4F758300539E97 /* StoreKit.framework in Frameworks */,
+				49D1BB393D6B13C9E304F42C /* Pods_TempTeller.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,20 +148,48 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B597D2F41BD8535C00C01728 /* Pods_TempTeller.framework in Frameworks */,
+				5C581D32C6A095E6F2B8F2A6 /* Pods_TempTellerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		08DDE219B7248508BFC6F250 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B597D2F31BD8535C00C01728 /* Pods_TempTeller.framework */,
+				B597D2EF1BD8531B00C01728 /* Pods_TempTeller.framework */,
+				B597D2F01BD8531B00C01728 /* SwiftyJSON.framework */,
+				0388CBBF38D4249C72207E01 /* Pods_TempTeller.framework */,
+				B8DEF63246FB2EDC59BB75DD /* Pods_TempTellerTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6FB69EEEF4427EA2F4F5665F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				956E011FE49F105E17031F29 /* Pods-TempTeller.debug.xcconfig */,
+				D98C327C8CCDE6F8E2BE1E20 /* Pods-TempTeller.release.xcconfig */,
+				8C2DF392D90DE03EDC7AB24C /* Pods-TempTellerTests.debug.xcconfig */,
+				F5C16FC92F6C93B8B33D7CA2 /* Pods-TempTellerTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		B5D1355D1B0B731A00ADC9E5 = {
 			isa = PBXGroup;
 			children = (
+				B599D2671BCD434A00A61021 /* MessageUI.framework */,
 				B5889B341B4F758300539E97 /* StoreKit.framework */,
 				B538D9C81B1369F600D0A883 /* CoreLocation.framework */,
 				B5D135681B0B731A00ADC9E5 /* TempTeller */,
 				B5D1357E1B0B731A00ADC9E5 /* TempTellerTests */,
 				B5D135671B0B731A00ADC9E5 /* Products */,
+				6FB69EEEF4427EA2F4F5665F /* Pods */,
+				08DDE219B7248508BFC6F250 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -162,8 +217,9 @@
 		B5D135691B0B731A00ADC9E5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B597D2EC1BD851DD00C01728 /* TempTeller-Bridging-Header.h */,
 				B5F1CF2C1B67B9F40047A376 /* Images.xcassets */,
-				B5D1356B1B0B731A00ADC9E5 /* AppDelegate.swift */,
+				B5D1356B1B0B731A00ADC9E5 /* TempTeller.swift */,
 				B5D1356A1B0B731A00ADC9E5 /* Info.plist */,
 				B5D135741B0B731A00ADC9E5 /* LaunchScreen.xib */,
 				B538D9CA1B137FEA00D0A883 /* TempTeller.entitlements */,
@@ -191,8 +247,11 @@
 		B5F1CEE21B597DBC0047A376 /* util */ = {
 			isa = PBXGroup;
 			children = (
+				B5B465B91BFA258C004D43F0 /* TTConfig.swift */,
 				B5F1CEE31B597DBC0047A376 /* SwiftExtensions.swift */,
-				B5F1CEE41B597DBC0047A376 /* SwiftyJSON.swift */,
+				B54B9F351BB5FC8800471959 /* SKProductExtensions.swift */,
+				B54B9F371BB5FE2500471959 /* SubscriptionManager.swift */,
+				B599D2651BCD430E00A61021 /* EmailUtil.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -226,6 +285,7 @@
 				B5F1CF141B5986050047A376 /* SettingsViewController.swift */,
 				B56610E01B91050200629B60 /* ResigningTextFieldDelegate.swift */,
 				B56610E21B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift */,
+				B505840C1C05372300832A03 /* StatusViewController.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -233,7 +293,8 @@
 		B5F1CF181B59860F0047A376 /* webservice */ = {
 			isa = PBXGroup;
 			children = (
-				B5F1CF191B59860F0047A376 /* WeatherService.swift */,
+				B5F1CF191B59860F0047A376 /* GeoLocationService.swift */,
+				B505840A1BFE904300832A03 /* TempTellerService.swift */,
 			);
 			path = webservice;
 			sourceTree = "<group>";
@@ -265,9 +326,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B5D135851B0B731A00ADC9E5 /* Build configuration list for PBXNativeTarget "TempTeller" */;
 			buildPhases = (
+				63EB09C4EA7B6A5DF6E59F50 /* Check Pods Manifest.lock */,
 				B5D135621B0B731A00ADC9E5 /* Sources */,
 				B5D135631B0B731A00ADC9E5 /* Frameworks */,
 				B5D135641B0B731A00ADC9E5 /* Resources */,
+				0AE589D2C248F8E1593FA7D8 /* Embed Pods Frameworks */,
+				9ADFEF7686F42A4A1620F44B /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -282,9 +346,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B5D135881B0B731A00ADC9E5 /* Build configuration list for PBXNativeTarget "TempTellerTests" */;
 			buildPhases = (
+				A5FDE1C982BDEB052EE6026E /* Check Pods Manifest.lock */,
 				B5D135771B0B731A00ADC9E5 /* Sources */,
 				B5D135781B0B731A00ADC9E5 /* Frameworks */,
 				B5D135791B0B731A00ADC9E5 /* Resources */,
+				57037B313EBF92D74E78F382 /* Embed Pods Frameworks */,
+				EA480767D76BB60556FE17E0 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -302,7 +369,9 @@
 		B5D1355E1B0B731A00ADC9E5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Benjamin Alan La Monica";
 				TargetAttributes = {
 					B5D135651B0B731A00ADC9E5 = {
@@ -315,8 +384,11 @@
 							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
-							com.apple.iCloud = {
+							com.apple.Push = {
 								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 0;
 							};
 						};
 					};
@@ -366,6 +438,99 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0AE589D2C248F8E1593FA7D8 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TempTeller/Pods-TempTeller-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		57037B313EBF92D74E78F382 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TempTellerTests/Pods-TempTellerTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		63EB09C4EA7B6A5DF6E59F50 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9ADFEF7686F42A4A1620F44B /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TempTeller/Pods-TempTeller-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A5FDE1C982BDEB052EE6026E /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EA480767D76BB60556FE17E0 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TempTellerTests/Pods-TempTellerTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B5D135621B0B731A00ADC9E5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -377,6 +542,7 @@
 				B5F1CF021B5980E50047A376 /* HumiditySubRule.swift in Sources */,
 				B5F1CEFC1B5980140047A376 /* SubRule.swift in Sources */,
 				B5F1CF0A1B5982490047A376 /* ConditionSubRule.swift in Sources */,
+				B54B9F361BB5FC8800471959 /* SKProductExtensions.swift in Sources */,
 				B5F1CF241B5D2C940047A376 /* MessageCell.swift in Sources */,
 				B5F1CF231B5D2C940047A376 /* LocationCell.swift in Sources */,
 				B5F1CF101B59853B0047A376 /* ConvertableToDictionary.swift in Sources */,
@@ -389,21 +555,25 @@
 				B5F1CF001B5980C40047A376 /* TemperatureSubRule.swift in Sources */,
 				B514C4E81B9F134D00DF8ADF /* OpEditor.swift in Sources */,
 				B5F1CF081B5981410047A376 /* LocationSubRule.swift in Sources */,
+				B505840D1C05372300832A03 /* StatusViewController.swift in Sources */,
 				B5F1CF041B5981030047A376 /* WindSpeedSubRule.swift in Sources */,
 				B577FF5D1B85490300CC9C6D /* TimeCell.swift in Sources */,
+				B505840B1BFE904300832A03 /* TempTellerService.swift in Sources */,
 				B5F1CF261B5D2C940047A376 /* SubRuleDisplaying.swift in Sources */,
 				B5F1CF151B5986050047A376 /* RuleController.swift in Sources */,
-				B5F1CF1A1B59860F0047A376 /* WeatherService.swift in Sources */,
+				B599D2661BCD430E00A61021 /* EmailUtil.swift in Sources */,
+				B5F1CF1A1B59860F0047A376 /* GeoLocationService.swift in Sources */,
+				B5B465BA1BFA258C004D43F0 /* TTConfig.swift in Sources */,
 				B56610E31B91053D00629B60 /* NumbersOnlyTextFieldDelegate.swift in Sources */,
 				B5F1CF2F1B6855120047A376 /* ConditionCell.swift in Sources */,
-				B5F1CEE61B597DBC0047A376 /* SwiftyJSON.swift in Sources */,
 				B56610E11B91050200629B60 /* ResigningTextFieldDelegate.swift in Sources */,
 				B577FF5B1B84BFA400CC9C6D /* ForecastConditionCell.swift in Sources */,
 				B5F1CF161B5986050047A376 /* RuleDetailController.swift in Sources */,
 				B5F1CEF81B597E350047A376 /* Rule.swift in Sources */,
 				B5F1CEFE1B5980310047A376 /* MessageSubRule.swift in Sources */,
+				B54B9F381BB5FE2500471959 /* SubscriptionManager.swift in Sources */,
 				B514C4EA1BA3088100DF8ADF /* ForecastTemperatureCell.swift in Sources */,
-				B5D1356C1B0B731A00ADC9E5 /* AppDelegate.swift in Sources */,
+				B5D1356C1B0B731A00ADC9E5 /* TempTeller.swift in Sources */,
 				B5F1CF171B5986050047A376 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -469,6 +639,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -484,7 +655,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "efc5bf29-b156-4568-a160-b3aefb02df65";
@@ -524,7 +695,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "efc5bf29-b156-4568-a160-b3aefb02df65";
 				SDKROOT = iphoneos;
@@ -534,41 +705,53 @@
 		};
 		B5D135861B0B731A00ADC9E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 956E011FE49F105E17031F29 /* Pods-TempTeller.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = TempTeller/TempTeller.entitlements;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = TempTeller/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "${inherited}";
+				PRODUCT_BUNDLE_IDENTIFIER = "us.pojo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "TempTeller/TempTeller-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		B5D135871B0B731A00ADC9E5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D98C327C8CCDE6F8E2BE1E20 /* Pods-TempTeller.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = TempTeller/TempTeller.entitlements;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = TempTeller/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "${inherited}";
+				PRODUCT_BUNDLE_IDENTIFIER = "us.pojo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "TempTeller/TempTeller-Bridging-Header.h";
 			};
 			name = Release;
 		};
 		B5D135891B0B731A00ADC9E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C2DF392D90DE03EDC7AB24C /* Pods-TempTellerTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -576,6 +759,7 @@
 				);
 				INFOPLIST_FILE = TempTellerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "us.pojo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TempTeller.app/TempTeller";
@@ -584,16 +768,18 @@
 		};
 		B5D1358A1B0B731A00ADC9E5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F5C16FC92F6C93B8B33D7CA2 /* Pods-TempTellerTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				INFOPLIST_FILE = TempTellerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "us.pojo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TempTeller.app/TempTeller";

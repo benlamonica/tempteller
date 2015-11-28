@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import SwiftyJSON
 
-public class MessageSubRule : SubRule, NSCopying {
+public class MessageSubRule : SubRule {
     public var message : String;
     public init(msg : String) {
         message = msg

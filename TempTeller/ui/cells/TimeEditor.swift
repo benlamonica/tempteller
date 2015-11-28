@@ -10,12 +10,15 @@ import Foundation
 import UIKit
 
 let DAYS = ["Today", "Tomorrow", "2 days", "3 days", "4 days", "5 days", "6 days", "7 days"]
+let NUM_HOURS = 12
+let NUM_AMPM = 2
 
 class TimeEditorDataSource : NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
-    
+ 
     var showFutureTimes = true
+    var showMinutes = true
 
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         var comp = component
         if showFutureTimes {
             if comp == 0 {
@@ -26,8 +29,8 @@ class TimeEditorDataSource : NSObject, UIPickerViewDataSource, UIPickerViewDeleg
         }
         
         switch comp {
-        case 0: return NSString(format: "%02d", row+1) as String
-        case 1: return ":"
+        case 0: return NSString(format: "%d", row+1) as String
+        case 1: return showMinutes ? ":" : (row == 0 ? "AM" : "PM")
         case 2: return NSString(format: "%02d", row*5) as String
         case 3: return row == 0 ? "AM" : "PM"
         default: return ""
@@ -48,7 +51,7 @@ class TimeEditorDataSource : NSObject, UIPickerViewDataSource, UIPickerViewDeleg
     
     // returns the number of 'columns' to display.
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return showFutureTimes ? 5 : 4
+        return 5 - (showFutureTimes ? 0 : 1) - (showMinutes ? 0 : 2)
     }
     
     // returns the # of rows in each component..
@@ -56,15 +59,15 @@ class TimeEditorDataSource : NSObject, UIPickerViewDataSource, UIPickerViewDeleg
         var comp = component
         if showFutureTimes {
             if component == 0 {
-                return count(DAYS)
+                return DAYS.count
             } else {
                 comp--
             }
         }
 
         switch comp {
-        case 0: return 12
-        case 1: return 1
+        case 0: return NUM_HOURS
+        case 1: return showMinutes ? 1 : NUM_AMPM
         case 2: return 60 / 5
         case 3: return 2
         default: return 0
@@ -80,6 +83,11 @@ class TimeEditor : NSObject {
     var callback : ((String) -> ())!
     let ds = TimeEditorDataSource()
     var showFutureTimes : Bool = true {
+        willSet(newVal) {
+            ds.showFutureTimes = newVal
+        }
+    }
+    var showMinutes : Bool = true {
         willSet(newVal) {
             ds.showFutureTimes = newVal
         }
@@ -109,28 +117,32 @@ class TimeEditor : NSObject {
     }
 
     func setTime(time: String) {
-        if time =~ "\\d+:\\d+ (AM|PM)" {
-            let daySplit = time.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: "@"))
+        if time =~ "\\d+:\\d+? (AM|PM)" {
+            let daySplit = time.split("@")
             var timeMinusDays = daySplit[0]
-            if count(daySplit) > 1 {
+            if daySplit.count > 1 {
                 timeMinusDays = daySplit[1].trim()
             }
-            let timeSplit = timeMinusDays.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ": "))
-            let hours = timeSplit[0].toInt() ?? 0
-            let minutes = (timeSplit[1].toInt() ?? 0) / 5
+            let timeSplit = timeMinusDays.split(": ")
+            let hours = Int(timeSplit[0]) ?? 0
+            let minutes = (Int(timeSplit[1]) ?? 0) / 5
             let ampm = timeSplit[2] == "PM" ? 1 : 0
             var idx = 0
             if showFutureTimes {
-                if count(daySplit) > 1 {
-                    picker.selectRow(find(DAYS, daySplit[0].trim()  ) ?? 0, inComponent: 0, animated: false)
+                if daySplit.count > 1 {
+                    picker.selectRow(DAYS.indexOf(daySplit[0].trim()  ) ?? 0, inComponent: 0, animated: false)
                 } else {
                     picker.selectRow(0, inComponent: 0, animated: false)
                 }
                 idx = 1
             }
             picker.selectRow(hours-1, inComponent: idx, animated: false)
-            picker.selectRow(minutes, inComponent: idx+2, animated: false)
-            picker.selectRow(ampm, inComponent: idx+3, animated: false)
+            if showMinutes {
+                picker.selectRow(minutes, inComponent: idx+2, animated: false)
+                picker.selectRow(ampm, inComponent: idx+3, animated: false)
+            } else {
+                picker.selectRow(ampm, inComponent: idx+1, animated: false)
+            }
             textfield.becomeFirstResponder()
         } else {
             NSLog("Invalid time format received: \(time)")
@@ -146,7 +158,7 @@ class TimeEditor : NSObject {
         // create a UIPicker view as a custom keyboard view
         picker = UIPickerView()
         picker.sizeToFit()
-        picker.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        picker.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         picker.delegate = ds
         picker.dataSource = ds
         picker.showsSelectionIndicator = true

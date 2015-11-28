@@ -1,0 +1,6 @@
+framework module Pods_TempTellerTests {
+  umbrella header "Pods-TempTellerTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
