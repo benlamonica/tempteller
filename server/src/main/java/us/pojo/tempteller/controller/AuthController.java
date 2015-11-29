@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import us.pojo.tempteller.model.auth.AuthResult;
-import us.pojo.tempteller.model.auth.UserInfo;
+import us.pojo.tempteller.model.auth.LoginRequest;
 import us.pojo.tempteller.service.auth.AuthService;
 import us.pojo.tempteller.service.rule.RuleService;
 
@@ -37,7 +37,7 @@ public class AuthController {
 	@RequestMapping(value="{uid}/login", method=RequestMethod.POST)
 	public @ResponseBody AuthResult login(@PathVariable("uid") String uid, @RequestParam("pushToken") String pushToken, @RequestParam(value="oldPushToken", required=false) String oldPushToken, @RequestParam("timezone") String timezone) {
 		log.info("login: uid '{}' push '{}' oldPush '{}' tz '{}'", uid, pushToken, oldPushToken, timezone);
-		UserInfo user = new UserInfo(uid, pushToken, oldPushToken, timezone);
+		LoginRequest user = new LoginRequest(uid, pushToken, oldPushToken, timezone);
 		AuthResult result = auth.login(user);
 		log.info("login: uid '{}' - {}", uid, result);
 		return result;

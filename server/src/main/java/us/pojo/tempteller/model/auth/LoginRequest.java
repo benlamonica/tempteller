@@ -1,12 +1,12 @@
 package us.pojo.tempteller.model.auth;
 
-public class UserInfo {
+public class LoginRequest {
 	public String uid;
 	public String pushToken;
 	public String priorPushToken;
 	public String timezone;
 	
-	public UserInfo(String uid, String pushToken, String priorPushToken, String timezone) {
+	public LoginRequest(String uid, String pushToken, String priorPushToken, String timezone) {
 		this.uid = uid;
 		this.pushToken = pushToken;
 		this.priorPushToken = priorPushToken;
@@ -32,7 +32,7 @@ public class UserInfo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UserInfo other = (UserInfo) obj;
+		LoginRequest other = (LoginRequest) obj;
 		if (priorPushToken == null) {
 			if (other.priorPushToken != null)
 				return false;

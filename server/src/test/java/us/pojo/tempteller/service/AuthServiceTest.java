@@ -12,7 +12,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.StreamUtils;
 
 import us.pojo.tempteller.model.auth.AuthResult;
-import us.pojo.tempteller.model.auth.UserInfo;
+import us.pojo.tempteller.model.auth.LoginRequest;
 import us.pojo.tempteller.service.auth.AuthService;
 import us.pojo.tempteller.service.auth.OfflineAuthService;
 
@@ -35,7 +35,7 @@ public class AuthServiceTest {
 	//		c. grant user 7 day trial subscription
 	//		d. return sub end date
 	private AuthResult loginNewUser() {
-		AuthResult result = target.login(new UserInfo("-1","-1", null, "America/Chicago"));
+		AuthResult result = target.login(new LoginRequest("-1","-1", null, "America/Chicago"));
 		return result;
 	}
 	
@@ -54,7 +54,7 @@ public class AuthServiceTest {
 	@Test
 	public void differentDevice() {
 		AuthResult newUserResult = loginNewUser();
-		AuthResult result = target.login(new UserInfo(newUserResult.uid, "-1", null, "America/Chicago"));
+		AuthResult result = target.login(new LoginRequest(newUserResult.uid, "-1", null, "America/Chicago"));
 		assertEquals("subEndDate", newUserResult.subEndDate, result.subEndDate);
 		assertEquals("uid", newUserResult.uid, result.uid);
 	}

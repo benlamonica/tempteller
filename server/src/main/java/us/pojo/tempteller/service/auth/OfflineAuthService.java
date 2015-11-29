@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 import us.pojo.tempteller.model.auth.AuthResult;
 import us.pojo.tempteller.model.auth.Receipt;
-import us.pojo.tempteller.model.auth.UserInfo;
+import us.pojo.tempteller.model.auth.LoginRequest;
 import us.pojo.tempteller.service.rule.RuleService;
 import us.pojo.tempteller.util.ReceiptParser;
 
@@ -47,7 +47,7 @@ public class OfflineAuthService implements AuthService {
 	private Map<String,User> txns = new ConcurrentHashMap<>();
 	
 	@Override
-	public AuthResult login(UserInfo userInfo) {
+	public AuthResult login(LoginRequest userInfo) {
 		User user;
 		if (userInfo.uid != null && users.containsKey(userInfo.uid)) {
 			user = users.get(userInfo.uid);
