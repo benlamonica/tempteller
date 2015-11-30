@@ -13,9 +13,10 @@ import UIKit
 protocol StatusNotifier {
     func setStatus(status : String)
     func fail(msg: String)
+    func hideStatus()
+    func updatePrices(prices: [String:SKProduct])
 }
-
-class SubscriptionManager : NSObject {
+class SubscriptionManager: NSObject {
     var products : [String:SKProduct] = [:]
     var observers : [AnyObject] = []
     var config = TTConfig.shared
@@ -31,6 +32,7 @@ class SubscriptionManager : NSObject {
                 defer { objc_sync_exit(self.products) }
                 self.products[product.productIdentifier] = product
             }
+            status.updatePrices(self.products)
             NSLog("Received product \(product.productIdentifier), with price \(product.localizedPrice())")
         }
     }
@@ -231,9 +233,23 @@ class SubscriptionManager : NSObject {
             }
             status.setStatus("Recording Purchase")
             if isRestore {
-                tt.restoreSubscriptionForDevice(deviceId.UUIDString, pushToken: config.pushToken, receipt: receiptPKCS7.base64EncodedStringWithOptions([]))
+                tt.restoreSubscriptionForDevice(deviceId.UUIDString, pushToken: config.pushToken, receipt: receiptPKCS7.base64EncodedStringWithOptions([])) { (success: Bool, msg: String) in
+                    if (!success) {
+                        self.status.fail(msg)
+                    } else {
+                        self.status.setStatus("Success!")
+                        self.status.hideStatus()
+                    }
+                }
             } else {
-                tt.addSubscriptionForDevice(deviceId.UUIDString, receiptPKCS7: receiptPKCS7.base64EncodedStringWithOptions([]))
+                tt.addSubscriptionForDevice(deviceId.UUIDString, receiptPKCS7: receiptPKCS7.base64EncodedStringWithOptions([])) { (success: Bool, msg: String) in
+                    if (!success) {
+                        self.status.fail(msg)
+                    } else {
+                        self.status.setStatus("Success!")
+                        self.status.hideStatus()
+                    }
+                }
             }
 
         }

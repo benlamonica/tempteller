@@ -10,22 +10,42 @@ import Foundation
 import UIKit
 import StoreKit
 
-class SettingsViewController : UITableViewController {
+class SettingsViewController : UITableViewController, StatusNotifier {
     var nav : UINavigationController!
     @IBOutlet var serverUrl : UITextField!
     @IBOutlet var deviceToken : UITextField!
-    @IBOutlet var oneMonthPrice : UILabel!
-    @IBOutlet var sixMonthPrice : UILabel!
-    @IBOutlet var oneYearPrice : UILabel!
     @IBOutlet var subEnd : UITableViewCell!
-    var statusView : StatusViewController!
+    var statusSpinner : UIActivityIndicatorView?
+    var statusLbl : UILabel?
+    var origText : String?
+    var statusCell : NSIndexPath?
+    
     
     var config = TTConfig.shared
     var subMgr : SubscriptionManager!
     var email : EmailUtil!
     let txns : [SKPaymentTransaction] = []
     var subEndDate : NSDate?
+    let df = NSDateFormatter()
     
+    func updatePrices(prices: [String:SKProduct]) {
+        
+    }
+
+    
+    override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if (section == WHY_SUBSCRIBE.section) {
+            if config.subEndDate == "NotSubscribed" {
+                return "⛔ You are not currently subscribed. You will not receive notifications."
+            } else if config.subEndDate < df.stringFromDate(NSDate()) {
+                return "⛔ Your subscription ended on \(config.subEndDate). You will not receive notifications."
+            } else {
+                return "✅ You are subscribed until \(config.subEndDate)"
+            }
+        } else {
+            return super.tableView(tableView, titleForFooterInSection: section)
+        }
+    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier ?? "DoNothing" {
@@ -58,32 +78,33 @@ class SettingsViewController : UITableViewController {
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
+        if statusCell != nil {
+            // don't let the user click on anything if we are in the process of doing something else
+            return
+        }
+        
         switch indexPath {
         case SHOW_FORECAST_IO:
             openForecastIO()
         case SHOW_YAHOO:
             openYahoo()
         case SUBSCRIBE_1M:
-            showStatus()
+            showStatusInCell(indexPath)
             subMgr.subscribe("1_Month", onCompletion: getSubHandler())
         case SUBSCRIBE_6M:
-            showStatus()
+            showStatusInCell(indexPath)
             subMgr.subscribe("6_Month", onCompletion: getSubHandler())
         case SUBSCRIBE_1Y:
-            showStatus()
+            showStatusInCell(indexPath)
             subMgr.subscribe("12_Month", onCompletion: getSubHandler())
         case RESTORE_SUBS:
-            showStatus()
+            showStatusInCell(indexPath)
             subMgr.restoreSubs(getSubHandler())
         case REQUEST_SUPPORT:
             requestSupport()
         default: break
             // do nothing
         }
-    }
-    
-    override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return super.tableView(tableView, titleForFooterInSection: section)
     }
     
    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -106,31 +127,59 @@ class SettingsViewController : UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         email = EmailUtil(parentController: self)
-        statusView = self.storyboard?.instantiateViewControllerWithIdentifier("StatusView") as? StatusViewController
-        subMgr = SubscriptionManager(status: statusView)
+        df.dateFormat = "yyyy-MM-dd"
+        subMgr = SubscriptionManager(status: self)
     }
     
-    func showStatus() {
-        addChildViewController(statusView)
-        statusView.view.frame = CGRect(x: 20, y: 20, width: 150, height: 150)
-        statusView.view.alpha = 0.0
-        UIView.animateWithDuration(0.25, animations: {self.statusView.view.alpha=1.0})
-    }
-    
-    func hideStatus() {
-        UIView.animateWithDuration(0.25, animations: {self.statusView.view.alpha=0.0}) { didFinish in
-            self.statusView.removeFromParentViewController()
+    func showStatusInCell(cellPath: NSIndexPath) {
+        if let cell = tableView.cellForRowAtIndexPath(cellPath) {
+            statusLbl = cell.viewWithTag(1) as? UILabel
+            origText = statusLbl?.text
+            statusSpinner = cell.viewWithTag(2) as? UIActivityIndicatorView
+            statusSpinner?.startAnimating()
+            if let priceLbl = cell.viewWithTag(3) as? UILabel {
+                priceLbl.hidden = true
+            }
         }
     }
     
+    func hideStatus() {
+        UIView.animateWithDuration(0.0, animations: {}) { (completed: Bool) in
+            if let cellPath = self.statusCell, let cell = self.tableView.cellForRowAtIndexPath(cellPath) {
+                self.statusLbl?.text = self.origText
+                self.statusSpinner?.stopAnimating()
+                self.statusLbl = nil
+                self.statusSpinner = nil
+                self.statusCell = nil
+                if let priceLbl = cell.viewWithTag(3) as? UILabel {
+                    priceLbl.hidden = false
+                }
+            }
+        }
+    }
+    
+    func setStatus(status : String) {
+        UIView.animateWithDuration(0.0, animations: {}) { (completed: Bool) in
+            self.statusLbl?.text = status
+        }
+    }
+    
+    func fail(msg: String) {
+        UIView.animateWithDuration(0.0, animations: {}) { (completed: Bool) in
+            let alert = UIAlertView(title: "Problem", message: msg, delegate: nil, cancelButtonTitle: "Dismiss")
+            alert.show()
+            self.hideStatus()
+        }
+    }
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        serverUrl.text = config.serverUrl
+        serverUrl.text = config.server
         deviceToken.text = config.pushToken
     }
     
     @IBAction func save(sender: AnyObject?) {
-        config.serverUrl = serverUrl.text!
+        config.server = serverUrl.text!
         nav.popToRootViewControllerAnimated(true)
     }
 }

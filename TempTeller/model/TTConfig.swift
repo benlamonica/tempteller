@@ -30,12 +30,19 @@ public class TTConfig {
             settings.synchronize()
         }
     }
-    var serverUrl : String {
+    var server : String {
         didSet {
-            settings.setValue(serverUrl, forKey: "serverUrl")
+            settings.setValue(serverUrl, forKey: "server")
             settings.synchronize()
         }
     }
+    
+    var serverUrl : String {
+        get {
+            return "\(server)/\(uid)"
+        }
+    }
+    
     var rules : String {
         didSet {
             settings.setValue(rules, forKey: "rules")
@@ -50,7 +57,7 @@ public class TTConfig {
         subEndDate = settings.valueForKey("subEndDate") as? String ?? "NotSubscribed"
         uid = keychain.get("uid") ?? "-1"
         pushToken = settings.valueForKey("pushToken") as? String ?? "NotDefined"
-        serverUrl = "\((settings.valueForKey("serverUrl") ?? "http://nix.local:8080") as! String)/\(uid)"
+        server = settings.valueForKey("server") as? String ?? "http://nix.local:8080/"
         rules = settings.valueForKey("rules") as? String ?? "[]"
     }
     

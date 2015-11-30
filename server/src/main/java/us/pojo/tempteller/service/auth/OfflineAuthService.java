@@ -66,7 +66,7 @@ public class OfflineAuthService implements AuthService {
 			ruleService.updatePushToken(userInfo.uid, userInfo.priorPushToken, userInfo.pushToken);
 		}
 		
-		return getAuthResult(user, "");
+		return getAuthResult(user, "OK");
 	}
 
 	private AuthResult getAuthResult(User user, String msg) {
@@ -89,7 +89,7 @@ public class OfflineAuthService implements AuthService {
 			 Receipt receipt = new Receipt(parsed);
 			 receipt.getTxnIds().stream().forEach(txnId -> txns.putIfAbsent(txnId, user));
 			 user.subEndDate = receipt.getSubEndDate();
-			 return getAuthResult(user, "");
+			 return getAuthResult(user, "OK");
 		 } catch (Exception e) {
 			 log.error("Failed to parse receipt {}" + pkcs7receipt, e);
 			 return new AuthResult(uid, "Not Subscribed", "{RECEIPT_READ_ERROR}");
@@ -107,13 +107,13 @@ public class OfflineAuthService implements AuthService {
 			 if (txn.isPresent()) {
 				 User user = txns.get(txn.get());
 				 user.subEndDate = receipt.getSubEndDate();
-				 return getAuthResult(user, "");
+				 return getAuthResult(user, "OK");
 			 } else {
 				 User user = new User();
 				 user.uid = uid;
 				 user.subEndDate = receipt.getSubEndDate();
 				 users.put(user.uid, user);
-				 return getAuthResult(user,"");
+				 return getAuthResult(user,"OK");
 			 }
 		 } catch (Exception e) {
 			 log.error("Failed to parse receipt {}" + pkcs7receipt, e);

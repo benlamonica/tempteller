@@ -27,7 +27,9 @@ class TempTellerService {
             let req = try HTTP.POST(url)
             
             req.start() { response in
-                self.processAuthResult(response)
+                self.processAuthResult(response) { (success: Bool, msg: String) in
+                    
+                }
                 self.config.pushToken = pushToken
             }
         } catch let error {
@@ -35,19 +37,19 @@ class TempTellerService {
         }
     }
     
-    func restoreSubscriptionForDevice(deviceId : String, pushToken: String, receipt: String) {
+    func restoreSubscriptionForDevice(deviceId : String, pushToken: String, receipt: String, onFinish: (success: Bool, msg: String) -> ()) {
         let url = "\(config.serverUrl)/restore"
         do {
             let req = try HTTP.POST(url, parameters: ["pushToken":pushToken, "deviceId":deviceId, "receipt":receipt])
             req.start() { response in
-                self.processAuthResult(response)
+                self.processAuthResult(response, onFinish: onFinish)
             }
         } catch let err {
             NSLog("Unable to contact server due to \(err)")
         }
     }
 
-    func processAuthResult(response: Response) {
+    func processAuthResult(response: Response, onFinish: (success: Bool, msg: String) -> ()) {
         NSLog("response: \(response.text!)")
         let json = JSON(data: response.data)
         let serverUid = json["uid"].string ?? "-1"
@@ -55,14 +57,17 @@ class TempTellerService {
         if serverUid != self.config.uid {
             self.config.uid = serverUid
         }
+        
+        let wasSuccessful = json["msg"].string == "OK"
+        onFinish(success: wasSuccessful, msg: json["msg"].string ?? "")
     }
     
-    func addSubscriptionForDevice(deviceId : String, receiptPKCS7: String) {
+    func addSubscriptionForDevice(deviceId : String, receiptPKCS7: String, onFinish: (success: Bool, msg: String) -> ()) {
         let url = "\(config.serverUrl)/subscribe"
         do {
             let req = try HTTP.POST(url, parameters: ["deviceId":deviceId, "receipt":receiptPKCS7])
             req.start() { response in
-                self.processAuthResult(response)
+                self.processAuthResult(response, onFinish: onFinish)
             }
         } catch let err {
             NSLog("Unable to contact server due to \(err)")
