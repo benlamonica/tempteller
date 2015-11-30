@@ -61,10 +61,10 @@ public class TTConfig {
         pushToken = settings.valueForKey("pushToken") as? String ?? "NotDefined"
         server = settings.valueForKey("server") as? String ?? "http://nix.local:8080/"
         rules = settings.valueForKey("rules") as? String ?? "[]"
-        isTestEnv = isAPNSandbox() 
+        isTestEnv = TTConfig.isAPNSandbox()
     }
 
-    func isAPNSandbox() -> Bool {
+    private class func isAPNSandbox() -> Bool {
         if let mobileProvisionURL = NSBundle.mainBundle().URLForResource("embedded", withExtension: "mobileprovision"),
         let mobileProvisionData = NSData(contentsOfURL: mobileProvisionURL),
         let mobileProvision = TCMobileProvision(data: mobileProvisionData) {
