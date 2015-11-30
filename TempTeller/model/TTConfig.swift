@@ -8,6 +8,7 @@
 
 import Foundation
 import KeychainSwift
+import TCMobileProvision
 
 public class TTConfig {
     
@@ -49,7 +50,8 @@ public class TTConfig {
             settings.synchronize()
         }
     }
-    
+   
+    let isTestEnv : Bool 
     
     init() {
         keychain = KeychainSwift()
@@ -59,7 +61,22 @@ public class TTConfig {
         pushToken = settings.valueForKey("pushToken") as? String ?? "NotDefined"
         server = settings.valueForKey("server") as? String ?? "http://nix.local:8080/"
         rules = settings.valueForKey("rules") as? String ?? "[]"
+        isTestEnv = isAPNSandbox() 
     }
-    
+
+    func isAPNSandbox() -> Bool {
+        if let mobileProvisionURL = NSBundle.mainBundle().URLForResource("embedded", withExtension: "mobileprovision"),
+        let mobileProvisionData = NSData(contentsOfURL: mobileProvisionURL),
+        let mobileProvision = TCMobileProvision(data: mobileProvisionData) {
+            if let entitlements = mobileProvision.dict["Entitlements"],
+            let apsEnvironment = entitlements["aps-environment"] as? String
+            where apsEnvironment == "development" {
+                return true
+            }
+        }
+
+        return false
+    }    
+
     static let shared = TTConfig()
 }

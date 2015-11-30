@@ -2,6 +2,8 @@ package us.pojo.tempteller.model.auth;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +24,24 @@ public class Receipt {
 	
 	private List<Map<String,String>> receipt;
 	
+	private static final Comparator<Map<String,String>> RECEIPT_DATE_COMPARATOR = new Comparator<Map<String,String>>() {
+		@Override
+		public int compare(Map<String, String> o1, Map<String, String> o2) {
+			String o1date = o1.getOrDefault("org-purchase-date", o1.get("purchase-date"));
+			String o2date = o2.getOrDefault("org-purchase-date", o2.get("purchase-date"));
+			if (o1date != null && o2date != null) {
+				return o1date.compareTo(o2date);
+			} else if (o1date != null && o2date == null){
+				return -1;
+			} else {
+				return 1;
+			}
+		}
+	};
+	
 	public Receipt(List<Map<String,String>> receipt) {
+		// make sure the receipts are sorted by date, so that we can calculate the correct end date
+		Collections.sort(receipt, RECEIPT_DATE_COMPARATOR);
 		this.receipt = receipt;
 	}
 	
