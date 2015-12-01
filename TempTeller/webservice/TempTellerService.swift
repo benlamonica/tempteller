@@ -51,15 +51,20 @@ class TempTellerService {
 
     func processAuthResult(response: Response, onFinish: (success: Bool, msg: String) -> ()) {
         NSLog("response: \(response.text!)")
-        let json = JSON(data: response.data)
-        let serverUid = json["uid"].string ?? "-1"
-        self.config.subEndDate = json["subEndDate"].string ?? "NotSubscribed"
-        if serverUid != self.config.uid {
-            self.config.uid = serverUid
+        var msg = "Unable to Connect"
+        var wasSuccessful = false
+        if response.statusCode == 200 {
+            let json = JSON(data: response.data)
+            let serverUid = json["uid"].string ?? "-1"
+            self.config.subEndDate = json["subEndDate"].string ?? "NotSubscribed"
+            if serverUid != self.config.uid {
+                self.config.uid = serverUid
+            }
+            msg = json["msg"].string ?? ""
+            wasSuccessful = json["msg"].string == "OK"
         }
         
-        let wasSuccessful = json["msg"].string == "OK"
-        onFinish(success: wasSuccessful, msg: json["msg"].string ?? "")
+        onFinish(success: wasSuccessful, msg: msg)
     }
     
     func addSubscriptionForDevice(deviceId : String, receiptPKCS7: String, onFinish: (success: Bool, msg: String) -> ()) {

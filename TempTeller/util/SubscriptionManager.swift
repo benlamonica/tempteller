@@ -148,7 +148,8 @@ class SubscriptionManager: NSObject {
             }
 
             if !receipts.isEmpty {
-                processReceipt(receipts: receipts)
+                // we actually don't care about the receipts coming into this method, as it can be spoofed by people who are hacking our app. Just process the receipt from the app store which is cryptographically signed and more difficult to spoof. Plus, this will send the receipt to the server, which is how it validates everything is fine and recalculates the subEndDate.
+                parent.validateReceipt()
             }
         }
         

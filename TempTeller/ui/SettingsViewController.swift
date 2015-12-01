@@ -29,7 +29,9 @@ class SettingsViewController : UITableViewController, StatusNotifier {
     let df = NSDateFormatter()
     
     func updatePrices(prices: [String:SKProduct]) {
-        
+        updatePriceInCell(SUBSCRIBE_1M, product: prices["1_Month"])
+        updatePriceInCell(SUBSCRIBE_6M, product: prices["6_Month"])
+        updatePriceInCell(SUBSCRIBE_1Y, product: prices["12_Month"])
     }
 
     
@@ -129,6 +131,18 @@ class SettingsViewController : UITableViewController, StatusNotifier {
         email = EmailUtil(parentController: self)
         df.dateFormat = "yyyy-MM-dd"
         subMgr = SubscriptionManager(status: self)
+
+    }
+    
+    func updatePriceInCell(cellPath: NSIndexPath, product: SKProduct?) {
+        if let cell = tableView.cellForRowAtIndexPath(cellPath), let prod = product {
+            let statusSpinner = cell.viewWithTag(2) as? UIActivityIndicatorView
+            statusSpinner?.stopAnimating()
+            if let priceLbl = cell.viewWithTag(3) as? UILabel {
+                priceLbl.text = prod.localizedPrice()
+                priceLbl.hidden = false
+            }
+        }
     }
     
     func showStatusInCell(cellPath: NSIndexPath) {
