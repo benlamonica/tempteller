@@ -23,6 +23,7 @@ public class TTConfig {
     var uid : String {
         didSet {
             keychain.set(uid, forKey: "uid")
+            NSLog("keychain status code: \(keychain.lastResultCode)")
         }
     }
     var pushToken : String {
@@ -33,7 +34,7 @@ public class TTConfig {
     }
     var server : String {
         didSet {
-            settings.setValue(serverUrl, forKey: "server")
+            settings.setValue(server, forKey: "server")
             settings.synchronize()
         }
     }
@@ -54,14 +55,14 @@ public class TTConfig {
     let isTestEnv : Bool 
     
     init() {
-        keychain = KeychainSwift()
+        isTestEnv = TTConfig.isAPNSandbox()
+        keychain = KeychainSwift(keyPrefix: isTestEnv ? "testing" : "")
         settings = NSUserDefaults.standardUserDefaults()
         subEndDate = settings.valueForKey("subEndDate") as? String ?? "NotSubscribed"
         uid = keychain.get("uid") ?? "-1"
         pushToken = settings.valueForKey("pushToken") as? String ?? "NotDefined"
         server = settings.valueForKey("server") as? String ?? "http://nix.local:8080/"
         rules = settings.valueForKey("rules") as? String ?? "[]"
-        isTestEnv = TTConfig.isAPNSandbox()
     }
 
     private class func isAPNSandbox() -> Bool {
