@@ -6,28 +6,30 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import us.pojo.tempteller.model.auth.AuthResult;
 import us.pojo.tempteller.model.auth.LoginRequest;
 import us.pojo.tempteller.model.auth.Receipt;
+import us.pojo.tempteller.model.auth.Transaction;
 import us.pojo.tempteller.model.auth.User;
+import us.pojo.tempteller.service.repository.TransactionRepository;
+import us.pojo.tempteller.service.repository.UserRepository;
 import us.pojo.tempteller.service.rule.RuleService;
 import us.pojo.tempteller.util.ReceiptParser;
 
-public abstract class BaseAuthService implements AuthService {
-
-	protected abstract void saveTxns(Receipt receipt, User user);
-
-	protected abstract User getUserFromTxns(Receipt receipt);
-
-	protected abstract User getUser(String uid);
-
-	protected abstract void saveUser(User user);
+@Service(value="AuthService")
+public class PersistentAuthService implements AuthService {
 
 	private ReceiptParser receiptParser = new ReceiptParser();
 	
@@ -40,6 +42,21 @@ public abstract class BaseAuthService implements AuthService {
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
+	@Autowired
+	private TransactionRepository txns;
+
+	@Autowired
+	private UserRepository users;
+	
+	public void setTxns(TransactionRepository txns) {
+		this.txns = txns;
+	}
+
+	public void setUsers(UserRepository users) {
+		this.users = users;
+	}
+
+	@Transactional
 	@Override
 	public AuthResult login(LoginRequest userInfo) {
 		User user = getUser(userInfo.uid);
@@ -64,6 +81,7 @@ public abstract class BaseAuthService implements AuthService {
 		return new AuthResult(user.getUid(), df.format(user.getSubEndDate()),msg);
 	}
 
+	@Transactional
 	@Override
 	public AuthResult addSubscription(String uid, String deviceId, String pkcs7receipt) {
 		 log.info("adding subscription with receipt: '{}'",pkcs7receipt);
@@ -79,6 +97,7 @@ public abstract class BaseAuthService implements AuthService {
 			 Receipt receipt = new Receipt(parsed);
 			 saveTxns(receipt, user);
 			 user.setSubEndDate(receipt.getSubEndDate());
+			 
 			 return getAuthResult(user, "OK");
 		 } catch (Exception e) {
 			 log.error("Failed to parse receipt {}" + pkcs7receipt, e);
@@ -86,6 +105,7 @@ public abstract class BaseAuthService implements AuthService {
 		 }
 	}
 
+	@Transactional
 	@Override
 	public AuthResult restoreSubscription(String uid, String deviceId, String pkcs7receipt) {
 		log.info("restoring subscription with receipt: '{}", pkcs7receipt);
@@ -107,6 +127,30 @@ public abstract class BaseAuthService implements AuthService {
 			 log.error("Failed to parse receipt {}" + pkcs7receipt, e);
 			 return new AuthResult("-1", "Not Subscribed", "{RECEIPT_READ_ERROR}");
 		 }
+	}
+
+	protected void saveTxns(Receipt receipt, User user) {
+		txns.save(receipt.getTxnIds().stream()
+				.map(txn -> new Transaction(txn, user))
+				.collect(Collectors.toList()));
+	}
+
+	protected User getUserFromTxns(Receipt receipt) {
+		Iterable<Transaction> result = txns.findAll(receipt.getTxnIds());
+		Optional<Transaction> txn = StreamSupport.stream(result.spliterator(), false).findFirst();
+		if (txn.isPresent()) {
+			return txn.get().getUser();
+		} else {
+			return null;
+		}
+	}
+
+	protected User getUser(String uid) {
+		return users.findOne(uid);
+	}
+
+	protected void saveUser(User user) {
+		users.save(user);
 	}
 
 

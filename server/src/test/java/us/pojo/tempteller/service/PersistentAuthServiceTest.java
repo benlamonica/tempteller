@@ -1,10 +1,16 @@
 package us.pojo.tempteller.service;
 
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.isA;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 
-import static org.junit.Assert.*;
+import org.easymock.EasyMock;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,21 +19,40 @@ import org.springframework.util.StreamUtils;
 
 import us.pojo.tempteller.model.auth.AuthResult;
 import us.pojo.tempteller.model.auth.LoginRequest;
-import us.pojo.tempteller.service.auth.AuthService;
-import us.pojo.tempteller.service.auth.OfflineAuthService;
+import us.pojo.tempteller.model.auth.Transaction;
+import us.pojo.tempteller.model.auth.User;
+import us.pojo.tempteller.service.auth.PersistentAuthService;
+import us.pojo.tempteller.service.repository.TransactionRepository;
+import us.pojo.tempteller.service.repository.UserRepository;
+import us.pojo.tempteller.service.rule.RuleService;
 
-public class AuthServiceTest {
+public class PersistentAuthServiceTest {
 
-	private AuthService target;
+	private UserRepository mockUserRepo;
+	private TransactionRepository mockTxnRepo;
+	private RuleService mockRuleService;
+	
+	private PersistentAuthService target;
 	@Before
 	public void setup() {
-		target = new OfflineAuthService();
+		mockUserRepo = EasyMock.createMock(UserRepository.class);
+		mockTxnRepo = EasyMock.createMock(TransactionRepository.class);
+		mockRuleService = EasyMock.createMock(RuleService.class);
+		target = new PersistentAuthService();
+		target.setRuleService(mockRuleService);
+		target.setTxns(mockTxnRepo);
+		target.setUsers(mockUserRepo);
 	}
 	
 	@After
 	public void verify() {
-
+		EasyMock.verify(mockRuleService, mockTxnRepo, mockUserRepo);
 	}
+	
+	private void replay() {
+		EasyMock.replay(mockRuleService, mockTxnRepo, mockUserRepo);
+	}
+	
 	// SCENARIOS
 	// 1: User installs app for first time, with no sign of prior installs (iCloud rules empty, Push Id empty, keychain empty)
 	//		a. configure as a new user
@@ -35,6 +60,9 @@ public class AuthServiceTest {
 	//		c. grant user 7 day trial subscription
 	//		d. return sub end date
 	private AuthResult loginNewUser() {
+		expect(mockUserRepo.findOne("-1")).andReturn(null);
+		expect(mockUserRepo.save(isA(User.class))).andReturn(null);
+		replay();
 		AuthResult result = target.login(new LoginRequest("-1","-1", null, "America/Chicago"));
 		return result;
 	}
@@ -53,10 +81,13 @@ public class AuthServiceTest {
 	//		b. return sub end date
 	@Test
 	public void differentDevice() {
-		AuthResult newUserResult = loginNewUser();
-		AuthResult result = target.login(new LoginRequest(newUserResult.uid, "-1", null, "America/Chicago"));
-		assertEquals("subEndDate", newUserResult.subEndDate, result.subEndDate);
-		assertEquals("uid", newUserResult.uid, result.uid);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		expect(mockUserRepo.findOne("abc-def")).andReturn(new User("abc-def", new Date()));
+		replay();
+		AuthResult result = target.login(new LoginRequest("abc-def", "-1", null, "America/Chicago"));
+		
+		assertEquals("subEndDate", df.format(new Date()), result.subEndDate);
+		assertEquals("uid", "abc-def", result.uid);
 	}
 	
 	// 3: User is unknown to the app, but then restores subscriptions
@@ -69,12 +100,12 @@ public class AuthServiceTest {
 	//		g. unregister the device under the old user
 	@Test
 	public void wipedAppAndKeychainInstall() throws Exception {
-		AuthResult loginResult = loginNewUser();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String receipt = StreamUtils.copyToString(new ClassPathResource("receipt.txt").getInputStream(), Charset.forName("utf8"));
-		AuthResult subResult = target.addSubscription(loginResult.uid, "599099EC-1DB4-4B30-92B3-F22FEEB57949", receipt);
-		assertEquals("2018-10-21", subResult.subEndDate);
+		expect(mockTxnRepo.findAll(isA(Iterable.class))).andReturn(Collections.singletonList(new Transaction("11000000175854771", new User("abc-def", df.parse("2018-11-12")))));
+		replay();	
 		AuthResult restoreResult = target.restoreSubscription("-1", "599099EC-1DB4-4B30-92B3-F22FEEB57949", receipt);
-		assertEquals(loginResult.uid, restoreResult.uid);
+		assertEquals("abc-def", restoreResult.uid);
 		assertEquals("2018-10-21", restoreResult.subEndDate);
 	}
 	// 4: User purchases a subscription
@@ -82,11 +113,15 @@ public class AuthServiceTest {
 	//		b. verify that receipt isn't in use on more than 20 active devices
 	//		c. return new sub end date
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void userPurchasedSub() throws Exception {
-		AuthResult loginResult = loginNewUser();
+		expect(mockTxnRepo.save(isA(Iterable.class))).andReturn(null);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		expect(mockUserRepo.findOne("abc-def")).andReturn(new User("abc-def", df.parse("2018-10-21")));
+		replay();
 		String receipt = StreamUtils.copyToString(new ClassPathResource("receipt.txt").getInputStream(), Charset.forName("utf8"));
-		AuthResult result = target.addSubscription(loginResult.uid, "599099EC-1DB4-4B30-92B3-F22FEEB57949", receipt);
+		AuthResult result = target.addSubscription("abc-def", "599099EC-1DB4-4B30-92B3-F22FEEB57949", receipt);
 		assertEquals("2018-10-21", result.subEndDate);
 	}
 
