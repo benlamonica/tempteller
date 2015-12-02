@@ -43,6 +43,6 @@ public class RuleController {
 	@RequestMapping(value="{uid}/rules", method=RequestMethod.GET)
 	public Rule[] getRules(@PathVariable(value="uid") String uid) {
 		log.info("Requesting rules for uid {}", uid);
-		return ruleService.getRules(uid).stream().map(m -> m.rule).collect(Collectors.toList()).toArray(new Rule[] {});
+		return ruleService.getRules(uid).stream().map(m -> m.getRule()).collect(Collectors.toList()).toArray(new Rule[] {});
 	}
 }

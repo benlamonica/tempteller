@@ -98,6 +98,7 @@ public class PersistentAuthServiceTest {
 	//		e. verify that the receipt hasn't been used on more than 20 active devices
 	//		f. return original userId and sub end date
 	//		g. unregister the device under the old user
+	@SuppressWarnings("unchecked")
 	@Test
 	public void wipedAppAndKeychainInstall() throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
