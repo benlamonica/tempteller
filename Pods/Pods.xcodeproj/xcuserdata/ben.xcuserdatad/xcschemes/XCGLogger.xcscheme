@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'B855166C4E765B0DF97BEADF'
-               BlueprintName = 'Pods-TempTellerTests'
+               BlueprintIdentifier = 'DDB2D52A03925846AA1C2F3E'
+               BlueprintName = 'XCGLogger'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'Pods_TempTellerTests.framework'>
+               BuildableName = 'XCGLogger.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -12,25 +12,26 @@ import SwiftyJSON
 
 class TempTellerService {
     var config = TTConfig.shared
-    func registerPushToken(pushToken: String) {
-        var replaces : String? = nil
-        if pushToken != config.pushToken {
+    func registerPushToken(pushToken: String, priorPushToken: String? = TTConfig.shared.pushToken) {
+        var priorUrl = ""
+        if pushToken != priorPushToken {
             NSLog("device token differs from what we've registered in the past, notify server")
-            replaces = config.pushToken
+            priorUrl = "&priorPushToken=\(priorPushToken)"
         }
 
         do {
-            let priorUrl = replaces != nil ? "&priorPushToken=\(replaces!)" : ""
             let url = "\(config.serverUrl)/login?pushToken=\(pushToken)\(priorUrl)&timezone=\(NSTimeZone.defaultTimeZone().name)"
-            NSLog("logging in: \(url)")
+            NSLog("Changing Device Token: \(url)")
             
             let req = try HTTP.POST(url)
             
             req.start() { response in
                 self.processAuthResult(response) { (success: Bool, msg: String) in
-                    
+                    if success {
+                        NSLog("device token changed to %@", pushToken)
+                        self.config.pushToken = pushToken
+                    }
                 }
-                self.config.pushToken = pushToken
             }
         } catch let error {
             NSLog("failed to create http request. \(error)")
@@ -76,6 +77,47 @@ class TempTellerService {
             }
         } catch let err {
             NSLog("Unable to contact server due to \(err)")
+            onFinish(success: false, msg:"Unable to contact server due to \(err)")
+        }
+    }
+    
+    func saveRules(rules: [[String:AnyObject]], onFinish: (success: Bool, msg: String) -> ()) {
+        let url = "\(config.serverUrl)/rules?pushToken=\(config.pushToken.escaped!)&tz=\(NSTimeZone.defaultTimeZone().name.escaped!)"
+        NSLog("POST %@", url)
+        do {
+            let req = try HTTP.POST(url, parameters:rules, requestSerializer: JSONParameterSerializer())
+            req.start() { response in
+                onFinish(success: response.text=="OK", msg: response.text ?? "")
+            }
+        } catch let err {
+            NSLog("Unable to contact server due to \(err)")
+            onFinish(success: false, msg:"Unable to contact server due to \(err)")
+        }
+    }
+    
+    func saveRule(rule: Rule) {
+        let url = "\(config.serverUrl)/rule?pushToken=\(config.pushToken.escaped!)&tz=\(NSTimeZone.defaultTimeZone().name.escaped!)"
+        NSLog("POST %@", url)
+        do {
+            let req = try HTTP.POST(url, parameters:rule.toDict(), requestSerializer: JSONParameterSerializer())
+            req.start() { response in
+            }
+        } catch let err {
+            NSLog("Unable to contact server due to \(err)")
+        }
+    }
+    
+    func deleteRule(ruleId: String, onFinish: (success: Bool, msg: String) -> ()) {
+        let url = "\(config.serverUrl)/\(config.pushToken)/rule/\(ruleId)/delete"
+        NSLog("POST \(url)")
+        do {
+            let req = try HTTP.POST(url)
+            req.start() { response in
+                onFinish(success: response.text=="OK", msg: response.text ?? "")
+            }
+        } catch let err {
+            NSLog("Unable to contact server due to \(err)")
+            onFinish(success: false, msg:"Unable to contact server due to \(err)")
         }
     }
 

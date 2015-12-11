@@ -89,6 +89,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-TempTeller/SwiftHTTP.framework"
   install_framework "Pods-TempTeller/SwiftyJSON.framework"
   install_framework "Pods-TempTeller/TCMobileProvision.framework"
+  install_framework "Pods-TempTeller/XCGLogger.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-TempTeller/DTFoundation.framework"
@@ -96,4 +97,5 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-TempTeller/SwiftHTTP.framework"
   install_framework "Pods-TempTeller/SwiftyJSON.framework"
   install_framework "Pods-TempTeller/TCMobileProvision.framework"
+  install_framework "Pods-TempTeller/XCGLogger.framework"
 fi

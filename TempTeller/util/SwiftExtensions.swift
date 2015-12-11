@@ -37,6 +37,18 @@ extension String {
     func split(delim:String) -> [String] {
         return self.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: delim))
     }
+    
+    /**
+     A simple extension to the String object to encode it for web request.
+     
+     :returns: Encoded version of of string it was called as.
+     */
+    var escaped: String? {
+        let set = NSMutableCharacterSet()
+        set.formUnionWithCharacterSet(NSCharacterSet.URLQueryAllowedCharacterSet())
+        set.removeCharactersInString("[].:/?&=;+!@#$()',*\"") // remove the HTTP ones from the set.
+        return self.stringByAddingPercentEncodingWithAllowedCharacters(set)
+    }
 }
 
 extension Double {

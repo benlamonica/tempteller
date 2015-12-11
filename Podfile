@@ -8,6 +8,7 @@ target 'TempTeller' do
     pod 'SwiftyJSON', '~> 2.3'
     pod 'SwiftHTTP', '~> 1.0.0'
     pod 'KeychainSwift', '~> 3.0'
+    pod 'XCGLogger', '~> 3.1'
     pod 'TCMobileProvision', :git => 'https://github.com/tcurdt/TCMobileProvision.git'
 end
 

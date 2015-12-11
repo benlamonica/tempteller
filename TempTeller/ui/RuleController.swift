@@ -13,6 +13,7 @@ class RuleController: UITableViewController {
 
     var data : [Rule] = []
     var config = TTConfig.shared
+    var tt = TempTellerService()
     
     func stylizeTableViewHeader() {
         let nav = self.navigationController?.navigationBar
@@ -43,6 +44,14 @@ class RuleController: UITableViewController {
             let jsonString = NSString(data: json, encoding: NSUTF8StringEncoding) as! String
             NSLog(jsonString)
             config.rules = jsonString
+            tt.saveRules(model) { (success, msg) -> () in
+                if !success {
+                    
+                    let av = UIAlertView(title: "Problem saving rules", message: msg, delegate: nil, cancelButtonTitle: "Dismiss")
+                    av.show()
+                }
+            }
+        
         } catch let error as NSError {
             let err = error
             NSLog("Failed to serialize to JSON: \(err)")
@@ -80,9 +89,9 @@ class RuleController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         // make sure any added rules were saved instead of cancelled.
-        data = data.filter({$0.saved == true})
+        data = data.filter({$0.added == true})
+        data.filter({$0.dirty == true}).forEach({self.tt.saveRule($0)})
         tableView.reloadData()
-        saveRules()
         registerForNotications()
     }
     
@@ -128,7 +137,6 @@ class RuleController: UITableViewController {
                     let controller = (segue.destinationViewController as! RuleDetailController)
                     controller.nav = navigationController
                     let rule = Rule()
-                    rule.saved = false
                     controller.rule = rule
                     data.append(rule)
             case "ShowConfig":

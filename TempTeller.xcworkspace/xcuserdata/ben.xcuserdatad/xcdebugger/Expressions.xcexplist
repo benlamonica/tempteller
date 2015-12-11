@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "HTTPBodySerializer.serialize(NSMutableURLRequest, parameters : HTTPParameterProtocol) throws -&gt; ():HTTPBodySerializer.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SettingsViewController.updatePrices([String : SKProduct]) -&gt; ():SettingsViewController.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

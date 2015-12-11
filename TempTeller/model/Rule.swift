@@ -13,7 +13,8 @@ public class Rule : NSObject, NSCopying, ConvertableToDictionary {
     public var enabled : Bool;
     public var subrules : [SubRule]
     public var uuid : String
-    var saved = true // will be marked as true if the user hit the "Save" button after editing
+    var added = true // when added, will be set to false. If user hit the "Save" button, will be marked as true
+    var dirty = false // used to let caller know that something changed, otherwise it won't change anything
     public var message : String {
         get {
             return (self.subrules[0] as! MessageSubRule).message
@@ -52,7 +53,8 @@ public class Rule : NSObject, NSCopying, ConvertableToDictionary {
     }
     
     public override init() {
-        enabled = true;
+        enabled = true
+        added = false
         uuid = NSUUID().UUIDString
         subrules = [
             MessageSubRule(),
@@ -64,6 +66,8 @@ public class Rule : NSObject, NSCopying, ConvertableToDictionary {
     
     public init(copy: Rule) {
         self.enabled = copy.enabled
+        self.added = copy.added
+        self.dirty = copy.dirty
         self.uuid = copy.uuid
         self.subrules = copy.subrules.map({$0.copy() as! SubRule})
     }

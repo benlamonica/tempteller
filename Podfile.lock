@@ -8,6 +8,7 @@ PODS:
   - SwiftyJSON (2.3.0)
   - TCMobileProvision (1.0.0):
     - DTFoundation/DTASN1 (~> 1.6)
+  - XCGLogger (3.1.1)
 
 DEPENDENCIES:
   - KeychainSwift (~> 3.0)
@@ -15,6 +16,7 @@ DEPENDENCIES:
   - SwiftHTTP (~> 1.0.0)
   - SwiftyJSON (~> 2.3)
   - TCMobileProvision (from `https://github.com/tcurdt/TCMobileProvision.git`)
+  - XCGLogger (~> 3.1)
 
 EXTERNAL SOURCES:
   TCMobileProvision:
@@ -32,5 +34,6 @@ SPEC CHECKSUMS:
   SwiftHTTP: 6d8ca031a9ce613a01e8f18b497503887b0b50c0
   SwiftyJSON: 8d6b61a70277ef2a5d710d372e06e7e2d87fb9e4
   TCMobileProvision: 2a8962b38821a20fad53b9d7851bbc9ae8c52995
+  XCGLogger: e111a313f609432394c3ae378d99511634fd2e3c
 
 COCOAPODS: 0.39.0

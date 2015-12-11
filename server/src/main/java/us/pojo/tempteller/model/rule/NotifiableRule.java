@@ -119,7 +119,7 @@ public class NotifiableRule {
 	}
 
 	@Access(AccessType.PROPERTY)
-	@Column(name="rule")
+	@Column(name="rule", columnDefinition="CLOB")
 	public String getJson() {
 		try {
 			return TO_JSON.writeValueAsString(rule);
@@ -177,6 +177,7 @@ public class NotifiableRule {
 	
 	public static class RuleId implements Serializable {
 		private static final long serialVersionUID = 1L;
+		public RuleId() { }
 		public RuleId(String uid, String pushToken, String ruleId) {
 			this.uid = uid;
 			this.pushToken = pushToken;
