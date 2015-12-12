@@ -9,36 +9,41 @@
 import Foundation
 import SwiftHTTP
 import SwiftyJSON
+import XCGLogger
 
 class TempTellerService {
+    let log = XCGLogger.defaultInstance()
     var config = TTConfig.shared
     func registerPushToken(pushToken: String, priorPushToken: String? = TTConfig.shared.pushToken) {
         var priorUrl = ""
         if pushToken != priorPushToken {
-            NSLog("device token differs from what we've registered in the past, notify server")
+            log.info("device token differs from what we've registered in the past, notify server")
             priorUrl = "&priorPushToken=\(priorPushToken)"
         }
 
         do {
-            let url = "\(config.serverUrl)/login?pushToken=\(pushToken)\(priorUrl)&timezone=\(NSTimeZone.defaultTimeZone().name)"
-            NSLog("Changing Device Token: \(url)")
+            let url = "\(config.serverUrl)/login?pushToken=\(pushToken)\(priorUrl)&timezone=\(NSTimeZone.defaultTimeZone().name.escaped!)"
+            log.debug("Login: \(url)")
             
             let req = try HTTP.POST(url)
             
             req.start() { response in
                 self.processAuthResult(response) { (success: Bool, msg: String) in
                     if success {
-                        NSLog("device token changed to %@", pushToken)
+                        self.log.debug("device token changed to \(pushToken)")
                         self.config.pushToken = pushToken
+                    } else {
+                        self.log.warning("Unable to log in, may cause problems in the future.")
                     }
                 }
             }
         } catch let error {
-            NSLog("failed to create http request. \(error)")
+            log.warning("failed to create http request. \(error)")
         }
     }
     
     func restoreSubscriptionForDevice(deviceId : String, pushToken: String, receipt: String, onFinish: (success: Bool, msg: String) -> ()) {
+        log.info("Sending restored subscription receipt to server.")
         let url = "\(config.serverUrl)/restore"
         do {
             let req = try HTTP.POST(url, parameters: ["pushToken":pushToken, "deviceId":deviceId, "receipt":receipt])
@@ -46,12 +51,12 @@ class TempTellerService {
                 self.processAuthResult(response, onFinish: onFinish)
             }
         } catch let err {
-            NSLog("Unable to contact server due to \(err)")
+            log.warning("Unable to contact server due to \(err)")
         }
     }
 
     func processAuthResult(response: Response, onFinish: (success: Bool, msg: String) -> ()) {
-        NSLog("response: \(response.text!)")
+        log.debug("response: \(response.text!)")
         var msg = "Unable to Connect"
         var wasSuccessful = false
         if response.statusCode == 200 {
@@ -63,12 +68,15 @@ class TempTellerService {
             }
             msg = json["msg"].string ?? ""
             wasSuccessful = json["msg"].string == "OK"
+        } else {
+            log.warning("Response code was \(response.statusCode)")
         }
         
         onFinish(success: wasSuccessful, msg: msg)
     }
     
     func addSubscriptionForDevice(deviceId : String, receiptPKCS7: String, onFinish: (success: Bool, msg: String) -> ()) {
+        log.info("Sending subscription receipt to server.")
         let url = "\(config.serverUrl)/subscribe"
         do {
             let req = try HTTP.POST(url, parameters: ["deviceId":deviceId, "receipt":receiptPKCS7])
@@ -76,47 +84,50 @@ class TempTellerService {
                 self.processAuthResult(response, onFinish: onFinish)
             }
         } catch let err {
-            NSLog("Unable to contact server due to \(err)")
+            log.warning("Unable to contact server due to \(err)")
             onFinish(success: false, msg:"Unable to contact server due to \(err)")
         }
     }
     
     func saveRules(rules: [[String:AnyObject]], onFinish: (success: Bool, msg: String) -> ()) {
+        log.info("Sending \(rules.count) rules to server.")
         let url = "\(config.serverUrl)/rules?pushToken=\(config.pushToken.escaped!)&tz=\(NSTimeZone.defaultTimeZone().name.escaped!)"
-        NSLog("POST %@", url)
+        log.debug("POST \(url)")
         do {
             let req = try HTTP.POST(url, parameters:rules, requestSerializer: JSONParameterSerializer())
             req.start() { response in
                 onFinish(success: response.text=="OK", msg: response.text ?? "")
             }
         } catch let err {
-            NSLog("Unable to contact server due to \(err)")
+            log.warning("Unable to contact server due to \(err)")
             onFinish(success: false, msg:"Unable to contact server due to \(err)")
         }
     }
     
     func saveRule(rule: Rule) {
-        let url = "\(config.serverUrl)/rule?pushToken=\(config.pushToken.escaped!)&tz=\(NSTimeZone.defaultTimeZone().name.escaped!)"
-        NSLog("POST %@", url)
+        log.info("Sending rule \(rule.uuid) to server")
+        let url = "\(config.serverUrl)/rule/\(rule.uuid)?pushToken=\(config.pushToken.escaped!)&tz=\(NSTimeZone.defaultTimeZone().name.escaped!)"
+        log.debug("POST \(url)")
         do {
             let req = try HTTP.POST(url, parameters:rule.toDict(), requestSerializer: JSONParameterSerializer())
             req.start() { response in
             }
         } catch let err {
-            NSLog("Unable to contact server due to \(err)")
+            log.warning("Unable to contact server due to \(err)")
         }
     }
     
     func deleteRule(ruleId: String, onFinish: (success: Bool, msg: String) -> ()) {
+        log.info("Deleting rule \(ruleId) on server")
         let url = "\(config.serverUrl)/\(config.pushToken)/rule/\(ruleId)/delete"
-        NSLog("POST \(url)")
+        log.debug("POST \(url)")
         do {
             let req = try HTTP.POST(url)
             req.start() { response in
                 onFinish(success: response.text=="OK", msg: response.text ?? "")
             }
         } catch let err {
-            NSLog("Unable to contact server due to \(err)")
+            log.warning("Unable to contact server due to \(err)")
             onFinish(success: false, msg:"Unable to contact server due to \(err)")
         }
     }

@@ -9,9 +9,11 @@
 import Foundation
 import UIKit
 import MessageUI
+import XCGLogger
 
 class EmailUtil : NSObject, MFMailComposeViewControllerDelegate {
     
+    let log = XCGLogger.defaultInstance()
     let parent : UIViewController
     var alert : UIAlertView!
     var mailView : MFMailComposeViewController!
@@ -43,7 +45,7 @@ class EmailUtil : NSObject, MFMailComposeViewControllerDelegate {
     }
     
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        NSLog("Mail was sent with result: %d", result.rawValue)
+        log.debug("Mail was sent with result: \(result.rawValue)")
         parent.dismissViewControllerAnimated(true, completion: nil)
     }
 }

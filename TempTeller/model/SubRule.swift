@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftyJSON
+import XCGLogger
 
 public enum CompOp : String {
     case LT = "<"
@@ -41,7 +42,7 @@ func createModelFrom(mirror: Mirror, inout model: Dictionary<String,AnyObject>) 
 
 public class SubRule : NSObject, NSCopying, ConvertableToDictionary {
     public func copyWithZone(zone: NSZone) -> AnyObject {
-        NSLog("CRITICAL: Calling copyWithZone from SubRule, this should have been overridden")
+        XCGLogger.defaultInstance().severe("CRITICAL: Calling copyWithZone from SubRule, this should have been overridden")
         NSException(name:"UnimplementedException", reason:"Should never get here, subclass should have implemented", userInfo: nil).raise()
         return SubRule()
     }
@@ -72,7 +73,7 @@ public class SingleValSubRule : SubRule {
     }
     
     override public func copyWithZone(zone: NSZone) -> AnyObject {
-        NSLog("CRITICAL: Calling copyWithZone from SingleValueSubRule, this should have been overridden")
+        XCGLogger.defaultInstance().severe("CRITICAL: Calling copyWithZone from SingleValueSubRule, this should have been overridden")
         NSException(name:"UnimplementedException", reason:"Should never get here, subclass should have implemented", userInfo: nil).raise()
         return SingleValSubRule(value: self.value, op: self.op)
     }

@@ -10,16 +10,20 @@ import UIKit
 import KeychainSwift
 import SwiftHTTP
 import SwiftyJSON
+import XCGLogger
 
 
 @UIApplicationMain
 class TempTeller: UIResponder, UIApplicationDelegate {
 
+    let log = XCGLogger.defaultInstance()
     var window: UIWindow?
     var config = TTConfig.shared
     let tt = TempTellerService()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        log.setup(config.isTestEnv ? .Debug : .Info, showThreadName: true, showLogLevel: true, showFileNames: true, showLineNumbers: true)
         
         // register the device to make sure it connects to the APN..The user will not be prompted for permission at this time. Request actual remote notification types after the user creates the first rule. see https://thatthinginswift.com/remote-notifications/
         application.registerForRemoteNotifications()
@@ -52,12 +56,12 @@ class TempTeller: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         let token = deviceToken.base64EncodedStringWithOptions([])
-        NSLog("registered for remote notifications: \(token)")
+        log.info("registered for remote notifications: \(token)")
         tt.registerPushToken(token)
     }
 
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        NSLog("failed to register for notifications \(error)")
+        log.info("failed to register for notifications \(error)")
         tt.registerPushToken("FailedPushToken")
         // TODO when will this happen? When network is down? When push notifications have been denied? Find out if we need to notify the user that the app is basically useless without push notifications
     }

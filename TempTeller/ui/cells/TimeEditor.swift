@@ -8,13 +8,14 @@
 
 import Foundation
 import UIKit
+import XCGLogger
 
 let DAYS = ["Today", "Tomorrow", "2 days", "3 days", "4 days", "5 days", "6 days", "7 days"]
 let NUM_HOURS = 12
 let NUM_AMPM = 2
 
 class TimeEditorDataSource : NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
- 
+    
     var showFutureTimes = true
     var showMinutes = true
 
@@ -77,6 +78,7 @@ class TimeEditorDataSource : NSObject, UIPickerViewDataSource, UIPickerViewDeleg
 }
 
 class TimeEditor : NSObject {
+    let log = XCGLogger.defaultInstance()
     var textfield : UITextField!
     var picker : UIPickerView!
     var pickerToolbar : UIToolbar!
@@ -145,7 +147,7 @@ class TimeEditor : NSObject {
             }
             textfield.becomeFirstResponder()
         } else {
-            NSLog("Invalid time format received: \(time)")
+            log.warning("Invalid time format received: \(time)")
         }
     }
     

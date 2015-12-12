@@ -10,9 +10,11 @@ import Foundation
 import CoreLocation
 import SwiftyJSON
 import SwiftHTTP
+import XCGLogger
 
 class GeoLocationService : NSObject, CLLocationManagerDelegate {
-    
+
+    let log = XCGLogger.defaultInstance()
     let locationManager = CLLocationManager()
     var callback : ((locId: String, name: String, lng: String, lat: String, errMsg: String?) -> ())!
     
@@ -34,7 +36,7 @@ class GeoLocationService : NSObject, CLLocationManagerDelegate {
                 }
                 
                 let jsonString = NSString(data: response.data, encoding: NSUTF8StringEncoding)
-                NSLog("Received \(jsonString)")
+                self.log.debug("Received \(jsonString)")
                 
                 let json = JSON(data: response.data, options: [])
                 
@@ -45,14 +47,14 @@ class GeoLocationService : NSObject, CLLocationManagerDelegate {
                     let woeId = json["query"]["results"]["Result"]["woeid"].string ?? ""
                     let woeType = json["query"]["results"]["Result"]["woetype"].string ?? ""
                     let locId = "\(woeType)_\(woeId)"
-                    NSLog("Found \(locId) - \(locName) at (\(lng),\(lat))")
+                    self.log.info("Found \(locId) - \(locName) at (\(lng),\(lat))")
                     handler(locId: locId, name: locName, lng: lng, lat: lat, errMsg: nil)
                 } else {
                     handler(locId: "", name: "", lng: "", lat: "", errMsg: "Could not find location")
                 }
             }
         } catch let error {
-            NSLog("got an error creating request \(error)")
+            log.error("got an error creating request \(error)")
             handler(locId: "", name: "", lng: "", lat: "", errMsg: "\(error)")
         }
     }

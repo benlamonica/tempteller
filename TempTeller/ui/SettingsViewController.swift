@@ -9,8 +9,10 @@
 import Foundation
 import UIKit
 import StoreKit
+import XCGLogger
 
 class SettingsViewController : UITableViewController, StatusNotifier {
+    let log = XCGLogger.defaultInstance()
     var nav : UINavigationController!
     @IBOutlet var serverUrl : UITextField!
     @IBOutlet var deviceToken : UITextField!
@@ -70,7 +72,7 @@ class SettingsViewController : UITableViewController, StatusNotifier {
     func getSubHandler() -> ((txn: [SKPaymentTransaction]) -> ()) {
         return { (receipts: [SKPaymentTransaction]) in
             for receipt in receipts {
-                NSLog("Purchased: \(receipt.payment.productIdentifier) - \(receipt.transactionDate)")
+                self.log.info("Purchased: \(receipt.payment.productIdentifier) - \(receipt.transactionDate)")
             }
             self.hideStatus()
         }

@@ -9,6 +9,7 @@
 import Foundation
 import StoreKit
 import UIKit
+import XCGLogger
 
 protocol StatusNotifier {
     func setStatus(status : String)
@@ -17,6 +18,7 @@ protocol StatusNotifier {
     func updatePrices(prices: [String:SKProduct])
 }
 class SubscriptionManager: NSObject {
+    let log = XCGLogger.defaultInstance()
     var products : [String:SKProduct] = [:]
     var observers : [AnyObject] = []
     var config = TTConfig.shared
@@ -33,7 +35,7 @@ class SubscriptionManager: NSObject {
                 self.products[product.productIdentifier] = product
             }
             status.updatePrices(self.products)
-            NSLog("Received product \(product.productIdentifier), with price \(product.localizedPrice())")
+            self.log.debug("Received product \(product.productIdentifier), with price \(product.localizedPrice())")
         }
     }
 
@@ -41,7 +43,7 @@ class SubscriptionManager: NSObject {
         objc_sync_enter(observers)
         defer { objc_sync_exit(observers) }
         observers.append(observer)
-        NSLog("Observer %p added", observer)
+        log.debug(NSString(format: "Observer %p added", observer) as String)
     }
     
     func removeObserver(observer: NSObject) {
@@ -50,11 +52,11 @@ class SubscriptionManager: NSObject {
         let filtered = observers.filter {$0 as? NSObject != observer}
         observers.removeAll(keepCapacity: true)
         observers.appendContentsOf(filtered)
-        NSLog("Observer %p removed", observer)
+        log.debug(NSString(format:"Observer %p removed", observer) as String)
     }
     
     func subscribe(productKey : String, onCompletion : (receipts: [SKPaymentTransaction]) -> ()) {
-        NSLog("subscribe to \(productKey)")
+        log.debug("subscribe to \(productKey)")
         requestSubscriptionInfo([productKey]) { (product : SKProduct) in
             self.status.setStatus("Subscribing for \(product.localizedTitle)")
             let purchase = SKPayment(product: product)
@@ -63,13 +65,13 @@ class SubscriptionManager: NSObject {
             self.addObserver(observer)
             SKPaymentQueue.defaultQueue().addTransactionObserver(observer)
             
-            NSLog("submitting %@ to purchase", product.productIdentifier)
+            self.log.info("submitting \(product.productIdentifier) to purchase")
             SKPaymentQueue.defaultQueue().addPayment(purchase)
         }
     }
 
     func restoreSubs(onCompletion : (receipts: [SKPaymentTransaction]) -> ()) {
-        NSLog("restore subscriptions")
+        log.info("restore subscriptions")
         status.setStatus("Restoring Subscriptions")
         let refreshReq = SKReceiptRefreshRequest()
         let observer = ReceiptReqDelegate(parent: self, processReceipts: onCompletion)
@@ -116,16 +118,16 @@ class SubscriptionManager: NSObject {
         }
         
         @objc func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions:[SKPaymentTransaction]) {
-            NSLog("Received \(transactions.count) transactions")
+            parent.log.info("Received \(transactions.count) transactions")
             var removeObserver = false
             var receipts : [SKPaymentTransaction] = []
             for txn in transactions {
-                NSLog("Got a transaction: \(txn.toString())")
+                parent.log.info("Got a transaction: \(txn.toString())")
                 if payment == nil || (payment != nil && payment == txn.payment) {
                     switch txn.transactionState {
                     case .Restored:
                         removeObserver = true
-                        NSLog("Restored Txn: \(txn)")
+                        parent.log.info("Restored Txn: \(txn)")
                         receipts.append(txn.originalTransaction!)
                         queue.finishTransaction(txn)
                     case .Purchased:
@@ -135,7 +137,7 @@ class SubscriptionManager: NSObject {
                     case .Failed:
                         //removeObserver = true
                         //queue.finishTransaction(txn)
-                        NSLog("TXN failed %@", txn.error ?? "No error received.")
+                        parent.log.warning("TXN failed \(txn.error ?? "No error received.")")
                     default:
                         break
                     }
@@ -155,14 +157,14 @@ class SubscriptionManager: NSObject {
         
         // Sent when an error is encountered while adding transactions from the user's purchase history back to the queue.
         func paymentQueue(queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: NSError) {
-            NSLog("Error while requesting restore: %@", error)
+            parent.log.warning("Error while requesting restore: \(error)")
             queue.removeTransactionObserver(self)
             parent.removeObserver(self)
         }
         
         // Sent when all transactions from the user's purchase history have successfully been added back to the queue.
         func paymentQueueRestoreCompletedTransactionsFinished(queue: SKPaymentQueue) {
-            NSLog("Finished restoring purcahses")
+            parent.log.info("Finished restoring purcahses")
             queue.removeTransactionObserver(self)
             parent.removeObserver(self)
         }
@@ -183,7 +185,7 @@ class SubscriptionManager: NSObject {
                     onProductRcvd(product: product)
                 }
             } else {
-                NSLog("Received response, but nothing was returned. %@", response)
+                parent.log.debug("Received response, but nothing was returned. \(response)")
             }
             parent.removeObserver(self)
         }
@@ -197,7 +199,7 @@ class SubscriptionManager: NSObject {
         }
         
         guard let receiptPKCS7 = NSMutableData(contentsOfURL: receiptUrl) else {
-            NSLog("Can't read pkcs#7 receipt data from: \(receiptUrl)")
+            log.debug("Can't read pkcs#7 receipt data from: \(receiptUrl)")
             return
         }
         
@@ -225,11 +227,11 @@ class SubscriptionManager: NSObject {
         
         let isSigValid = PKCS7_verify(receipt, nil, certStore, nil, receiptPayload, 0) == 1
         
-        NSLog("Receipt is %@", isSigValid ? "valid" : "invalid")
+        log.info("Receipt is \(isSigValid ? "valid" : "invalid")")
         
         if isSigValid {
             guard let deviceId = UIDevice.currentDevice().identifierForVendor else {
-                NSLog("Unable to get the UUID from the device.")
+                log.info("Unable to get the UUID from the device.")
                 return
             }
             status.setStatus("Recording Purchase")

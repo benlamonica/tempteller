@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftyJSON
+import XCGLogger
 
 public class Rule : NSObject, NSCopying, ConvertableToDictionary {
     public var enabled : Bool;
@@ -47,7 +48,7 @@ public class Rule : NSObject, NSCopying, ConvertableToDictionary {
                 case "HumiditySubRule":
                     subrules.append(HumiditySubRule(json: jsonSubRule))
                 default:
-                    NSLog("Received unknown type \(type). Will skip.")
+                    XCGLogger.defaultInstance().warning("Received unknown SubRule type \(type). Will skip.")
             }
         }
     }

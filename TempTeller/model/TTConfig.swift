@@ -9,9 +9,9 @@
 import Foundation
 import KeychainSwift
 import TCMobileProvision
-
+import XCGLogger
 public class TTConfig {
-    
+    let log = XCGLogger.defaultInstance()
     let keychain : KeychainSwift
     let settings : NSUserDefaults
     var subEndDate : String {
@@ -23,7 +23,7 @@ public class TTConfig {
     var uid : String {
         didSet {
             keychain.set(uid, forKey: "uid")
-            NSLog("keychain status code: \(keychain.lastResultCode)")
+            log.debug("keychain status code: \(keychain.lastResultCode)")
         }
     }
     var pushToken : String {

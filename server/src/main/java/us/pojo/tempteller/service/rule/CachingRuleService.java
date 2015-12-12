@@ -14,6 +14,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import us.pojo.tempteller.model.rule.NotifiableRule;
 import us.pojo.tempteller.model.rule.NotifiableRule.RuleId;
@@ -34,6 +37,15 @@ public class CachingRuleService implements RuleService, InitializingBean {
 	private ReadLock readLock = lock.readLock();
 	private WriteLock writeLock = lock.writeLock();
 	private TreeMap<String, NotifiableRule> rules = new TreeMap<>();
+
+	@Autowired(required=true)
+	private PlatformTransactionManager txnManager;
+
+	
+	public void setTxnManager(PlatformTransactionManager txnManager) {
+		this.txnManager = txnManager;
+	}
+
 
 	@Override
 	public void updateTz(String uid, String pushToken, TimeZone tz) {
@@ -170,11 +182,13 @@ public class CachingRuleService implements RuleService, InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
+		TransactionStatus txn = txnManager.getTransaction(new DefaultTransactionDefinition(DefaultTransactionDefinition.PROPAGATION_NOT_SUPPORTED));
 		writeLock.lock();
 		try {
 			ruleRepo.streamAllRules().forEach(r -> addRule(r));
 		} finally {
 			writeLock.unlock();
+			txnManager.commit(txn);
 		}
 	}
 

@@ -8,9 +8,10 @@
 
 import UIKit
 import SwiftyJSON
+import XCGLogger
 
 class RuleController: UITableViewController {
-
+    let log = XCGLogger.defaultInstance()
     var data : [Rule] = []
     var config = TTConfig.shared
     var tt = TempTellerService()
@@ -42,7 +43,8 @@ class RuleController: UITableViewController {
         do {
             let json = try NSJSONSerialization.dataWithJSONObject(model, options: [])
             let jsonString = NSString(data: json, encoding: NSUTF8StringEncoding) as! String
-            NSLog(jsonString)
+            log.info("Saving \(data.count) rules.")
+            log.debug(jsonString)
             config.rules = jsonString
             tt.saveRules(model) { (success, msg) -> () in
                 if !success {
@@ -54,7 +56,7 @@ class RuleController: UITableViewController {
         
         } catch let error as NSError {
             let err = error
-            NSLog("Failed to serialize to JSON: \(err)")
+            log.warning("Failed to serialize to JSON: \(err)")
         }
         
     }
@@ -143,7 +145,7 @@ class RuleController: UITableViewController {
                     let controller = segue.destinationViewController as! SettingsViewController
                     controller.nav = navigationController
                 default:
-                    NSLog("Unknown Segue")
+                    log.warning("Unknown Segue")
                 
             }
         }
