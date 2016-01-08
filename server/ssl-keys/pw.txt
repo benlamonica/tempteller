@@ -1,5 +1,0 @@
-NOTE: This info will not be used with Production, in fact, we will need to regen this, since I changed the app groupId. This is why I'm checking this in. I will not actually check in the real certs.
-sdnJkiR43pNthY
-
-Sandbox P12:
-tuber5-Yukon

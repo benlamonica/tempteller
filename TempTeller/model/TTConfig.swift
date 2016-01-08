@@ -55,13 +55,14 @@ public class TTConfig {
     let isTestEnv : Bool 
     
     init() {
-        isTestEnv = TTConfig.isAPNSandbox()
+        let testEnv = TTConfig.isAPNSandbox()
+        isTestEnv = testEnv
         keychain = KeychainSwift(keyPrefix: isTestEnv ? "testing" : "")
         settings = NSUserDefaults.standardUserDefaults()
         subEndDate = settings.valueForKey("subEndDate") as? String ?? "NotSubscribed"
         uid = keychain.get("uid") ?? "-1"
         pushToken = settings.valueForKey("pushToken") as? String ?? "NotDefined"
-        server = settings.valueForKey("server") as? String ?? "http://nix.local:8080/"
+        server = settings.valueForKey("server") as? String ?? (testEnv ? "https://tt-dev.pojo.us:8443" : "https://tt.pojo.us")
         rules = settings.valueForKey("rules") as? String ?? "[]"
     }
 
@@ -71,12 +72,12 @@ public class TTConfig {
         let mobileProvision = TCMobileProvision(data: mobileProvisionData) {
             if let entitlements = mobileProvision.dict["Entitlements"],
             let apsEnvironment = entitlements["aps-environment"] as? String
-            where apsEnvironment == "development" {
-                return true
+            where apsEnvironment != "development" {
+                return false
             }
         }
 
-        return false
+        return true
     }    
 
     static let shared = TTConfig()

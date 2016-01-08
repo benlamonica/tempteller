@@ -22,9 +22,8 @@ class TempTeller: UIResponder, UIApplicationDelegate {
     let tt = TempTellerService()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
         log.setup(config.isTestEnv ? .Debug : .Info, showThreadName: true, showLogLevel: true, showFileNames: true, showLineNumbers: true)
-        
+        log.info("Application running in \(config.isTestEnv ? "TEST" : "PROD") environment")
         // register the device to make sure it connects to the APN..The user will not be prompted for permission at this time. Request actual remote notification types after the user creates the first rule. see https://thatthinginswift.com/remote-notifications/
         application.registerForRemoteNotifications()
         

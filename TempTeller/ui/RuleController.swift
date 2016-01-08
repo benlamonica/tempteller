@@ -120,9 +120,15 @@ class RuleController: UITableViewController {
         if editingStyle == UITableViewCellEditingStyle.Delete {
             tableView.beginUpdates()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            let ruleToDelete = data[indexPath.item]
             data.removeAtIndex(indexPath.item)
             tableView.endUpdates()
-            saveRules()
+            tt.deleteRule(ruleToDelete.uuid, onFinish: { (success, msg) -> () in
+                if !success {
+                    let av = UIAlertView(title: "Problem Deleting", message: msg, delegate: nil, cancelButtonTitle: "Dismiss")
+                    av.show()
+                }
+            })
         }
     }
     
