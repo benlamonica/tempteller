@@ -46,7 +46,6 @@ public class CachingRuleService implements RuleService, InitializingBean {
 		this.txnManager = txnManager;
 	}
 
-
 	@Override
 	public void updateTz(String uid, String pushToken, TimeZone tz) {
 		readLock.lock();
