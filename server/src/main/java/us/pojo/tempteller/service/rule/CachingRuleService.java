@@ -26,6 +26,8 @@ import us.pojo.tempteller.service.repository.RuleRepository;
 @Service(value="RuleService")
 public class CachingRuleService implements RuleService, InitializingBean {
 
+	private static final int TIME_BETWEEN_CHECKS_FOR_RULES = 15 * 60 * 1000;
+	
 	@Autowired
 	private RuleRepository ruleRepo;
 	
@@ -127,6 +129,7 @@ public class CachingRuleService implements RuleService, InitializingBean {
 		try {
 			return rules.values().stream()
 				.filter(f -> f.isActive(new Date()))
+				.map(r->{r.setNextCheckTime(TIME_BETWEEN_CHECKS_FOR_RULES); return r;})
 				.collect(Collectors.toList());
 		} finally {
 			readLock.unlock();

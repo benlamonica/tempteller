@@ -26,10 +26,6 @@
 		<constructor-arg index="1" value="tuber5-Yukon"/>
 		<constructor-arg index="2" value="false"/>
 	</bean>
-	<bean id="PushService" class="us.pojo.tempteller.service.push.JavaPNSPushService">
-		<constructor-arg ref="PushQueue"/>
-		<constructor-arg ref="FeedbackService"/>
-	</bean>
 	
 	<beans profile="offline">
 		<bean id="FeedbackService" class="us.pojo.tempteller.service.feedback.OfflineFeedbackService"/>

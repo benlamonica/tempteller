@@ -2,19 +2,23 @@ package us.pojo.tempteller.model.rule;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
+
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 public class WeatherData implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static class ForecastData {
-		public ForecastData(double temperature, String condition) {
-			this.temperature = temperature;
+		public ForecastData(double tempMin, double tempMax, String condition) {
+			this.temperature = new ImmutablePair<Double,Double>(tempMin, tempMax);
 			this.condition = condition;
 		}
-		public double temperature;
+		public Pair<Double,Double> temperature;
 		public String condition;
 	}
 	
@@ -23,13 +27,13 @@ public class WeatherData implements Serializable {
 	double temperature;
 	double humidity;
 	double windspeed;
-	long time;
+	int time;
 	String condition;
 	TreeMap<Long, ForecastData> forecast = new TreeMap<>();
 	
 	@SuppressWarnings("unchecked")
 	private <T> T getValue(Map<String, Object> json, Class<T> returnType, String ... path) {
-		for (int i = 0; i < path.length - 2; i++) {
+		for (int i = 0; i < path.length - 1; i++) {
 			if (json != null) {
 				json = (Map<String, Object>) json.get(path[i]);
 			}
@@ -37,7 +41,22 @@ public class WeatherData implements Serializable {
 		
 		String key = path[path.length-1];
 		if (json != null && json.containsKey(key)) {
-			return (T) json.get(key);
+			Object val = json.get(key);
+			if (val.getClass() != returnType) {
+				String s = String.valueOf(val);
+				if (returnType == Double.class) {
+					val = Double.valueOf(s);
+				} else if (returnType == Float.class) {
+					val = Float.valueOf(s);
+				} else if (returnType == Integer.class) {
+					val = Integer.valueOf(s);
+				} else if (returnType == Long.class) {
+					val = Long.valueOf(s);
+				} else if (returnType == String.class) {
+					val = s;
+				}
+			}
+			return (T) val;
 		} else {
 			return null;
 		}
@@ -50,18 +69,25 @@ public class WeatherData implements Serializable {
 		this.humidity = getValue(json, Double.class, "currently", "humidity");
 		this.windspeed = getValue(json, Double.class, "currently", "windSpeed");
 		this.condition = getValue(json, String.class, "currently", "icon");
-		this.time = getValue(json, Long.class, "currently", "time");
-		addForecast(getValue(json, Map[].class, "daily", "data"));
-		addForecast(getValue(json, Map[].class, "hourly", "data"));
-		forecast.put(time, new ForecastData(temperature,condition));
+		this.time = getValue(json, Integer.class, "currently", "time");
+		addForecast(getValue(json, List.class, "daily", "data"));
+		addForecast(getValue(json, List.class, "hourly", "data"));
+		forecast.put((long)time, new ForecastData(temperature, temperature, condition));
 	}
 	
-	public void addForecast(Map<String, Object>[] forecastData) {
+	public void addForecast(List<Map<String, Object>> forecastData) {
 		for (Map<String,Object> forecastDatum : forecastData) {
-			long time = getValue(forecastDatum, Long.class, "time");
-			double temperature = getValue(forecastDatum, Double.class, "temperature");
+			int time = getValue(forecastDatum, Integer.class, "time");
+			Double tempMin = getValue(forecastDatum, Double.class, "temperature");
+			Double tempMax = null;
+			if (tempMin == null) { // handle daily forecasts, which don't specify the exact temp.
+				tempMin = getValue(forecastDatum, Double.class, "temperatureMin");
+				tempMax = getValue(forecastDatum, Double.class, "temperatureMax");
+			} else {
+				tempMax = tempMin;
+			}
 			String condition = getValue(forecastDatum, String.class, "condition");
-			forecast.put(time, new ForecastData(temperature, condition));
+			forecast.put((long)time, new ForecastData(tempMin, tempMax, condition));
 		}
 	}
 	public String getLocId() {
@@ -100,7 +126,7 @@ public class WeatherData implements Serializable {
 		}
 	}
 
-	public Double getTemperatureAt(Date forecastTime) {
+	public Pair<Double,Double> getTemperatureAt(Date forecastTime) {
 		SortedMap<Long, ForecastData> forecastData = forecast.subMap(forecastTime.getTime(), forecastTime.getTime() + 60 * 60 * 1000);
 		if (!forecastData.isEmpty()) {
 			return forecastData.values().iterator().next().temperature;

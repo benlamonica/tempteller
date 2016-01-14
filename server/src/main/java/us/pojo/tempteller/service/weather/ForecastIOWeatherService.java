@@ -26,12 +26,16 @@ public class ForecastIOWeatherService implements WeatherService {
 	@Autowired(required=true)
 	private ObjectMapper mapper;
 	
-	@Value(value="forecast.io.url")
+	@Value(value="${forecast.io.url}")
 	private String forecastIoUrl;
 
 	@Override
 	public WeatherData getWeather(String locId, String lat, String lng, long startTime, long endTime) {
+		long time = System.currentTimeMillis();
+		log.info("Retrieving weather for {}/{},{}", locId, lat, lng);
 		String json = http.getForObject("{forecast.io.url}/{lat},{lng}", String.class, forecastIoUrl, lat, lng);
+		log.info("Retrieved weather for {}/{},{} in {} ms", locId, lat, lng, (System.currentTimeMillis() - time));
+		log.debug(json);
 		try {
 			@SuppressWarnings("unchecked")
 			Map<String,Object> data = mapper.readValue(json, Map.class);

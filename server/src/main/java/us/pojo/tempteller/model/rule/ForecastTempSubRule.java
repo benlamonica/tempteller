@@ -5,6 +5,8 @@ import static us.pojo.tempteller.util.ForecastTimeUtil.getForecastTimeAsDate;
 import java.util.Date;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 public class ForecastTempSubRule extends TemperatureSubRule {
 	private String forecastTime;
 
@@ -25,7 +27,8 @@ public class ForecastTempSubRule extends TemperatureSubRule {
 	
 	@Override
 	public boolean ruleMatches(Date now, TimeZone tz, WeatherData data) {
-		return compare(getOp(), data.getTemperatureAt(getForecastTimeAsDate(forecastTime, tz)), getValueInFarenheit());
+		Pair<Double, Double> tempRange = data.getTemperatureAt(getForecastTimeAsDate(forecastTime, tz));
+		return compare(getOp(), tempRange.getLeft(), getValueInFarenheit()) || compare(getOp(), tempRange.getRight(), getValueInFarenheit());
 	}
 
 	

@@ -77,4 +77,7 @@ public class LocationSubRule extends SubRule {
 		return true;
 	}
 
+	public static LocationSubRule cast(SubRule r) {
+		return (LocationSubRule) r;
+	}
 }

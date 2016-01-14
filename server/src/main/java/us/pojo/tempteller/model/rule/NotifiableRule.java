@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,7 @@ import javax.persistence.Transient;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.expression.EnvironmentAccessor;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,6 +34,8 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 public class NotifiableRule {
 	
 	private static final Logger log = LoggerFactory.getLogger(NotifiableRule.class);
+	
+	private static final int WAIT_TIME_BETWEEN_NOTIFICATIONS = 1*60*60*1000;
 	
 	private static ObjectMapper JSON_MAPPER = new ObjectMapper();
 	private static ObjectReader FROM_JSON = JSON_MAPPER.readerFor(Rule.class);
@@ -52,22 +56,37 @@ public class NotifiableRule {
 	@Transient
 	private TimeZone timezone;
 	
+	@Transient
+	private Date nextCheckTime = new Date();
+	
 	private Date lastNotify;
 	
-	public List<String> getLocations() {
-		return rule.getSubrules().stream().filter(r -> r instanceof LocationSubRule)
-				.map(l -> ((LocationSubRule) l).getLocId()).collect(Collectors.toList());
+	public Set<LocationSubRule> getLocations() {
+		Set<LocationSubRule> locs = rule.getSubrules().stream()
+				.filter(r->r instanceof LocationSubRule)
+				.map(LocationSubRule::cast)
+				.collect(Collectors.toSet());
+		return locs;
+	}
+	
+	public void setNextCheckTime(int timeToAddInMs) {
+		this.nextCheckTime = new Date(System.currentTimeMillis() + timeToAddInMs);
 	}
 	
 	public boolean isActive(Date now) {
-		if ((lastNotify.getTime() + (1 * 60 * 1000)) > now.getTime()) {
+		if (now.before(nextCheckTime)) {
+			return false;
+		}
+		
+		if (lastNotify != null && (lastNotify.getTime() + WAIT_TIME_BETWEEN_NOTIFICATIONS) > now.getTime()) {
+			log.debug("Rule already generated a message to user, will check again in {}m", ((lastNotify.getTime() + WAIT_TIME_BETWEEN_NOTIFICATIONS) - now.getTime()) / 1000 / 60 );
 			return false;
 		}
 		
 		List<SubRule> timeRule = rule.getSubrules().stream().filter(r -> r instanceof TimeSubRule).collect(Collectors.toList());
 		if (!timeRule.isEmpty()) {
 			TimeSubRule tr = (TimeSubRule) timeRule.get(0);
-			return tr.isActive(new Date(), timezone);
+			return tr.isActive(now, timezone);
 		}
 		return true;
 	}
@@ -78,16 +97,16 @@ public class NotifiableRule {
 		}
 
 		LocationSubRule loc = (LocationSubRule) rule.getSubrules().get(1);
-		WeatherData data = weatherData.get(loc.getLocId());
+		WeatherData weather = null;
 		boolean matches = true;
-		for(int i = 3; matches && i < rule.getSubrules().size(); i++) {
+		for(int i = 0; matches && i < rule.getSubrules().size(); i++) {
 			SubRule subrule = rule.getSubrules().get(i);
 			if (subrule instanceof LocationSubRule) {
 				loc = (LocationSubRule) rule.getSubrules().get(1);
-				data = weatherData.get(loc.getLocId());
+				weather = weatherData.get(loc.getLocId());
 				continue;
 			}
-			matches = subrule.ruleMatches(now, timezone, data);
+			matches = subrule.ruleMatches(now, timezone, weather);
 		}
 		
 		lastNotify.setTime(now.getTime());

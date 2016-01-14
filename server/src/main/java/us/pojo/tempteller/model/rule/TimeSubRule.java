@@ -2,6 +2,7 @@ package us.pojo.tempteller.model.rule;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -42,7 +43,12 @@ public class TimeSubRule extends SubRule {
 
 	private Date parseDate(SimpleDateFormat df, String date) {
 		try {
-			return df.parse(timeRange.min);
+			Calendar cal = Calendar.getInstance();
+			cal.set(Calendar.SECOND, 0);
+			cal.set(Calendar.MILLISECOND, 0);
+			Date now = cal.getTime();
+			long timeToAdd = now.getTime() - df.parse(df.format(now)).getTime();
+			return new Date(timeToAdd + df.parse(date).getTime());
 		} catch (ParseException e) {
 			log.warn("Unable to parse date: '{}'", date);
 			return null;
