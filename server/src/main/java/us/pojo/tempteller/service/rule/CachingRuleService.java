@@ -2,6 +2,7 @@ package us.pojo.tempteller.service.rule;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -192,6 +193,12 @@ public class CachingRuleService implements RuleService, InitializingBean {
 			writeLock.unlock();
 			txnManager.commit(txn);
 		}
+	}
+
+	@Override
+	public void invalidateDevices(Set<String> invalidDevices) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

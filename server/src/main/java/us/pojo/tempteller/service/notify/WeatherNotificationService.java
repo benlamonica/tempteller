@@ -3,6 +3,7 @@ package us.pojo.tempteller.service.notify;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -29,12 +30,15 @@ public class WeatherNotificationService implements Runnable {
 	
 	@Autowired(required=true)
 	private RuleService ruleService;
+	public void setRuleService(RuleService ruleService) { this.ruleService = ruleService; }
 	
 	@Autowired(required=true)
 	private WeatherService weatherService;
+	public void setWeatherService(WeatherService weatherService) { this.weatherService = weatherService; }
 	
 	@Autowired(required=true)
 	private PushService pushService;
+	public void setPushService(PushService pushService) { this.pushService = pushService; }
 	
 	@PostConstruct
 	public void init() {
@@ -43,31 +47,56 @@ public class WeatherNotificationService implements Runnable {
 		t.start();
 	}
 
-	@Override
-	public void run() {
-		while(true) {
-			log.info("Checking for rules to notify for.");
+	public void runOnce() {
+		try {
+			long startGetRules = System.currentTimeMillis();
+			log.info("Checking for rules to notify.");
 			List<NotifiableRule> rules = ruleService.getActiveRules();
 			// all required weather data for this run
 			List<LocationSubRule> locations = rules.stream()
 					.map(r->r.getLocations())
 					.flatMap(l->l.stream())
 					.collect(Collectors.toList());
+			
 			Map<LocationSubRule, WeatherData> weather = new ConcurrentHashMap<>();
 			
-			log.info("{} rules to check, with {} locations total", rules.size(), locations.size());
+			log.info("{} rules to check, with {} locations total in {} ms", rules.size(), locations.size(), (System.currentTimeMillis() - startGetRules));
 			long startTime = System.currentTimeMillis();
 			log.info("Starting to gather weather data");
 			Date now = new Date();
 			locations.parallelStream()
 				.forEach(
-					k->weather.put(k, weatherService.getWeather(k.getLocId(), k.getLat(), k.getLng(), now.getTime(), now.getTime()))
+					l->weather.put(l, weatherService.getWeather(l.getLocId(), l.getLat(), l.getLng(), now.getTime(), now.getTime()))
 				);
-			log.info("Finished gathering weather data. {} ms", (System.currentTimeMillis() - startTime));
+			log.info("Finished gathering {} pieces of weather data in {} ms", locations.size(), (System.currentTimeMillis() - startTime));
 			
+			// send the messages
+			log.info("Starting to send messages");
+			long startMsgs = System.currentTimeMillis();
+			int msgsSent = rules.parallelStream()
+				.filter(r->r.ruleMatches(now, weather))
+				.map(r->{pushService.push(r.getMessage(), r.getPushToken()); return 1;})
+				.reduce(0, Integer::sum);
 			
-			try { Thread.sleep(10000); } catch (InterruptedException e) {}
-			
+			log.info("Sent {} messages in {} ms", msgsSent, System.currentTimeMillis() - startMsgs);
+		} catch (Exception e) {
+			log.error("Unexpected error while sending messages.", e);
+		}
+	}
+	
+	public void cleanupInvalidDevices() {
+		Set<String> invalidDevices = pushService.getInvalidDevices();
+		ruleService.invalidateDevices(invalidDevices);
+	}
+	
+	@Override
+	public void run() {
+		while(true) {
+			long start = System.currentTimeMillis();
+			runOnce();
+			long sleepTime = 60000 - (System.currentTimeMillis() - start);
+			log.info("Sleeping {} ms before running again.", sleepTime);
+			try { Thread.sleep(sleepTime); } catch (InterruptedException e) {}
 		}
 	}
 }

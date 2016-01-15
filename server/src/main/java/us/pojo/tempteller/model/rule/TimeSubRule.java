@@ -60,20 +60,20 @@ public class TimeSubRule extends SubRule {
 		SimpleDateFormat df = new SimpleDateFormat("hh:mm a");
 		df.setTimeZone(tz);
 		Date min = parseDate(df, timeRange.min);
-		if ("AT".equalsIgnoreCase(op)) {
-			return date.equals(min);
-		} else {
-			if (min == null || date.before(min)) {
-				return false;
-			}
-			
-			Date max = parseDate(df, timeRange.max);
-			if (max == null || date.after(max)) {
-				return false;
-			}
-			
-			return true;
+		Date max = new Date(min.getTime() + 5*60*1000);;
+		if ("BETWEEN".equalsIgnoreCase(op)) {
+			max = parseDate(df, timeRange.max);
 		}
+		
+		if (min == null || date.before(min)) {
+			return false;
+		}
+		
+		if (max == null || date.after(max)) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	@Override

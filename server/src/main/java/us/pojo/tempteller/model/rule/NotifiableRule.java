@@ -17,10 +17,10 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.expression.EnvironmentAccessor;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -61,6 +61,10 @@ public class NotifiableRule {
 	
 	private Date lastNotify;
 	
+	private boolean isValid = true;
+	
+	private Date lastUpdate = new Date();
+	
 	public Set<LocationSubRule> getLocations() {
 		Set<LocationSubRule> locs = rule.getSubrules().stream()
 				.filter(r->r instanceof LocationSubRule)
@@ -69,12 +73,31 @@ public class NotifiableRule {
 		return locs;
 	}
 	
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+	
+	public boolean isValid() {
+		return isValid;
+	}
+	
+	public void invalidate() {
+		isValid = false;
+		lastUpdate = new Date();
+	}
+	
 	public void setNextCheckTime(int timeToAddInMs) {
 		this.nextCheckTime = new Date(System.currentTimeMillis() + timeToAddInMs);
 	}
 	
+	public String getMessage() {
+		return rule.getSubrules().stream()
+			.filter(r->r instanceof MessageSubRule)
+			.map(MessageSubRule::cast)
+			.findFirst().get().getMessage();
+	}
 	public boolean isActive(Date now) {
-		if (now.before(nextCheckTime)) {
+		if (!isValid || now.before(nextCheckTime)) {
 			return false;
 		}
 		
@@ -91,11 +114,7 @@ public class NotifiableRule {
 		return true;
 	}
 	
-	public boolean ruleMatches(Date now, Map<String,WeatherData> weatherData) {
-		if (!isActive(now)) {
-			return false;
-		}
-
+	public boolean ruleMatches(Date now, Map<LocationSubRule,WeatherData> weatherData) {
 		LocationSubRule loc = (LocationSubRule) rule.getSubrules().get(1);
 		WeatherData weather = null;
 		boolean matches = true;
@@ -103,7 +122,7 @@ public class NotifiableRule {
 			SubRule subrule = rule.getSubrules().get(i);
 			if (subrule instanceof LocationSubRule) {
 				loc = (LocationSubRule) rule.getSubrules().get(1);
-				weather = weatherData.get(loc.getLocId());
+				weather = weatherData.get(loc);
 				continue;
 			}
 			matches = subrule.ruleMatches(now, timezone, weather);
@@ -119,6 +138,7 @@ public class NotifiableRule {
 
 	public void setUid(String uid) {
 		this.uid = uid;
+		lastUpdate = new Date();
 	}
 
 	public String getPushToken() {
@@ -127,6 +147,8 @@ public class NotifiableRule {
 
 	public void setPushToken(String pushToken) {
 		this.pushToken = pushToken;
+		isValid = true;
+		lastUpdate = new Date();
 	}
 
 	public Rule getRule() {
@@ -135,6 +157,7 @@ public class NotifiableRule {
 
 	public void setRule(Rule rule) {
 		this.rule = rule;
+		lastUpdate = new Date();
 	}
 
 	@Access(AccessType.PROPERTY)
@@ -164,6 +187,7 @@ public class NotifiableRule {
 	public void setTz(String tz) {
 		this.tz = tz;
 		this.timezone = TimeZone.getTimeZone(tz);
+		lastUpdate = new Date();
 	}
 
 	public TimeZone getTimeZone() {
@@ -176,6 +200,7 @@ public class NotifiableRule {
 	public void setTimezone(TimeZone timezone) {
 		this.timezone = timezone;
 		this.tz = timezone.getID();
+		lastUpdate = new Date();
 	}
 
 	public String getRuleId() {
@@ -184,6 +209,7 @@ public class NotifiableRule {
 
 	public void setRuleId(String ruleId) {
 		this.ruleId = ruleId;
+		lastUpdate = new Date();
 	}
 
 	public Date getLastNotify() {
@@ -192,6 +218,7 @@ public class NotifiableRule {
 
 	public void setLastNotify(Date lastNotify) {
 		this.lastNotify = lastNotify;
+		lastUpdate = new Date();
 	}
 	
 	public static class RuleId implements Serializable {

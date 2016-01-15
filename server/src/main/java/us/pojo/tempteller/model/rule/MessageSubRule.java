@@ -18,6 +18,10 @@ public class MessageSubRule extends SubRule {
 	public String toString() {
 		return "MessageSubRule [message=" + message + "]";
 	}
+	
+	public static MessageSubRule cast(SubRule r) {
+		return (MessageSubRule) r;
+	}
 
 	@Override
 	public boolean ruleMatches(Date now, TimeZone tz, WeatherData data) {

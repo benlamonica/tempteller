@@ -1,6 +1,7 @@
 package us.pojo.tempteller.service.rule;
 
 import java.util.List;
+import java.util.Set;
 import java.util.TimeZone;
 
 import us.pojo.tempteller.model.rule.NotifiableRule;
@@ -20,5 +21,7 @@ public interface RuleService {
 
 	List<NotifiableRule> getRules(String uid);
 
-	List<NotifiableRule> getActiveRules(); 
+	List<NotifiableRule> getActiveRules();
+
+	void invalidateDevices(Set<String> invalidDevices); 
 }
