@@ -24,38 +24,11 @@ class GeoLocationService : NSObject, CLLocationManagerDelegate {
     }
     
     func getLocation(search : String, handler : ((locId: String, name: String, lng: String, lat: String,  errMsg: String?) -> ())) {
-        let url = NSString(string: "https://query.yahooapis.com/v1/public/yql?format=json&q=select * from geo.placefinder where text=\"\(search)\" and gflags=\"R\"").stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
-        
-        do {
-            let req = try HTTP.GET(url)
-            req.start { response in
-                if response.error != nil {
-                    let msg = response.error!.localizedDescription ?? ""
-                    handler(locId: "", name: "", lng: "", lat: "", errMsg: msg)
-                    return
-                }
-                
-                let jsonString = NSString(data: response.data, encoding: NSUTF8StringEncoding)
-                self.log.debug("Received \(jsonString)")
-                
-                let json = JSON(data: response.data, options: [])
-                
-                if json["query"] != JSON.null && json["query"]["results"] != JSON.null {
-                    let locName = json["query"]["results"]["Result"]["line2"].string ?? "Unknown Location"
-                    let lng = json["query"]["results"]["Result"]["longitude"].string ?? ""
-                    let lat = json["query"]["results"]["Result"]["latitude"].string ?? ""
-                    let woeId = json["query"]["results"]["Result"]["woeid"].string ?? ""
-                    let woeType = json["query"]["results"]["Result"]["woetype"].string ?? ""
-                    let locId = "\(woeType)_\(woeId)"
-                    self.log.info("Found \(locId) - \(locName) at (\(lng),\(lat))")
-                    handler(locId: locId, name: locName, lng: lng, lat: lat, errMsg: nil)
-                } else {
-                    handler(locId: "", name: "", lng: "", lat: "", errMsg: "Could not find location")
-                }
+        let geo = CLGeocoder()
+        geo.geocodeAddressString(search) { (place, err) -> Void in
+            if let mark = place?.first, loc = mark.location  {
+                handler(locId: "", name: search, lng: loc.coordinate.longitude.format(), lat: loc.coordinate.latitude.format(), errMsg: err?.description)
             }
-        } catch let error {
-            log.error("got an error creating request \(error)")
-            handler(locId: "", name: "", lng: "", lat: "", errMsg: "\(error)")
         }
     }
     
@@ -67,7 +40,14 @@ class GeoLocationService : NSObject, CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation location: CLLocation, fromLocation oldLocation: CLLocation) {
         locationManager.stopUpdatingLocation()
-        let search = String(format: "%.8f,%.8f", location.coordinate.latitude, location.coordinate.longitude)
-        getLocation(search, handler: callback)
+        let geo = CLGeocoder()
+        geo.reverseGeocodeLocation(location) { (place, err) -> Void in
+            if let mark = place?.first  {
+                let name = "\(mark.name ?? "\(location.coordinate)")\(mark.locality != nil ? ", \(mark.locality!)" : "")\(mark.postalCode != nil ? ", \(mark.postalCode!)" : "")"
+                self.callback(locId: "", name: name, lng: location.coordinate.longitude.format(), lat: location.coordinate.latitude.format(), errMsg: err?.description)
+            } else {
+                self.callback(locId: "", name: "\(location.coordinate)", lng: location.coordinate.longitude.format(), lat: location.coordinate.latitude.format(), errMsg: err?.description)
+            }
+        }
     }
 }

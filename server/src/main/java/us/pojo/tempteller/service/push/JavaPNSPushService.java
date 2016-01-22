@@ -32,15 +32,17 @@ public class JavaPNSPushService implements PushService {
 		this.queue.start();
 	}
 	
-	public void push(String msg, String deviceId) {
+	public boolean push(String msg, String deviceId) {
 		try {
 			PushNotificationPayload payload = PushNotificationPayload.complex();
 			payload.addAlert(msg);
 			synchronized (queue) {
 				queue.add(payload, deviceId);
 			}
+			return true;
 		} catch (Exception e) {
 			log.error("Sending msg {} caused an issue", msg, e);
+			return false;
 		}
 	}
 

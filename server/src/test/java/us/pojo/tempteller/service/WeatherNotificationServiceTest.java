@@ -1,14 +1,15 @@
 package us.pojo.tempteller.service;
 
 import static org.easymock.EasyMock.anyLong;
+import static org.easymock.EasyMock.anyObject;
 import static org.easymock.EasyMock.eq;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
-import static org.easymock.EasyMock.*;
 
 import java.sql.Date;
 import java.util.Collections;
+import java.util.Set;
 
 import org.easymock.EasyMock;
 import org.junit.After;
@@ -59,9 +60,21 @@ public class WeatherNotificationServiceTest {
 		expect(mockWeather.getWeather(eq("locId"), eq("-45"), eq("24"), anyLong(), anyLong())).andReturn(mockData);
 		expect(mockRule.ruleMatches(anyObject(Date.class), anyObject())).andReturn(true);
 		expect(mockRule.getMessage()).andReturn("A message!");
-		expect(mockRule.getPushToken()).andReturn("deviceId");
-		mockPush.push("A message!", "deviceId");
+		expect(mockRule.getDecodedPushToken()).andReturn("deviceId");
+		expect(mockPush.push("A message!", "deviceId")).andReturn(true);
+		expect(mockPush.getInvalidDevices()).andReturn(Collections.emptySet());
 		replay(mockPush,mockRules,mockWeather,mockRule,mockData);
 		target.runOnce();
 	}
+	
+	@Test
+	public void shouldInvalidateRulesAttachedToInvalidDevices() {
+		expect(mockRules.getActiveRules()).andReturn(Collections.emptyList());
+		Set<String> invalidPushTokens = Collections.singleton("InvalidPushToken");
+		expect(mockPush.getInvalidDevices()).andReturn(invalidPushTokens);
+		mockRules.invalidateDevices(invalidPushTokens);
+		replay(mockPush,mockRules,mockWeather,mockRule,mockData);
+		target.runOnce();
+	}
+
 }

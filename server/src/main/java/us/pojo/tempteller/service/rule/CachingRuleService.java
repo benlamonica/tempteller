@@ -197,8 +197,13 @@ public class CachingRuleService implements RuleService, InitializingBean {
 
 	@Override
 	public void invalidateDevices(Set<String> invalidDevices) {
-		// TODO Auto-generated method stub
-		
+		writeLock.lock();
+		try {
+		rules.values().parallelStream().filter(r->invalidDevices.contains(r.getPushToken())).forEach(r->r.invalidate());
+		} finally {
+			writeLock.unlock();
+		}
+		ruleRepo.invalidatePushToken(invalidDevices, new Date());
 	}
 
 }

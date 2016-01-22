@@ -75,18 +75,24 @@ public class WeatherNotificationService implements Runnable {
 			long startMsgs = System.currentTimeMillis();
 			int msgsSent = rules.parallelStream()
 				.filter(r->r.ruleMatches(now, weather))
-				.map(r->{pushService.push(r.getMessage(), r.getPushToken()); return 1;})
+				.map(r->{return pushService.push(r.getMessage(), r.getDecodedPushToken()) ? 1 : 0;})
 				.reduce(0, Integer::sum);
 			
 			log.info("Sent {} messages in {} ms", msgsSent, System.currentTimeMillis() - startMsgs);
+			
+			cleanupInvalidDevices();
 		} catch (Exception e) {
 			log.error("Unexpected error while sending messages.", e);
 		}
 	}
 	
 	public void cleanupInvalidDevices() {
+		log.info("Checking for invalid devices.");
 		Set<String> invalidDevices = pushService.getInvalidDevices();
-		ruleService.invalidateDevices(invalidDevices);
+		log.info("Found {} invalid devices.", invalidDevices.size());
+		if (!invalidDevices.isEmpty()) {
+			ruleService.invalidateDevices(invalidDevices);
+		}
 	}
 	
 	@Override

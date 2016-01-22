@@ -2,6 +2,7 @@ package us.pojo.tempteller.model.rule;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import org.bouncycastle.util.encoders.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +49,9 @@ public class NotifiableRule {
 	private String pushToken;
 	@Id
 	private String ruleId;
+
+	@Transient
+	private String decodedPushToken;
 	
 	@Transient
 	private Rule rule;
@@ -128,7 +133,7 @@ public class NotifiableRule {
 			matches = subrule.ruleMatches(now, timezone, weather);
 		}
 		
-		lastNotify.setTime(now.getTime());
+		lastNotify = now;
 		return true;
 	}
 
@@ -147,8 +152,22 @@ public class NotifiableRule {
 
 	public void setPushToken(String pushToken) {
 		this.pushToken = pushToken;
+		this.decodedPushToken = null;
 		isValid = true;
 		lastUpdate = new Date();
+	}
+	
+	public String getDecodedPushToken() {
+		if (decodedPushToken == null) {
+			byte[] token = Base64.decode(pushToken);
+			StringBuilder hexToken = new StringBuilder();
+			for(int i = 0; i < token.length; i++) {
+				hexToken.append(String.format("%02X", token[i]));
+			}
+			decodedPushToken = hexToken.toString();
+			log.info("Converted {} to {}", pushToken, decodedPushToken);
+		}
+		return decodedPushToken;
 	}
 
 	public Rule getRule() {
