@@ -3,6 +3,7 @@ package us.pojo.tempteller.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,8 +31,8 @@ public class AuthController {
 		this.auth = auth;
 	}
 
-	@RequestMapping(value="{uid}/login", method=RequestMethod.POST)
-	public @ResponseBody AuthResult login(@PathVariable("uid") String uid, @RequestParam("pushToken") String pushToken, @RequestParam(value="oldPushToken", required=false) String oldPushToken, @RequestParam("timezone") String timezone) {
+	@RequestMapping(value="login", method=RequestMethod.POST)
+	public @ResponseBody AuthResult login(@Header("uid") String uid, @RequestParam("pushToken") String pushToken, @RequestParam(value="oldPushToken", required=false) String oldPushToken, @RequestParam("timezone") String timezone) {
 		log.info("login: uid '{}' push '{}' oldPush '{}' tz '{}'", uid, pushToken, oldPushToken, timezone);
 		LoginRequest user = new LoginRequest(uid, pushToken, oldPushToken, timezone);
 		AuthResult result = auth.login(user);

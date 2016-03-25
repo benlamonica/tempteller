@@ -61,7 +61,6 @@ class SettingsViewController : UITableViewController, StatusNotifier {
     }
     
     let SHOW_FORECAST_IO = NSIndexPath(forItem: 0, inSection: 0)
-    let SHOW_YAHOO = NSIndexPath(forItem: 1, inSection: 0)
     let WHY_SUBSCRIBE = NSIndexPath(forItem: 0, inSection: 2)
     let SUBSCRIBE_1M = NSIndexPath(forItem: 0, inSection: 3)
     let SUBSCRIBE_6M = NSIndexPath(forItem: 1, inSection: 3)
@@ -75,6 +74,7 @@ class SettingsViewController : UITableViewController, StatusNotifier {
                 self.log.info("Purchased: \(receipt.payment.productIdentifier) - \(receipt.transactionDate)")
             }
             self.hideStatus()
+            self.tableView.reloadData()
         }
     }
         
@@ -90,8 +90,6 @@ class SettingsViewController : UITableViewController, StatusNotifier {
         switch indexPath {
         case SHOW_FORECAST_IO:
             openForecastIO()
-        case SHOW_YAHOO:
-            openYahoo()
         case SUBSCRIBE_1M:
             showStatusInCell(indexPath)
             subMgr.subscribe("1_Month", onCompletion: getSubHandler())
@@ -122,10 +120,6 @@ class SettingsViewController : UITableViewController, StatusNotifier {
     
     func openForecastIO() {
         UIApplication.sharedApplication().openURL(NSURL(string:"https://forecast.io")!)
-    }
-    
-    func openYahoo() {
-        UIApplication.sharedApplication().openURL(NSURL(string:"https://yahoo.com")!)
     }
     
     override func viewDidLoad() {

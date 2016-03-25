@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,9 +30,8 @@ public class RuleController {
 	@Autowired
 	RuleService ruleService;
 	
-	
-	@RequestMapping(value="{uid}/rules", method=RequestMethod.POST)
-	public @ResponseBody String saveRules(@PathVariable(value="uid") String uid, @RequestParam(value="pushToken") String pushToken, @RequestParam(value="tz") String tz, @RequestBody Rule[] rules) {
+	@RequestMapping(value="/rules", method=RequestMethod.POST)
+	public @ResponseBody String saveRules(@Header(value="uid") String uid, @RequestParam(value="device") String pushToken, @RequestParam(value="tz") String tz, @RequestBody Rule[] rules) {
 		log.info("Saving {} rules for uid {}/{}", rules.length, uid, pushToken);
 		TimeZone timeZone = TimeZone.getTimeZone(tz);
 		Set<String> ruleIds = new HashSet<>();
