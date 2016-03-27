@@ -15,25 +15,25 @@ public class RequestLogger extends HandlerInterceptorAdapter {
 
 	private static final Logger log = LoggerFactory.getLogger("access");
 	
+	private void setContextVariable(String key, HttpServletRequest req) {
+		String val = req.getHeader(key);
+		if (val != null) {
+			MDC.put(key, " "+key+"="+val);
+		}
+	}
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		String uri = request.getRequestURI();
-		String userId = null;
-		String endpoint = null;
-		if (uri != null) {
-			String[] uriSplit = uri.split("/");
-			userId = uriSplit[0];
-			endpoint = uriSplit[1];
-		}
-		
-		String pushToken = request.getParameter("pushToken");
-		
 		MDC.clear();
-		MDC.put("user_id", "uid:"+userId);
-		MDC.put("endpoint", "endpoint:"+endpoint);
-		MDC.put("push_token", "tkn:"+pushToken);
+		setContextVariable("uid", request);
+		setContextVariable("pushToken", request);
+		setContextVariable("deviceId", request);
 		
-		log.info("{} {}\n{}", request.getMethod(), request.getRequestURI(), StreamUtils.copyToString(request.getInputStream(), Charset.forName(request.getCharacterEncoding())));
+		if (request.getContentLength() > 0) {
+			log.info("{} {}\n{}", request.getMethod(), request.getRequestURI(), StreamUtils.copyToString(request.getInputStream(), Charset.forName(request.getCharacterEncoding())));
+		} else {
+			log.info("{} {}", request.getMethod(), request.getRequestURI());
+		}
 		return super.preHandle(request, response, handler);
 	}
 

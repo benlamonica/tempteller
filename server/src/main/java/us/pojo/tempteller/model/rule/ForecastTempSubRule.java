@@ -28,7 +28,11 @@ public class ForecastTempSubRule extends TemperatureSubRule {
 	@Override
 	public boolean ruleMatches(Date now, TimeZone tz, WeatherData data) {
 		Pair<Double, Double> tempRange = data.getTemperatureAt(getForecastTimeAsDate(forecastTime, tz));
-		return compare(getOp(), tempRange.getLeft(), getValueInFarenheit()) || compare(getOp(), tempRange.getRight(), getValueInFarenheit());
+		if (tempRange != null) {
+			return compare(getOp(), tempRange.getLeft(), getValueInFarenheit()) || compare(getOp(), tempRange.getRight(), getValueInFarenheit());
+		} else {
+			return false;
+		}
 	}
 
 	
