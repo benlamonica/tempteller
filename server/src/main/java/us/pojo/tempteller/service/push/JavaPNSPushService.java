@@ -17,7 +17,7 @@ import javapns.notification.transmission.PushQueue;
 import us.pojo.tempteller.service.feedback.FeedbackService;
 
 @Service(value="PushService")
-public class JavaPNSPushService implements PushService {
+   public class JavaPNSPushService implements PushService {
 
 	private final Logger log = LoggerFactory.getLogger(JavaPNSPushService.class);
 	

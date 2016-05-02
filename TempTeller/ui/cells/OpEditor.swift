@@ -68,9 +68,9 @@ class OpEditor : NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
         picker.delegate = self
         picker.dataSource = self
 
-        let doneButton = UIBarButtonItem(title: "Set Operation", style: UIBarButtonItemStyle.Done, target: self, action: "pickOp")
+        let doneButton = UIBarButtonItem(title: "Set Operation", style: UIBarButtonItemStyle.Done, target: self, action: #selector(OpEditor.pickOp))
         let spacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "dismissPicker")
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(OpEditor.dismissPicker))
         doneButton.tintColor = UIColor.whiteColor()
         cancelButton.tintColor = UIColor.whiteColor()
         pickerToolbar.setItems([cancelButton, spacer, doneButton], animated: false)

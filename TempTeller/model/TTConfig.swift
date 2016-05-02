@@ -41,7 +41,7 @@ public class TTConfig {
     
     var serverUrl : String {
         get {
-            return "\(server)/\(uid)"
+            return "\(server)"
         }
     }
     

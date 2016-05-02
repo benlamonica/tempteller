@@ -3,13 +3,11 @@ package us.pojo.tempteller.controller;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,7 +38,7 @@ public class RuleController {
 		@ApiImplicitParam(paramType="header",name="tz", value="TimeZone", example="America/Chicago", required=true)
 	})
 	@RequestMapping(value="/rules", method=RequestMethod.POST)
-	public @ResponseBody String saveRules(@ApiIgnore @Headers HeaderInfo headers, @RequestBody Rule[] rules) {
+	public @ResponseBody String saveRules(@ApiIgnore HeaderInfo headers, @RequestBody Rule[] rules) {
 		log.info("Saving {} rules", rules.length);
 		Set<String> ruleIds = new HashSet<>();
 		for(Rule rule : rules) {
@@ -64,7 +62,7 @@ public class RuleController {
 		@ApiImplicitParam(paramType="header",name="pushToken", value="base64 encoded Apple Push Token", required=true),
 	})
 	@RequestMapping(value="/rules/{ruleId}", method=RequestMethod.DELETE)
-	public @ResponseBody String deleteRule(@ApiIgnore @Headers HeaderInfo headers, @PathVariable("ruleId") String ruleId) {
+	public @ResponseBody String deleteRule(@ApiIgnore HeaderInfo headers, @PathVariable("ruleId") String ruleId) {
 		log.info("Deleting rule {}", ruleId);
 		ruleService.delete(headers.getUid(), headers.getPushToken(), ruleId);
 		return "OK";
@@ -76,7 +74,7 @@ public class RuleController {
 		@ApiImplicitParam(paramType="header",name="tz", value="TimeZone", example="America/Chicago", required=true)
 	})
 	@RequestMapping(value="/rules/{ruleId}", method=RequestMethod.POST)
-	public @ResponseBody String saveRule(@ApiIgnore @Headers HeaderInfo headers, @PathVariable("ruleId") String ruleId, @RequestBody Rule rule) {
+	public @ResponseBody String saveRule(@ApiIgnore HeaderInfo headers, @PathVariable("ruleId") String ruleId, @RequestBody Rule rule) {
 		log.info("Saving rule {}", ruleId);
 		ruleService.saveRule(headers.getUid(), headers.getPushToken(), rule, headers.getTimeZone());
 		return "OK";
@@ -87,7 +85,7 @@ public class RuleController {
 	})
 	@RequestMapping(value="/rules", method=RequestMethod.GET)
 	@ApiOperation(value="Returns all rules for all devices. Useful for when registering a new device.")
-	public @ResponseBody Rule[] getRules(@ApiIgnore @Headers HeaderInfo headers) {
+	public @ResponseBody Rule[] getRules(@ApiIgnore HeaderInfo headers) {
 		log.info("Requesting rules");
 		return ruleService.getRules(headers.getUid()).stream().map(m -> m.getRule()).collect(Collectors.toList()).toArray(new Rule[] {});
 	}

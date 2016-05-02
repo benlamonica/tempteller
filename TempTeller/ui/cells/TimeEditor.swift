@@ -25,7 +25,7 @@ class TimeEditorDataSource : NSObject, UIPickerViewDataSource, UIPickerViewDeleg
             if comp == 0 {
                 return DAYS[row]
             } else {
-                comp--
+                comp -= 1
             }
         }
         
@@ -62,7 +62,7 @@ class TimeEditorDataSource : NSObject, UIPickerViewDataSource, UIPickerViewDeleg
             if component == 0 {
                 return DAYS.count
             } else {
-                comp--
+                comp -= 1
             }
         }
 
@@ -174,9 +174,9 @@ class TimeEditor : NSObject {
         
         super.init()
         
-        let doneButton = UIBarButtonItem(title: "Set Time", style: UIBarButtonItemStyle.Done, target: self, action: "pickTime")
+        let doneButton = UIBarButtonItem(title: "Set Time", style: UIBarButtonItemStyle.Done, target: self, action: #selector(pickTime))
         let spacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "dismissPicker")
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(dismissPicker))
         doneButton.tintColor = UIColor.whiteColor()
         cancelButton.tintColor = UIColor.whiteColor()
         pickerToolbar.setItems([cancelButton, spacer, doneButton], animated: false)

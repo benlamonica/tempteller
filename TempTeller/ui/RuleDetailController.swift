@@ -80,9 +80,9 @@ class RuleDetailController : UIViewController, UITableViewDelegate, UITextFieldD
         pickerToolbar.tintColor = nil
         pickerToolbar.sizeToFit()
         
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: "pickSubRule")
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(RuleDetailController.pickSubRule))
         let spacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "dismissPicker")
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(RuleDetailController.dismissPicker))
         doneButton.tintColor = UIColor.whiteColor()
         cancelButton.tintColor = UIColor.whiteColor()
         pickerToolbar.setItems([cancelButton, spacer, doneButton], animated: false)

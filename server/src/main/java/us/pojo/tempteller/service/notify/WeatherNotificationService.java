@@ -101,6 +101,12 @@ public class WeatherNotificationService implements Runnable {
 			long start = System.currentTimeMillis();
 			runOnce();
 			long sleepTime = 60000 - (System.currentTimeMillis() - start);
+			
+			// just need this for when the program goes to sleep on my laptop
+			if (sleepTime < 0) {
+				sleepTime = 60000;
+			}
+			
 			log.info("Sleeping {} ms before running again.", sleepTime);
 			try { Thread.sleep(sleepTime); } catch (InterruptedException e) {}
 		}

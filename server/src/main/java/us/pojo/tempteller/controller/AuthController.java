@@ -41,7 +41,7 @@ public class AuthController {
 		@ApiImplicitParam(paramType="header",name="tz", value="TimeZone", example="America/Chicago", required=true)
 	})
 	@RequestMapping(value="/login", method=RequestMethod.POST,produces={"application/json"})
-	public @ResponseBody AuthResult login(@ApiIgnore @Headers HeaderInfo headers, @ApiParam(value="prior base64 encoded push token, needed to transfer notifications over to new token")@RequestParam(value="oldPushToken", required=false) String oldPushToken) {
+	public @ResponseBody AuthResult login(@ApiIgnore HeaderInfo headers, @ApiParam(value="prior base64 encoded push token, needed to transfer notifications over to new token")@RequestParam(value="oldPushToken", required=false) String oldPushToken) {
 		log.info("login: oldPush='{}', tz='{}'", oldPushToken, headers.getTz());
 		LoginRequest user = new LoginRequest(headers.getUid(), headers.getPushToken(), oldPushToken, headers.getTz());
 		AuthResult result = auth.login(user);
@@ -56,7 +56,7 @@ public class AuthController {
 		@ApiImplicitParam(paramType="header",name="deviceId", value="hex-encoded device id", required=true)
 	})
 	@RequestMapping(value="/restore", method=RequestMethod.POST, produces={"application/json"})
-	public @ResponseBody AuthResult restoreSubscription(@ApiIgnore @Headers HeaderInfo headers, @ApiParam(value="base64 encoded pkcs7 certificate")@RequestParam("receipt") String receipt) {
+	public @ResponseBody AuthResult restoreSubscription(@ApiIgnore HeaderInfo headers, @ApiParam(value="base64 encoded pkcs7 certificate")@RequestParam("receipt") String receipt) {
 		log.info("restore subs: receipt: {}", receipt);
 		AuthResult result = auth.restoreSubscription(headers.getUid(), headers.getDeviceId(), receipt);
 		if (!result.uid.equals(headers.getUid())) {
@@ -73,7 +73,7 @@ public class AuthController {
 		@ApiImplicitParam(paramType="header",name="deviceId", value="hex-encoded device id", required=true)
 	})
 	@RequestMapping(value="/subscribe", method=RequestMethod.POST, produces={"application/json"})
-	public @ResponseBody AuthResult subscribe(@ApiIgnore @Headers HeaderInfo headers,  @ApiParam(value="base64 encoded pkcs7 certificate") @RequestParam("receipt") String receipt) {
+	public @ResponseBody AuthResult subscribe(@ApiIgnore HeaderInfo headers,  @ApiParam(value="base64 encoded pkcs7 certificate") @RequestParam("receipt") String receipt) {
 		log.info("sub receipt: {}", receipt);
 		AuthResult result = auth.addSubscription(headers.getUid(), headers.getDeviceId(), receipt);
 		log.info("sub result: {}", result);

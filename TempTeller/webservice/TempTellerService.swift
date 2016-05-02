@@ -13,6 +13,7 @@ import XCGLogger
 
 class TempTellerService {
     let log = XCGLogger.defaultInstance()
+    let deviceId = UIDevice.currentDevice().identifierForVendor?.UUIDString
     var config = TTConfig.shared
     let sslPin = HTTPSecurity(certs: [SSLCert(data: TempTellerService.SERVER_CERT), SSLCert(data: TempTellerService.CA_CERT)], usePublicKeys: false)
     
@@ -22,19 +23,30 @@ class TempTellerService {
             NSLog("added CA to keychain: \(config.keychain.lastResultCode)")
         }
     }
+
+    var headers : [String:String] {
+        get {
+            return [
+                "uid":config.uid,
+                "pushToken":config.pushToken,
+                "tz":NSTimeZone.defaultTimeZone().name.escaped!,
+                "deviceId":deviceId!
+            ]
+        }
+    }
     
     func registerPushToken(pushToken: String, priorPushToken: String = TTConfig.shared.pushToken) {
-        var priorUrl = ""
+        var priorPushTokenUrl = ""
         if pushToken != priorPushToken && priorPushToken != "NotDefined" {
             log.info("device token differs from what we've registered in the past, notify server")
-            priorUrl = "&priorPushToken=\(priorPushToken)"
+            priorPushTokenUrl = "?priorPushToken=\(priorPushToken)"
         }
 
         do {
-            let url = "\(config.serverUrl)/login?pushToken=\(pushToken)\(priorUrl)&timezone=\(NSTimeZone.defaultTimeZone().name.escaped!)"
+            let url = "\(config.serverUrl)/login\(priorPushTokenUrl)"
             log.debug("Login: \(url)")
             
-            let req = try HTTP.POST(url)
+            let req = try HTTP.POST(url, headers:headers)
             req.security = sslPin
             req.start() { response in
                 self.processAuthResult(response) { (success: Bool, msg: String) in
@@ -55,7 +67,7 @@ class TempTellerService {
         log.info("Sending restored subscription receipt to server.")
         let url = "\(config.serverUrl)/restore"
         do {
-            let req = try HTTP.POST(url, parameters: ["pushToken":pushToken, "deviceId":deviceId, "receipt":receipt])
+            let req = try HTTP.POST(url, headers:headers, parameters: ["receipt":receipt])
             req.security = sslPin
             req.start() { response in
                 self.processAuthResult(response, onFinish: onFinish)
@@ -89,7 +101,7 @@ class TempTellerService {
         log.info("Sending subscription receipt to server.")
         let url = "\(config.serverUrl)/subscribe"
         do {
-            let req = try HTTP.POST(url, parameters: ["deviceId":deviceId, "receipt":receiptPKCS7])
+            let req = try HTTP.POST(url, headers:headers, parameters: ["receipt":receiptPKCS7])
             req.security = sslPin
             req.start() { response in
                 self.processAuthResult(response, onFinish: onFinish)
@@ -102,10 +114,10 @@ class TempTellerService {
     
     func saveRules(rules: [[String:AnyObject]], onFinish: (success: Bool, msg: String) -> ()) {
         log.info("Sending \(rules.count) rules to server.")
-        let url = "\(config.serverUrl)/rules?pushToken=\(config.pushToken.escaped!)&tz=\(NSTimeZone.defaultTimeZone().name.escaped!)"
+        let url = "\(config.serverUrl)/rules"
         log.debug("POST \(url)")
         do {
-            let req = try HTTP.POST(url, parameters:rules, requestSerializer: JSONParameterSerializer())
+            let req = try HTTP.POST(url, headers:headers, parameters:rules, requestSerializer: JSONParameterSerializer())
             req.security = sslPin
             req.start() { response in
                 onFinish(success: response.text=="OK", msg: response.text ?? "")
@@ -118,10 +130,10 @@ class TempTellerService {
     
     func saveRule(rule: Rule) {
         log.info("Sending rule \(rule.uuid) to server")
-        let url = "\(config.serverUrl)/rule/\(rule.uuid)?pushToken=\(config.pushToken.escaped!)&tz=\(NSTimeZone.defaultTimeZone().name.escaped!)"
+        let url = "\(config.serverUrl)/rules/\(rule.uuid)"
         log.debug("POST \(url)")
         do {
-            let req = try HTTP.POST(url, parameters:rule.toDict(), requestSerializer: JSONParameterSerializer())
+            let req = try HTTP.POST(url, headers:headers, parameters:rule.toDict(), requestSerializer: JSONParameterSerializer())
             req.security = sslPin
             req.start() { response in
             }
@@ -132,10 +144,10 @@ class TempTellerService {
     
     func deleteRule(ruleId: String, onFinish: (success: Bool, msg: String) -> ()) {
         log.info("Deleting rule \(ruleId) on server")
-        let url = "\(config.serverUrl)/rule/\(ruleId)/delete?pushToken=\(config.pushToken.escaped!)"
-        log.debug("POST \(url)")
+        let url = "\(config.serverUrl)/rules/\(ruleId)"
+        log.debug("DELETE \(url)")
         do {
-            let req = try HTTP.POST(url)
+            let req = try HTTP.DELETE(url, headers:headers)
             req.security = sslPin
             req.start() { response in
                 onFinish(success: response.text=="OK", msg: response.text ?? "")

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '15DC4BBB5BA0EFD6503A9A85'
+               BlueprintIdentifier = '9A8D63318974B435B554366D'
                BlueprintName = 'TCMobileProvision'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'TCMobileProvision.framework'>

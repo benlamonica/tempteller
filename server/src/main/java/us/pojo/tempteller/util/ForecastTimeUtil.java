@@ -20,12 +20,11 @@ public class ForecastTimeUtil {
 		{ 
 			put("Today", 0);
 			put("Tomorrow", 1);
-			put("2 Days", 2);
-			put("3 Days", 3);
-			put("4 Days", 4);
-			put("5 Days", 5);
-			put("6 Days", 6);
-			put("7 Days", 7);
+			put("3 Days", 2);
+			put("4 Days", 3);
+			put("5 Days", 4);
+			put("6 Days", 5);
+			put("7 Days", 6);
 		}
 	};
 
