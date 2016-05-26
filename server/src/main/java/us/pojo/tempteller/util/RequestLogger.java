@@ -12,8 +12,11 @@ public class RequestLogger extends CommonsRequestLoggingFilter {
 	private static final Logger log = LoggerFactory.getLogger("access");
 	
 	public RequestLogger() {
+		super.setIncludeClientInfo(true);
 		super.setMaxPayloadLength(4096);
 		super.setIncludePayload(true);
+		super.setAfterMessagePrefix("");
+		super.setAfterMessageSuffix("");
 	}
 	
 	private void setContextVariable(String key, HttpServletRequest req) {
@@ -26,7 +29,7 @@ public class RequestLogger extends CommonsRequestLoggingFilter {
 	
 	@Override
 	protected void afterRequest(HttpServletRequest request, String message) {
-		log.info(message);
+		log.info(request.getMethod() + " " + message);
 	}
 
 
